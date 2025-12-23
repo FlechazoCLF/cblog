@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+# 缘起
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 2018年时基于hexo搭建了自己的第一个博客，慢慢的对博客的需求越来越多，hexo博客并不能满足我的想法，因此便有了开发一个自己博客的想法
+>
+> 2022年毕业季，开始很迷茫，不确定要做什么方向，后来买了一个51单片机，由此，便开启了嵌入式软件开发的职业生涯，也随着coding水平的提升以及AI的强大
+>
+> 2025年终于可以随心所欲，创造任何自己所想
 
-## Available Scripts
+# react blog
 
-In the project directory, you can run:
+下面展示一下目前有的功能，本人非前后端专业选手，爱敲代码，爱创造，喜欢实现自己想要的功能，喜欢造轮子。哈哈哈哈
 
-### `npm start`
+## 首页
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+【导航页】用来记录自己的所有用到的东西，方便跳转
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![image-20251223213821121](images/image-20251223213821121.png)
 
-### `npm test`
+![image-20251223214750934](images/image-20251223214750934.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 博客
 
-### `npm run build`
+【blog】属实是没有什么想法，先随便找个页面顶一顶
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![image-20251223214927085](images/image-20251223214927085.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 关于
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+【about】这里是渲染的一个markdown文档，哈哈哈有点懒得去整理他的排版
 
-### `npm run eject`
+![image-20251223215102256](images/image-20251223215102256.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 分类
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+【categorize】支持对文章进行分类，可以选择按照文件夹分类或者按照文章内配置
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![image-20251223215146355](images/image-20251223215146355.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 文章列表
 
-## Learn More
+【articles】这里列出了所有文章，当然这个页面其实我不常用，后面有更加方便的方式
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image-20251223215324833](images/image-20251223215324833.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 碎碎念
 
-### Code Splitting
+【csay】这里按照时间排序，同时支持优先级显示和时间区间显示，方便过滤筛选文章
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![image-20251223215429081](images/image-20251223215429081.png)
 
-### Analyzing the Bundle Size
+## 友链
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+【friends】朋友们
 
-### Making a Progressive Web App
+![image-20251223215606796](images/image-20251223215606796.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![image-20251223215619121](images/image-20251223215619121.png)
 
-### Advanced Configuration
+## 爱情
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+【love】这里计划用来规划一些和女朋友一起做的事情，可以链接到文章
 
-### Deployment
+![image-20251223215702306](images/image-20251223215702306.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 聊天
 
-### `npm run build` fails to minify
+【chat】这里是一个有趣的对话记录，初衷是用来记录有趣的对话
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![image-20251223215823297](images/image-20251223215823297.png)
+
+## 厨艺
+
+【cook】记录食谱，当然这里没有图片哈哈哈，疏于维护，后面慢慢完善，每到饭店还在犹豫吃什么吗？来这里瞧瞧吧！可以按照食材，做法分类筛选哦
+
+![image-20251223215908457](images/image-20251223215908457.png)
+
+## 架构
+
+【emerge】预期是要有一个可以层层显示的一个架构，可以很方便的展示出各种层级关系，目前完成了基本的层级识别，就差页面渲染优化一下了
+
+![image-20251223220117829](images/image-20251223220117829.png)
+
+## 地图
+
+【map】这里是最爱的功能，可以根据城市来看文章，很有回忆的样子
+
+![image-20251223220226770](images/image-20251223220226770.png)
+
+可以看到城市列表
+
+![image-20251223220315106](images/image-20251223220315106.png)
+
+点击后可以展开在该城市发布的文章（这个功能超级爱）
+
+![image-20251223220353447](images/image-20251223220353447.png)
+
+# 代码结构
+
+## 整体结构
+
+![image-20251223221406044](images/image-20251223221406044.png)
+
+![image-20251223221457891](images/image-20251223221457891.png)
+
+## 文章生成
+
+这里根据输入输出路径去生成文章的索引
+
+![image-20251223221558396](images/image-20251223221558396.png)
+
+生成后在这里会有所有文章的属性，通过调用函数的方式去添加文章（也为了方便后期动态添加删除等等）
+
+![image-20251223221653814](images/image-20251223221653814.png)
+
+支持的文章头部信息
+
+```markdown
+title: 第一次来上海啦🗼
+date: 2023-08-26
+author: flechazo
+location: 上海
+state: 已发布
+priority: 32
+authority: everyone
+category: 过往瞬间
+tags: 上海
+cover: 
+description: 接下来的故事，就从这里开始吧
+icon:
+```
+
+
+
+# 缘落
+
+今天先到这里啦
