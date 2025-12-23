@@ -1,0 +1,105 @@
+---
+title: 赏大唐盛世🏮
+date: 2025-09-17
+author: flechazo
+location: 西安
+state: 已发布
+priority: 32
+authority: everyone
+category: csay
+tags: 出差 景点
+cover: 
+description: 大唐盛世
+icon:
+---
+# 缘起
+
+<details open>
+    <summary>梦🫧开始的地方</summary>
+<p>一切从这里开始</p>
+<p>想要把人生梳理的井井有条💮</p>
+</details>
+
+# 过往
+
+来西安啦
+
+感受一下大唐的繁华
+
+![IMG20250908085013](images/IMG20250908085013.jpg)
+
+![IMG20250914120226](images/IMG20250914120226.jpg)
+
+![IMG20250917190240](images/IMG20250917190240.jpg)
+
+![IMG20250917190631](images/IMG20250917190631.jpg)
+
+![IMG20250917190734](images/IMG20250917190734.jpg)
+
+![IMG20250917190945](images/IMG20250917190945.jpg)
+
+![IMG20250917191045](images/IMG20250917191045.jpg)
+
+![IMG20250917191202](images/IMG20250917191202.jpg)
+
+![IMG20250917191329](images/IMG20250917191329.jpg)
+
+![IMG20250917191429](images/IMG20250917191429.jpg)
+
+![IMG20250917191716](images/IMG20250917191716.jpg)
+
+![IMG20250917192010](images/IMG20250917192010.jpg)
+
+![IMG20250917192207](images/IMG20250917192207.jpg)
+
+![IMG20250917192240](images/IMG20250917192240.jpg)
+
+![IMG20250917192455](images/IMG20250917192455.jpg)
+
+![IMG20250917192544](images/IMG20250917192544.jpg)
+
+![IMG20250917192632](images/IMG20250917192632.jpg)
+
+![IMG20250917192658](images/IMG20250917192658.jpg)
+
+![IMG20250917192748](images/IMG20250917192748.jpg)
+
+![IMG20250917192841](images/IMG20250917192841.jpg)
+
+![IMG20250917193031](images/IMG20250917193031.jpg)
+
+![IMG20250917193042](images/IMG20250917193042.jpg)
+
+![IMG20250917193141](images/IMG20250917193141.jpg)
+
+![IMG20250917193639](images/IMG20250917193639.jpg)
+
+![IMG20250917193801](images/IMG20250917193801.jpg)
+
+![IMG20250917193851](images/IMG20250917193851.jpg)
+
+![IMG20250917193958](images/IMG20250917193958.jpg)
+
+![IMG20250917194646](images/IMG20250917194646.jpg)
+
+![IMG20250917203347](images/IMG20250917203347.jpg)
+
+![Screenshot_2025-09-11-23-08-24-60_e39d2c7de19156b0683cd93e8735f348](images/Screenshot_2025-09-11-23-08-24-60_e39d2c7de19156b0683cd93e8735f348.jpg)
+
+![Screenshot_2025-09-11-23-11-37-22_e39d2c7de19156b0683cd93e8735f348](images/Screenshot_2025-09-11-23-11-37-22_e39d2c7de19156b0683cd93e8735f348.jpg)
+
+![Screenshot_2025-09-11-23-11-49-18_e39d2c7de19156b0683cd93e8735f348](images/Screenshot_2025-09-11-23-11-49-18_e39d2c7de19156b0683cd93e8735f348.jpg)
+
+# 缘落
+
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5}, "themeVariables": {"pieOuterStrokeWidth": "5px"}} }%%
+pie showData
+    title flechazo
+    "财富" : 42.96
+    "瞬间" : 50.05
+    "音乐" : 10.01
+    "证件" : 10.01
+    "项目" : 10.01
+    "简历" :  5
+```

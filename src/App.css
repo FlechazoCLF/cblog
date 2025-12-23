@@ -1,0 +1,72 @@
+
+/****************************************************************************************************
+* css
+****************************************************************************************************/
+
+/* css modern reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    /* Remove default margins and inliers for all elements */
+    margin: 0;
+    padding: 0;
+    /* animation */
+    transition: all 0.2s;
+}
+
+/****************************************************************************************************
+* <a>
+****************************************************************************************************/
+/* link */
+a {
+    /* color */
+    color: #525252;
+    /* underline */
+    text-decoration: none;
+    /* animate */
+    transition: all 0.2s;
+}
+a:hover {
+    /* colot */
+    color: #000000;
+    /* animate */
+    font-size: 1.1em;
+}
+
+/****************************************************************************************************
+* button
+****************************************************************************************************/
+button {
+    /* color */
+    color: ' #fff';
+    background: linear-gradient(90deg, #FA5A15, #FF6F91);
+    /* style */
+    border-radius: 5px;
+    background-size: 200% auto;
+    /* animate */
+    transition: 0.5s;
+}
+button:hover {
+    /* animate */
+    background-position: right center;
+}
+
+/****************************************************************************************************
+* scrollbar
+****************************************************************************************************/
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fcedea;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff9a9e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6F91;
+}
