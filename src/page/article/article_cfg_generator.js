@@ -4,7 +4,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -90,6 +90,7 @@ function kernel_file_fill_frontmatter(frontmatter) {
         result.authority = frontmatter.authority ? frontmatter.authority : "everyone";
         result.category = frontmatter.category ? frontmatter.category : "";
         result.tags = frontmatter.tags ? frontmatter.tags : "";
+        result.calendar = frontmatter.calendar ? frontmatter.calendar : "";
         result.cover = frontmatter.cover ? frontmatter.cover : "";
         result.description = frontmatter.description ? frontmatter.description : "";
         result.icon = frontmatter.icon ? frontmatter.icon : "";
@@ -216,6 +217,8 @@ function categorize_cfg_generator_scan_article(folder,category,article) {
                 category: fillfrontmatter.category || category || "",
                 /* tag */
                 tags: fillfrontmatter.tags || "",
+                /* calendar 每年 每月 每日 单次 | 阳历 阴历 */
+                calendar: fillfrontmatter.calendar || "",
                 /* cover image */
                 cover: fillfrontmatter.cover || "",
                 /* description */
@@ -440,7 +443,7 @@ function categorize_cfg_generator_create_database_article(categories) {
                     return;
                 }
                 func_database_init += `
-        article_cfg_item_add("${category.category}","${article.title}","${article.date}","${article.author}","${article.location}","${article.state}","${article.priority}","${article.authority}","${article.tags}","${article.cover}","${article.description}","${article.path}","${article.article}");`;
+        article_cfg_item_add("${category.category}","${article.title}","${article.date}","${article.author}","${article.location}","${article.state}","${article.priority}","${article.authority}","${article.tags}","${article.calendar}","${article.cover}","${article.description}","${article.path}","${article.article}");`;
             })
         });
         /* replace */

@@ -7,7 +7,7 @@ import { Children } from "react";
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -50,11 +50,12 @@ export let topbar_cfg_list = [
     {page:'project',         name:"🛝project",         url: "/", children:[]},
     {page:'wonderful',       name:"🥯wonderful",       url: "/", children:[
         {page:'wonderful_love',       name:"💝love",       url: "/"},
+        {page:'wonderful_calendar',   name:"📅calendar",   url: "/"},
         {page:'wonderful_chat',       name:"🎰chat",       url: "/"},
         {page:'wonderful_cook',       name:"🍛cook",       url: "/"},
         {page:'wonderful_english',    name:"📖english",    url: "/"},
         {page:'wonderful_emerge',     name:"🐌emerge",     url: "/"},
-        {page:'Wonderful_map',        name:"🗺map",        url: "/"},
+        {page:'wonderful_map',        name:"🗺map",        url: "/"},
     ]},
     {page:'friend',          name:"👾friend",          url: "/", children:[]},
 ]

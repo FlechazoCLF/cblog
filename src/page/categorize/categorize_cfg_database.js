@@ -5,14 +5,14 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
  *
  * Change Logs:
  * Date           Author       Notes
- * 2025-12-21 07:09:08     cc          Auto Generate Don't Edit!!!
+ * 2026-03-01 05:32:08     cc          Auto Generate Don't Edit!!!
  * 
 */
 
@@ -53,7 +53,9 @@ export function categorize_Cfg_Database_Init() {
         categorize_cfg_item_add("个人项目","我的小项目","📚"," #333333");
         categorize_cfg_item_add("保姆级教程","小柴手把手教学","📚"," #333333");
         categorize_cfg_item_add("厨艺","这里记录小柴做过的超级好吃的饭饭","🍳"," #333333");
+        categorize_cfg_item_add("学习笔记","这里将记录我的学习笔记","💭"," #333333");
         categorize_cfg_item_add("简历","日常更新维护简历","💭"," #333333");
+        categorize_cfg_item_add("日程","这里记录小柴的所有计划，设置定期提醒","📅"," #333333");
         categorize_cfg_item_add("架构设计","记录复杂的架构设计","🛞"," #333333");
         categorize_cfg_item_add("love","记录爱情的点点滴滴","❤️"," #333333");
         categorize_cfg_item_add("计划","记录我要做的事情","❤️"," #333333");

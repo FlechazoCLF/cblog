@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -78,12 +78,14 @@ export let navigate_cfg_list = [
             {name:"保姆级教程",url:"https://github.com/FlechazoCLF/tutorial-git",image:'/images/wallpaper/01.png',description:'精心打造的Git保姆级教程',external: true},
             {name:"小林Coding",url:"https://xiaolincoding.com/",image:'/images/wallpaper/02.png',description:'图解以太网/图解操作系统',external: true},
             {name:"菜鸟教程",url:"https://www.runoob.com/",image:'/images/wallpaper/03.png',description:'菜鸟教程各种教程',external: true},
+            {name:"CS-Notes",url:"http://www.cyc2018.xyz/",image:'/images/wallpaper/04.png',description:'优质教程',external: true},
         ]
     },
     {
         category: "收藏项目",
         item: [
             {name:"我的Github收藏",url:"https://github.com/FlechazoCLF?tab=stars",image:'/images/wallpaper/01.png',description:'Github项目收藏',external: true},
+            {name:"中文Github社区",url:"https://www.github-zh.com/",image:'/images/wallpaper/02.png',description:'Github中文',external: true},
         ]
     },
     {
@@ -114,6 +116,8 @@ export let navigate_cfg_list = [
             {name:"网易云音乐解析",url:"https://github.com/Suxiaoqinx/Netease_url",image:'/images/wallpaper/23.png',description:'音乐解析',external: true},
             {name:"openssh",url:"https://www.openssh.org/",image:'/images/wallpaper/24.png',description:'linux中ssh服务 sudo apt install openssh-server',external: true},
             {name:"kodbox",url:"https://github.com/kalcaddle/kodbox",image:'/images/wallpaper/25.png',description:'可道云-一个有桌面的个人网盘',external: true},
+            {name:"mermaid",url:"https://mermaid.js.org/",image:'/images/wallpaper/26.png',description:'markdown语法-流程图',external: true},
+            {name:"markmap",url:"https://markmap.js.org/",image:'/images/wallpaper/27.png',description:'markdown语法-交互思维导图',external: true},
         ]
     },
     {
@@ -125,18 +129,31 @@ export let navigate_cfg_list = [
             {name:"puresys",url:"https://www.puresys.net/",image:'/images/wallpaper/04.png',description:'纯净系统|软件下载',external: true},
             {name:"arm开发者资料",url:"https://developer.arm.com/",image:'/images/wallpaper/05.png',description:'arm芯片手册',external: true},
             {name:"国家数据",url:"https://data.stats.gov.cn/",image:'/images/wallpaper/06.png',description:'最权威的数据中心',external: true},
+            {name:"立创硬件开源社",url:"https://oshwhub.com/",image:'/images/wallpaper/07.png',description:'嵌入式宝藏网站',external: true},
+            {name:"立创开发板资料中心",url:"https://wiki.lckfb.com/zh-hans/",image:'/images/wallpaper/08.png',description:'嵌入式宝藏网站',external: true},
+            {name:"RFC标准规范文档",url:"https://www.rfc-editor.org/",image:'/images/wallpaper/09.png',description:'可以找到很多标准和规范',external: true},
         ]
     },
     {
         category: "动漫",
         item: [
             {name:"仙逆",url:"https://v.qq.com/channel/cartoon",image:'/images/wallpaper/01.png',description:'看动漫啦',external: true},
+            {name:"OK解析网",url:"https://okzyw.cc/",image:'/images/wallpaper/02.png',description:'OK视频解析网',external: true},
+        ]
+    },
+    {
+        category: "政务",
+        item: [
+            {name:"临港新片区人才服务系统",url:"https://rcfw.lingang.gov.cn/",image:'/images/wallpaper/01.png',description:'人才服务系统',external: true},
+            {name:"软考",url:"https://www.ruankao.org.cn/",image:'/images/wallpaper/02.png',description:'计算机考试',external: true},
+            {name:"国家电子税务局",url:"https://tpass.shanghai.chinatax.gov.cn:8443/",image:'/images/wallpaper/03.png',description:'个税',external: true},
+            {name:"上海人才服务网",url:"https://www.shrc.com.cn/website/index",image:'/images/wallpaper/04.png',description:'人才服务系统',external: true},
         ]
     },
     {
         category: "未整理",
         item: [
-            {name:"立创硬件开源社",url:"https://oshwhub.com/",image:'/images/wallpaper/01.png',description:'嵌入式宝藏网站',external: true},
+            {name:"待添加",url:"/",image:'/images/wallpaper/01.png',description:'无',external: false},
         ]
     },
 ]

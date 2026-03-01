@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -225,7 +225,7 @@ export function article_cfg_category_add(category,description,icon,color) {
 /****************************************************************************************************
 * article_cfg_item_add()
 ****************************************************************************************************/
-export function article_cfg_item_add(category,title,date,author,location,state,priority,authority,tags,cover,description,path,article) {
+export function article_cfg_item_add(category,title,date,author,location,state,priority,authority,tags,calendar,cover,description,path,article) {
     let item = null;
 
     do
@@ -262,6 +262,7 @@ export function article_cfg_item_add(category,title,date,author,location,state,p
             priority: priority,
             authority: authority,
             tags: tags,
+            calendar: calendar,
             cover: cover,
             description: description,
             path: path,

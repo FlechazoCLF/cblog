@@ -12,13 +12,15 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2025-07-16     cc          the first version
+ * 2026-02-14     cc          the first version
  *
 */
 
 /****************************************************************************************************
 * Include
 ****************************************************************************************************/
+/* react */
+import React,{ useState, useEffect } from 'react';
 
 /****************************************************************************************************
 * Define
@@ -31,44 +33,59 @@
 /****************************************************************************************************
 * Variable
 ****************************************************************************************************/
+export const Sidebar_State = {
+    /* state */
+    isOpen: true,
+    /* listener */
+    listeners: [],
+    /* get */
+    get() {
+        return this.isOpen;
+    },
+    /* set */
+    set(value) {
+        if (this.isOpen === value) return;
+        this.isOpen = value;
+        this.listeners.forEach(cb => cb(value));
+    },
+    /* toggle */
+    toggle() {
+        this.set(!this.isOpen);
+    },
+    /* subscribe */
+    subscribe(cb) {
+        this.listeners.push(cb);
+        return () => {
+            this.listeners = this.listeners.filter(fn => fn !== cb);
+        };
+    },
+};
 
 /****************************************************************************************************
 * Function Interface
 ****************************************************************************************************/
 
 /****************************************************************************************************
-* Footer_Init()
+* useSidebarState()
 ****************************************************************************************************/
-export function Footer_Init() {
-
-    do
-    {
-
-    }while(0);
-
-}
-
-/****************************************************************************************************
-* Footer()
-****************************************************************************************************/
-export function Footer() {
-
-    do
-    {
-
-    }while(0);
-
-    return (
-        <div 
-            style={{
-                textAlign: 'center',
-                padding: '128px 0 32px 0',
-            }}
-        >
-            Copyright © 2025 ~ {new Date().getFullYear()} 💮flechazo.<br/>
-            All rights reserved.
-        </div>
-    );
+export function useSidebarState() {
+    const [isOpen, setIsOpen] = useState(Sidebar_State.get());
+    
+    useEffect(() => {
+        /* subscribe */
+        const unsubscribe = Sidebar_State.subscribe(setIsOpen);
+        
+        /* unsubscribe */
+        return unsubscribe;
+    }, []);
+    
+    return {
+        isOpen,
+        toggle: Sidebar_State.toggle,
+        open: () => Sidebar_State.set(true),
+        close: () => Sidebar_State.set(false),
+        setOpen: Sidebar_State.set,
+    };
 }
 
 /****************************************************************************************************

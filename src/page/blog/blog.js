@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -26,6 +26,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useParams } from 'react
 import { Topbar } from '../../layout/topbar/topbar'
 import { Footer } from '../../layout/footer/footer'
 import { Sidebar } from '../../layout/sidebar/sidebar'
+import { Hoverball } from '../../layout/hoverball/hoverball'
 /* components */
 import { About } from '../about/about';
 import { Categorize, CategorizeDetail } from '../categorize/categorize';
@@ -41,6 +42,7 @@ import { Wonderful_emerge } from '../wonderful/wonderful_emerge/wonderful_emerge
 import { Wonderful_english } from '../wonderful/wonderful_english/wonderful_english';
 import { Wonderful_love } from '../wonderful/wonderful_love/wonderful_love';
 import { Wonderful_map } from '../wonderful/wonderful_map/wonderful_map';
+import { Wonderful_calendar } from '../wonderful/wonderful_calendar/wonderful_calendar';
 import{ Navigate_Show,Navigate_Show_Sticky,Navigate_Show_Donate } from '../navigate/navigate';
 
 /****************************************************************************************************
@@ -158,6 +160,23 @@ function Navigate_Show_Sidebar() {
 }
 
 /****************************************************************************************************
+* Navigate_Show_Hoverball()
+****************************************************************************************************/
+function Navigate_Show_Hoverball() {
+
+    do
+    {
+
+    }while(0);
+
+    return (
+        <div>
+            <Hoverball></Hoverball>
+        </div>
+    );
+}
+
+/****************************************************************************************************
 * Navigate_Show_Content()
 ****************************************************************************************************/
 function Navigate_Show_Content() {
@@ -247,6 +266,9 @@ function Blog_Show() {
                 {/* content */}
                 {Navigate_Show_Content()}
             </div>
+            <div>
+                {Navigate_Show_Hoverball()}
+            </div>
         </div>
     );
 }
@@ -299,7 +321,8 @@ export function Blog_Route() {
           <Route path="wonderful_emerge" element={<Wonderful_emerge></Wonderful_emerge>} />
           <Route path="wonderful_english" element={<Wonderful_english></Wonderful_english>} />
           <Route path="wonderful_love" element={<Wonderful_love></Wonderful_love>} />
-          <Route path="Wonderful_map" element={<Wonderful_map></Wonderful_map>} />
+          <Route path="wonderful_map" element={<Wonderful_map></Wonderful_map>} />
+          <Route path="wonderful_calendar" element={<Wonderful_calendar></Wonderful_calendar>} />
           <Route path="friend" element={<Friend></Friend>} />
         </>
     );

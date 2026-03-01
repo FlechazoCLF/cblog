@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -46,12 +46,13 @@ export const cblog_route_list = [
     {page:"project",            name:"事业",           url:"/blog/project",               description:"项目管理页面"},
     {page:"friend",             name:"朋友圈",         url:"/blog/friend",                description:"flechazo的朋友们"},
     {page:"wonderful",          name:"精彩页",         url:"/blog/wonderful",             description:"一些精彩的个性页面"},
+    {page:"wonderful_calendar", name:"日程",           url:"/blog/wonderful_calendar",    description:"一套日程系统"},
     {page:"wonderful_love",     name:"爱情",           url:"/blog/wonderful_love",        description:"爱情的绚烂在这里绽放"},
     {page:"wonderful_chat",     name:"轻语",           url:"/blog/wonderful_chat",        description:"轻语有趣的对话页面"},
     {page:"wonderful_cook",     name:"厨艺",           url:"/blog/wonderful_cook",        description:"记录着我做过的美食"},
     {page:"wonderful_english",  name:"英语",           url:"/blog/wonderful_english",     description:"英语学习的页面"},
     {page:"wonderful_emerge",   name:"架构设计工具",   url:"/blog/wonderful_emerge",      description:"这里采用分层展开的方式记录复杂的架构"},
-    {page:"Wonderful_map",      name:"地图",           url:"/blog/Wonderful_map",         description:"地图页面"},
+    {page:"wonderful_map",      name:"地图",           url:"/blog/Wonderful_map",         description:"地图页面"},
 
     /* external */
     {page:"github",        name:"github",      url:"https://github.com/FlechazoCLF",         description:""},

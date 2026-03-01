@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -29,6 +29,10 @@ import { Navigate_Cfg_Category_Get } from '../../page/navigate/navigate_cfg';
 import { Topbar_Cfg_Get } from '../topbar/topbar_cfg'
 /* window */
 import { Window_Get_Width } from '../../kernel/window/window';
+/* hover ball */
+import { Hoverball_Item_Register,Hoverball_Item_Update } from '../hoverball/hoverball'
+/* sidebar state */
+import { Sidebar_State,useSidebarState } from './sidebar_state'
 
 /****************************************************************************************************
 * Define
@@ -53,9 +57,35 @@ export function Sidebar_Init() {
 
     do
     {
-
+        /* register hoverball */
+        Hoverball_Item_Register({
+            name:"Sidebar",
+            icon:"◀",
+            label:"收起侧边栏",
+            onClickFunc:Sidebar_Click,
+            active:Sidebar_State.get(),
+            color:"#ff6b6b",
+        });
     }while(0);
 
+}
+
+/****************************************************************************************************
+* Sidebar_Click()
+****************************************************************************************************/
+export function Sidebar_Click() {
+
+    do
+    {
+        /* toggle */
+        Sidebar_State.toggle();
+        /* update hoverball */
+        Hoverball_Item_Update("Sidebar",{
+            icon:Sidebar_State.get() ? "◀" : "▶",
+            label:Sidebar_State.get() ? "收起侧边栏" : "展开侧边栏",
+            active:Sidebar_State.get(),
+        });
+    }while(0);
 }
 
 /****************************************************************************************************
@@ -295,58 +325,64 @@ export function Sidebar_Tail() {
 * Sidebar()
 ****************************************************************************************************/
 export function Sidebar() {
-    /* check window width*/
-    const isSidebarVisible = (Window_Get_Width() >= (window.screen.width * 0.5));
-    
+    /* open/close sidebar button */
+    const [isOpenSidebar, setisOpenSidebar] = useState(Sidebar_State.get());
+    useEffect(() => {
+        const unsubscribe = Sidebar_State.subscribe(setisOpenSidebar);
+        return unsubscribe;
+    }, []);
     return (
-        <aside 
-            style={{
-                /* layout */    
-                display: 'flex',
-                flexDirection: 'column',
-                top: '80px',
-                position: 'sticky',
-                marginLeft: isSidebarVisible ? '64px' : '0',
-                /* size */
-                width: isSidebarVisible ? '320px' : '0',
-                padding: isSidebarVisible ? '32px 16px' : '0',
-                maxHeight: 'calc(100vh - 80px - 40px)',
-                /* color */
-                background: 'rgba(245, 245, 245, 0.6)',
-                backdropFilter: 'blur(15px)',
-                /* animation */
-                transition: 'all 0.3s ease, transform 0.3s ease, opacity 0.3s ease',
-                transform: isSidebarVisible ? 'translateX(0)' : 'translateX(-100%)',
-                opacity: isSidebarVisible ? 1 : 0,
-                /* other */
-                overflow: isSidebarVisible ? 'visible' : 'hidden',
-                /* style */
-                borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
-            }}
-            /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
-            }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
-            }}
-        >
-            {isSidebarVisible && (
-                <>
-                    {/* profile */}
-                    {Sidebar_Profile()}
-                    {/* social */}
-                    {Sidebar_Social()}
-                    {/* navigate */}
-                    {Sidebar_Navigate()}
-                    {/* tail */}
-                    {Sidebar_Tail()}
-                </>
-            )}
-        </aside>
+        <div>
+            {/* sidebar */}
+            <aside 
+                style={{
+                    /* layout */
+                    display: 'flex',
+                    flexDirection: 'column',
+                    top: '80px',
+                    position: 'sticky',
+                    marginLeft: isOpenSidebar ? '64px' : '0',
+                    /* size */
+                    width: isOpenSidebar ? '320px' : '0',
+                    padding: isOpenSidebar ? '32px 16px' : '0',
+                    maxHeight: 'calc(120vh - 80px - 40px)',
+                    /* color */
+                    background: 'rgba(245, 245, 245, 0.6)',
+                    backdropFilter: 'blur(15px)',
+                    /* animation */
+                    transition: 'all 0.5s ease, transform 0.5s ease, opacity 0.5s ease',
+                    transform: isOpenSidebar ? 'translateX(0)' : 'translateX(-100%)',
+                    opacity: isOpenSidebar ? 1 : 0,
+                    /* other */
+                    overflow: isOpenSidebar ? 'visible' : 'hidden',
+                    /* style */
+                    borderRadius: '32px',
+                    boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
+                }}
+                /* mouse */
+                onMouseOver={e => {
+                    e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
+                    e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+                }}
+                onMouseOut={e => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+                }}
+            >
+                {isOpenSidebar && (
+                    <>
+                        {/* profile */}
+                        {Sidebar_Profile()}
+                        {/* social */}
+                        {Sidebar_Social()}
+                        {/* navigate */}
+                        {Sidebar_Navigate()}
+                        {/* tail */}
+                        {Sidebar_Tail()}
+                    </>
+                )}
+            </aside>
+        </div>
     );
 }
 

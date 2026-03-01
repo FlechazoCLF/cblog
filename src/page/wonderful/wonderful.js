@@ -5,7 +5,7 @@
 
 /*
  *
- *  Copyright (c) 2024-2025 by flechazo. All rights reserved.
+ *  Copyright (c) 2024-2026 by flechazo. All rights reserved.
  *
  * Author : CarlChai LinFeng Chai flechazo
  * Website: flechazo.mba
@@ -21,6 +21,8 @@
 ****************************************************************************************************/
 /* map */
 import { Wonderful_map_Init } from './wonderful_map/wonderful_map';
+/* calendar */
+import { Wonderful_calendar_Init } from './wonderful_calendar/wonderful_calendar';
 
 /****************************************************************************************************
 * Define
@@ -47,6 +49,8 @@ export function Wonderful_Init() {
     {
         /* map init */
         Wonderful_map_Init();
+        /* calendar init */
+        Wonderful_calendar_Init();
     }while(0);
 
     return (
