@@ -24,6 +24,8 @@
 import React, { useState, useEffect } from 'react';
 /* author */
 import { Author_Get } from '../../../kernel/author/author';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 /* chat list */
 import { chat_cfg_list, Wonderful_chat_cfg_list_user_get } from './wonderful_chat_cfg';
 
@@ -574,6 +576,7 @@ export function Wonderful_chat_window(chatList,selectedChat) {
 * Wonderful_chat()
 ****************************************************************************************************/
 export function Wonderful_chat() {
+    const theme = useTheme();
     /* select chat */
     const [selectedChat, setSelectedChat] = useState('all');
 
@@ -591,7 +594,7 @@ export function Wonderful_chat() {
                 width: '90%',
                 height: '100vh',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

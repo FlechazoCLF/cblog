@@ -24,6 +24,8 @@
 import React, { useState } from 'react';
 /* article */
 import { article_cfg_category_get } from '../article/article_cfg';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -45,6 +47,7 @@ import { article_cfg_category_get } from '../article/article_cfg';
 * Csay_Sidebar_Priority()
 ****************************************************************************************************/
 export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelectedPriority) {
+    const theme = useTheme();
 
     /* get priorityList */
     const allPriorities = csayarticles.map(article => 
@@ -91,7 +94,7 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                         /* layout */
                         /* style */
                         fontWeight: 600, 
-                        color: ' #1976d2',
+                        color: theme.total.info,
                         whiteSpace: 'nowrap',
                     }}
                 >
@@ -107,15 +110,15 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         /* color */
-                        background: ' #f5f5f5',
-                        color: ' #222222',
+                        background: theme.total.surfaceSecondary,
+                        color: theme.total.textPrimary,
                         /* font */
                         fontWeight: 500,
                         fontSize: 16,
                         /* style */
                         cursor: 'pointer',
                         padding: '6px 0',
-                        border: '1px solid #ccc',
+                        border: `1px solid ${theme.total.border}`,
                         borderRadius: '8px',
                     }}
                     onClick={toggleDropMenu}
@@ -134,12 +137,12 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                         overflowY: 'auto',
                         maxHeight: '200px',
                         /* color */
-                        background: ' #ffffff',
+                        background: theme.total.background,
                         /* style */
                         top: '100%',
                         right: '0',
                         width: '60px',
-                        border: '1px solid #ccc',
+                        border: `1px solid ${theme.total.border}`,
                         borderRadius: '8px',
                         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
                         zIndex: 10,
@@ -153,8 +156,8 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                                 /* style */
                                 padding: '8px 0',
                                 cursor: 'pointer',
-                                background: level === selectedPriority ? '#f0f0f0' : 'transparent',
-                                borderBottom: '1px solid #eee',
+                                background: level === selectedPriority ? theme.total.surfaceHover : 'transparent',
+                                borderBottom: `1px solid ${theme.total.divider}`,
                             }}
                             onClick={() => selectPriority(level)}
                         >
@@ -172,6 +175,7 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
 * Csay_Sidebar_Date()
 ****************************************************************************************************/
 export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,selectedMonth,setSelectedMonth) {
+    const theme = useTheme();
     
     return (
         <div
@@ -199,7 +203,7 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             margin: '8px 4px',
                             /* color */
                             background: year === selectedYear ? '#1976d2' : 'transparent',
-                            color: year === selectedYear ? '#fff' : '#222',
+                            color: year === selectedYear ? theme.total.background : '#222',
                             /* font */
                             fontWeight: 500,
                             fontSize: 16,
@@ -234,7 +238,7 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             margin: '8px 4px',
                             /* color */
                             background: month === selectedMonth ? '#1976d2' : 'transparent',
-                            color: month === selectedMonth ? '#fff' : '#222',
+                            color: month === selectedMonth ? theme.total.background : '#222',
                             /* font */
                             fontSize: 16,
                             fontWeight: 500,
@@ -273,6 +277,7 @@ export function Csay_Sidebar(csayarticles,years,selectedYear,setSelectedYear,mon
 * Csay_Content_Item()
 ****************************************************************************************************/
 export function Csay_Content_Item(articles) {
+    const theme = useTheme();
 
     return (
         <div>
@@ -312,7 +317,7 @@ export function Csay_Content_Item(articles) {
                                 background: ' #F5F5F5',
                                 /* style */
                                 borderRadius: '16px',
-                                boxShadow: '0 8px 8px #0003',
+                                boxShadow: theme.total.shadowSm,
                             }}
                         >
                             {/* date */}
@@ -341,10 +346,10 @@ export function Csay_Content_Item(articles) {
                             /* color */
                             background: '#1976d2',
                             /* style */
-                            border: '4px solid #ffffff',
+                            border: `4px solid ${theme.total.background}`,
                             borderRadius: '50%',
                             transform: 'translate(-50%, -50%)',
-                            boxShadow: '0 2px 8px #0002',
+                            boxShadow: theme.total.shadowSm,
                             zIndex: 2,
                         }} />
                     </div>

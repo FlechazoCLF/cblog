@@ -19,10 +19,13 @@
 /****************************************************************************************************
 * Include
 ****************************************************************************************************/
+
 /* map */
 import { Wonderful_map_Init } from './wonderful_map/wonderful_map';
 /* calendar */
 import { Wonderful_calendar_Init } from './wonderful_calendar/wonderful_calendar';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -64,6 +67,7 @@ export function Wonderful_Init() {
 * Wonderful()
 ****************************************************************************************************/
 export function Wonderful() {
+    const theme = useTheme();
 
     do
     {
@@ -78,7 +82,7 @@ export function Wonderful() {
                 width: '90%',
                 padding: '24px',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

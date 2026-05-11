@@ -1,0 +1,45 @@
+---
+title: 软考嵌入式系统设计师差3分过🎀
+date: 2024-06-25
+author: flechazo
+location: 上海
+state: 已发布
+priority: 32
+authority: everyone
+category: 过往瞬间
+tags: 软考
+calendar: 
+cover: 
+description: 技术探索
+icon: 
+---
+
+
+
+# 缘起
+
+<details open>
+    <summary>梦🫧开始的地方</summary>
+<p>一切从这里开始</p>
+<p>想要把人生梳理的井井有条💮</p>
+</details>
+
+# 过往
+
+伤心，就差了3分
+
+![9a224147a01771c99f4e8b4a3018a47](images/9a224147a01771c99f4e8b4a3018a47.png)
+
+# 缘落
+
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5}, "themeVariables": {"pieOuterStrokeWidth": "5px"}} }%%
+pie showData
+    title flechazo
+    "财富" : 42.96
+    "瞬间" : 50.05
+    "音乐" : 10.01
+    "证件" : 10.01
+    "项目" : 10.01
+    "简历" :  5
+```

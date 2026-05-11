@@ -33,6 +33,8 @@ import { page_init } from './page/page'
 import { cblog_route_init } from './route/route'
 /* author */
 import { Author_Provider } from './kernel/author/author';
+/* AppContext */
+import { AppProvider } from './kernel/context/context';
 
 /****************************************************************************************************
 * Define
@@ -65,20 +67,22 @@ export default function App() {
   cblog_route_init();
   /* display */
   return (
-    <Author_Provider>
-      <Router>
-        <Routes>
-          {/* root navigate */}
-          <Route path="/" element={<Navigate />}>
-            {Navigate_Route()}
-          </Route>
-          {/* blog */}
-          <Route path="/blog" element={<Blog />}>
-            {Blog_Route()}
-          </Route>
-        </Routes>
-      </Router>
-    </Author_Provider>
+    <Router>
+      <AppProvider>
+        <Author_Provider>
+            <Routes>
+              {/* root navigate */}
+              <Route path="/" element={<Navigate />}>
+                {Navigate_Route()}
+              </Route>
+              {/* blog */}
+              <Route path="/blog" element={<Blog />}>
+                {Blog_Route()}
+              </Route>
+            </Routes>
+        </Author_Provider>
+      </AppProvider>
+    </Router>
   );
 }
 

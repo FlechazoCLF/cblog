@@ -23,6 +23,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 /* author */
 import { Author_Get } from '../../../kernel/author/author';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 /* categorize */
 import { categorize_cfg_item_get } from '../../categorize/categorize_cfg';
 
@@ -250,6 +252,7 @@ function Wonderful_love_header(lovearticles) {
 * Wonderful_love_plan_card()
 ****************************************************************************************************/
 function Wonderful_love_plan_card(article) {
+    const theme = useTheme();
     return (
         <div
             style={{
@@ -369,7 +372,7 @@ function Wonderful_love_plan_card(article) {
                         style={{
                             /* style */
                             fontSize: '14px',
-                            color: '#333',
+                            color: theme.total.text,
                             lineHeight: '1.5',
                         }}
                     >
@@ -483,6 +486,7 @@ function Wonderful_love_list(lovearticles) {
 * Wonderful_love()
 ****************************************************************************************************/
 export function Wonderful_love() {
+    const theme = useTheme();
     /* author */
     const AuthContext = Author_Get();
     const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -516,7 +520,7 @@ export function Wonderful_love() {
                 padding: '24px',
                 margin: '0 auto',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

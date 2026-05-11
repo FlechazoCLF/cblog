@@ -13,6 +13,7 @@
  * Change Logs:
  * Date           Author       Notes
  * 2026-02-15     cc          the first version
+ * 2026-03-11     cc          complete the style of calendar
  *
 */
 
@@ -23,6 +24,8 @@
 import React, { useState, useEffect } from 'react';
 /* article */
 import { article_cfg_get } from '../../article/article_cfg';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -260,6 +263,7 @@ function Wonderful_calendar_get_event(year,month,day) {
 * Wonderful_calendar_view_events_list()
 ****************************************************************************************************/
 function Wonderful_calendar_view_events_list(events) {
+    const theme = useTheme();
     return (
         <>
             {events.map((event, index) => (
@@ -343,7 +347,7 @@ function Wonderful_calendar_view_events_list(events) {
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 /* color */
-                                color: '#333333',
+                                color: theme.total.text,
                                 /* font */
                                 fontSize: '16px',
                                 fontWeight: '600',
@@ -962,6 +966,7 @@ export function Wonderful_calendar_title() {
 * Wonderful_calendar()
 ****************************************************************************************************/
 export function Wonderful_calendar() {
+    const theme = useTheme();
     /* view */
     const [currentView, setCurrentView] = useState('year'); // 'year', 'month', 'day'
     /* year month day */
@@ -981,7 +986,7 @@ export function Wonderful_calendar() {
                 margin: '0 auto',
                 maxWidth: '860px',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

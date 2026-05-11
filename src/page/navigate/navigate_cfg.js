@@ -79,6 +79,9 @@ export let navigate_cfg_list = [
             {name:"小林Coding",url:"https://xiaolincoding.com/",image:'/images/wallpaper/02.png',description:'图解以太网/图解操作系统',external: true},
             {name:"菜鸟教程",url:"https://www.runoob.com/",image:'/images/wallpaper/03.png',description:'菜鸟教程各种教程',external: true},
             {name:"CS-Notes",url:"http://www.cyc2018.xyz/",image:'/images/wallpaper/04.png',description:'优质教程',external: true},
+            {name:"3Blue1Brown",url:"https://space.bilibili.com/88461692",image:'/images/wallpaper/05.png',description:'图解数学之美',external: true},
+            {name:"黑马程序员",url:"https://space.bilibili.com/37974444",image:'/images/wallpaper/06.png',description:'黑马程序员',external: true},
+            {name:"geeksforgeeks",url:"https://www.geeksforgeeks.org/",image:'/images/wallpaper/07.png',description:'非常优质的教程网站',external: true},
         ]
     },
     {
@@ -132,6 +135,8 @@ export let navigate_cfg_list = [
             {name:"立创硬件开源社",url:"https://oshwhub.com/",image:'/images/wallpaper/07.png',description:'嵌入式宝藏网站',external: true},
             {name:"立创开发板资料中心",url:"https://wiki.lckfb.com/zh-hans/",image:'/images/wallpaper/08.png',description:'嵌入式宝藏网站',external: true},
             {name:"RFC标准规范文档",url:"https://www.rfc-editor.org/",image:'/images/wallpaper/09.png',description:'可以找到很多标准和规范',external: true},
+            {name:"野火资料下载中心",url:"https://doc.embedfire.com/",image:'/images/wallpaper/10.png',description:'野火教程',external: true},
+            {name:"免费FRP服务",url:"https://freefrp.net/",image:'/images/wallpaper/11.png',description:'freefrp',external: true},
         ]
     },
     {
@@ -139,6 +144,7 @@ export let navigate_cfg_list = [
         item: [
             {name:"仙逆",url:"https://v.qq.com/channel/cartoon",image:'/images/wallpaper/01.png',description:'看动漫啦',external: true},
             {name:"OK解析网",url:"https://okzyw.cc/",image:'/images/wallpaper/02.png',description:'OK视频解析网',external: true},
+            {name:"努力鸭视频解析",url:"https://www.nuliya.top/vip/",image:'/images/wallpaper/03.png',description:'努力鸭视频解析',external: true},
         ]
     },
     {
@@ -148,6 +154,7 @@ export let navigate_cfg_list = [
             {name:"软考",url:"https://www.ruankao.org.cn/",image:'/images/wallpaper/02.png',description:'计算机考试',external: true},
             {name:"国家电子税务局",url:"https://tpass.shanghai.chinatax.gov.cn:8443/",image:'/images/wallpaper/03.png',description:'个税',external: true},
             {name:"上海人才服务网",url:"https://www.shrc.com.cn/website/index",image:'/images/wallpaper/04.png',description:'人才服务系统',external: true},
+            {name:"Gmail",url:"https://mail.google.com/",image:'/images/wallpaper/05.png',description:'Google邮箱',external: true},
         ]
     },
     {

@@ -30,8 +30,8 @@ const path = require('path');
 /* input folder */
 const ARTICLE_CFG_GENERATOR_INPUT_FOLDER = './public/articles';
 /* output file */
-const ARTICLE_CFG_GENERATOR_OUTPUT_CATEGORIZE = './src/page/categorize/categorize_cfg_database.js';
-const ARTICLE_CFG_GENERATOR_OUTPUT_ARTICLE = './src/page/article/article_cfg_database.js';
+const ARTICLE_CFG_GENERATOR_OUTPUT_CATEGORIZE = './src/database/categorize_cfg_database.js';
+const ARTICLE_CFG_GENERATOR_OUTPUT_ARTICLE = './src/database/article_cfg_database.js';
 
 /****************************************************************************************************
 * Function Interface
@@ -319,7 +319,12 @@ function categorize_cfg_generator_scan_folder(categories,folder,folderPath) {
             {
                 return;
             }
-            articles.push(categorize_cfg_generator_scan_article(folderPath,folder,subItem));   
+            const articleinfo = categorize_cfg_generator_scan_article(folderPath,folder,subItem);
+            if((articleinfo == null) || (articleinfo == "") || (articleinfo == undefined))
+            {
+                return;
+            }
+            articles.push(articleinfo);
         });
         /* get category readme as article default frontmatter */
         const mdContent = fs.readFileSync(folderPath + "/readme.md", 'utf8');

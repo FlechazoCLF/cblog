@@ -22,6 +22,8 @@
 
 /* article */
 import { article_cfg_get } from '../article/article_cfg';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -44,6 +46,7 @@ import { article_cfg_get } from '../article/article_cfg';
 ****************************************************************************************************/
 export function Articlelist() {
     let articleList = null;
+    const theme = useTheme();
 
     do
     {
@@ -90,7 +93,7 @@ export function Articlelist() {
                             fontSize: '2rem',
                             fontWeight: 'bold',
                             /* color */
-                            color: ' #333333',
+                            color: theme.total.text,
                             /* style */
                             borderBottom: '2px solid #007bff',
                         }}>
@@ -122,20 +125,20 @@ export function Articlelist() {
                                         fontWeight: 'bold',
                                         fontSize: '1.2rem',
                                         /* color */
-                                        background: ' #FFFFFF',
+                                        background: theme.card.background,
                                         /* style */
                                         margin: '8px',
                                         borderRadius: '18px',
-                                        boxShadow: '0 2px 8px #0002',
+                                        boxShadow: theme.total.shadowSm,
                                     }}
                                     /* mouse */
                                     onMouseOver={e => {
                                         e.currentTarget.style.transform = 'scale(1.05)';
-                                        e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                                     }}
                                     onMouseOut={e => {
                                         e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                                     }}
                                 >
                                     <div>

@@ -38,6 +38,8 @@ import { Article_Cfg_Init, article_cfg_item_get } from './article_cfg'
 import { Article_Mermaid_Init,Article_Mermaid } from './components/article_mermaid'
 /* table */
 import remarkGfm from 'remark-gfm';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 /* style */
 import { article_style_img,article_style_table,article_style_table_head,article_style_table_body,
          article_style_table_row,article_style_table_header,article_style_table_data,article_style_code,
@@ -64,6 +66,8 @@ import { article_style_img,article_style_table,article_style_table_head,article_
 * Article_Markdown_Frontmatter()
 ****************************************************************************************************/
 export function Article_Markdown_Frontmatter(frontmatter) {
+    const theme = useTheme();
+    
     return (
         <div
             style={{
@@ -71,7 +75,7 @@ export function Article_Markdown_Frontmatter(frontmatter) {
                 margin: '32px 48px',
                 textAlign: 'center',
                 /* style */
-                borderBottom: '1px solid #eaeaea',
+                borderBottom: `1px solid ${theme.total.border}`,
             }}
         >
             {/* title */}
@@ -94,7 +98,7 @@ export function Article_Markdown_Frontmatter(frontmatter) {
                     alignItems: 'center',
                     gap: '16px',
                     /* style */
-                    color: '#666',
+                    color: theme.total.textSecondary,
                     fontSize: '0.9rem',
                 }}
             >
@@ -140,6 +144,7 @@ export function Article_Markdown_Frontmatter(frontmatter) {
 * Article_Markdown_Get()
 ****************************************************************************************************/
 export function Article_Markdown_Get(article) {
+    const theme = useTheme();
     const [content, setContent] = useState('');
     const [metadata, setMetadata] = useState(null);
 
@@ -176,20 +181,20 @@ export function Article_Markdown_Get(article) {
                 width: '90%',
                 textAlign: 'center',
                 /* color */
-                background: 'rgba(245, 245, 245, 0.6)',
+                background: `${theme.total.background}66`,
                 backdropFilter: 'blur(15px)',
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
+                boxShadow: theme.total.shadowSm,
             }}
             /* mouse */
             onMouseOver={e => {
                 e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
             onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+                e.currentTarget.style.boxShadow = theme.total.shadowSm;
             }}
         >
             {/* frontmatter */}

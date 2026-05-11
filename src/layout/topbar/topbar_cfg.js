@@ -56,6 +56,7 @@ export let topbar_cfg_list = [
         {page:'wonderful_english',    name:"📖english",    url: "/"},
         {page:'wonderful_emerge',     name:"🐌emerge",     url: "/"},
         {page:'wonderful_map',        name:"🗺map",        url: "/"},
+        {page:'wonderful_ebbinghaus', name:"〰️ebbinghaus", url: "/"},
     ]},
     {page:'friend',          name:"👾friend",          url: "/", children:[]},
 ]

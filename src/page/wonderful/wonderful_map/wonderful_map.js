@@ -25,6 +25,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 /* article */
 import { article_cfg_get } from '../../article/article_cfg';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 
 /****************************************************************************************************
 * variable
@@ -39,8 +41,8 @@ let wonderful_map_cityDatas = [];
 * Wonderful_map_LoadingOverlay
 ****************************************************************************************************/
 function Wonderful_map_LoadingOverlay(isMapReady) {
-
     let result = null;
+    const theme = useTheme();
 
     do
     {
@@ -94,7 +96,7 @@ function Wonderful_map_LoadingOverlay(isMapReady) {
                         /* layout */
                         marginBottom: '8px',
                         /* style */
-                        color: ' #333333',
+                        color: theme.total.text,
                         fontSize: '18px',
                         fontWeight: 'bold',
                     }}
@@ -229,6 +231,7 @@ function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
 * Wonderful_map_Sidebar_SelectedLocationPanel()
 ****************************************************************************************************/
 function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticlesExpanded, setIsArticlesExpanded) {
+    const theme = useTheme();
 
     return (
         <div
@@ -264,7 +267,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                     /* layout */
                     marginBottom: '8px',
                     /* color */
-                    color: '#333',
+                    color: theme.total.text,
                     /* font */
                     fontSize: '14px',
                     fontWeight: 'bold',
@@ -327,19 +330,19 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                                 fontWeight: 'bold',
                                 fontSize: '1.2rem',
                                 /* color */
-                                background: ' #FFFFFF',
+                                background: theme.card.background,
                                 /* style */
                                 borderRadius: '18px',
-                                boxShadow: '0 2px 8px #0002',
+                                boxShadow: theme.total.shadowSm,
                             }}
                             /* mouse */
                             onMouseOver={e => {
                                 e.currentTarget.style.transform = 'scale(1.1)';
-                                e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                                e.currentTarget.style.boxShadow = theme.total.shadowMd;
                             }}
                             onMouseOut={e => {
                                 e.currentTarget.style.transform = 'scale(1)';
-                                e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                                e.currentTarget.style.boxShadow = theme.total.shadowSm;
                             }}
                         >
                             {/* title */}
@@ -348,7 +351,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                                     /* layout */
                                     margin: '32px 0 8px 0',
                                     /* color */
-                                    color: '#333',
+                                    color: theme.total.text,
                                     /* font */
                                     fontSize: '16px',
                                     fontWeight: 'bold',
@@ -428,6 +431,7 @@ function Wonderful_map_Sidebar_SearchInput(searchTerm, setSearchTerm) {
 * Wonderful_map_Sidebar_LocationItem()
 ****************************************************************************************************/
 function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) {
+    const theme = useTheme();
     return (
         <div
             onClick={onSelect}
@@ -471,7 +475,7 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
                     style={{
                         /* layout */
                         /* color */
-                        color: '#333',
+                        color: theme.total.text,
                         /* font */
                         fontWeight: 'bold',
                         fontSize: '16px',
@@ -530,6 +534,7 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
 * Wonderful_map_Sidebar_LocationList()
 ****************************************************************************************************/
 function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocationSelect) {
+    const theme = useTheme();
     return (
         <div>
             {/* title */}
@@ -538,7 +543,7 @@ function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocat
                     /* layout */
                     margin: '0 0 15px 0',
                     /* color */
-                    color: '#333',
+                    color: theme.total.text,
                     /* font */
                     fontSize: '18px',
                     fontWeight: 'bold',
@@ -586,6 +591,7 @@ function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocat
 * Wonderful_map_Sidebar()
 ****************************************************************************************************/
 function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onLocationSelect,searchTerm,setSearchTerm,isArticlesExpanded, setIsArticlesExpanded) {
+    const theme = useTheme();
     /* filter search term */
     const filteredLocations = locationData.filter(location =>
         location.city.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -652,7 +658,7 @@ function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onL
                             /* layout */
                             margin: '0 0 15px 0',
                             /* color */
-                            color: '#333',
+                            color: theme.total.text,
                             /* font */
                             fontSize: '24px',
                             fontWeight: 'bold',
@@ -1318,6 +1324,7 @@ export function Wonderful_map_Init() {
 * Main Component
 ****************************************************************************************************/
 export function Wonderful_map() {
+    const theme = useTheme();
     /* state */
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -1357,7 +1364,7 @@ export function Wonderful_map() {
                 height: '100vh',
                 overflow: 'hidden',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

@@ -20,6 +20,9 @@
 * Include
 ****************************************************************************************************/
 
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
+
 /****************************************************************************************************
 * Define
 ****************************************************************************************************/
@@ -40,6 +43,7 @@
 * Wonderful_english()
 ****************************************************************************************************/
 export function Wonderful_english() {
+    const theme = useTheme();
 
     do
     {
@@ -54,7 +58,7 @@ export function Wonderful_english() {
                 width: '90%',
                 padding: '24px',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

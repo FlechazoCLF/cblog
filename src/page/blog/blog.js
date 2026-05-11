@@ -27,6 +27,8 @@ import { Topbar } from '../../layout/topbar/topbar'
 import { Footer } from '../../layout/footer/footer'
 import { Sidebar } from '../../layout/sidebar/sidebar'
 import { Hoverball } from '../../layout/hoverball/hoverball'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 /* components */
 import { About } from '../about/about';
 import { Categorize, CategorizeDetail } from '../categorize/categorize';
@@ -39,6 +41,7 @@ import { Wonderful } from '../wonderful/wonderful';
 import { Wonderful_chat } from '../wonderful/wonderful_chat/wonderful_chat';
 import { Wonderful_cook } from '../wonderful/wonderful_cook/wonderful_cook';
 import { Wonderful_emerge } from '../wonderful/wonderful_emerge/wonderful_emerge';
+import { Wonderful_ebbinghaus } from '../wonderful/wonderful_ebbinghaus/wonderful_ebbinghaus';
 import { Wonderful_english } from '../wonderful/wonderful_english/wonderful_english';
 import { Wonderful_love } from '../wonderful/wonderful_love/wonderful_love';
 import { Wonderful_map } from '../wonderful/wonderful_map/wonderful_map';
@@ -103,6 +106,7 @@ function Navigate_Show_Image() {
 * Navigate_Show_Title()
 ****************************************************************************************************/
 function Navigate_Show_Title() {
+    const theme = useTheme();
 
     do
     {
@@ -120,10 +124,10 @@ function Navigate_Show_Title() {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     /* style */
-                    color: ' #FFFFFF',
+                    color: theme.total.background,
                     fontSize: '4rem',
                     fontWeight: 'bold',
-                    textShadow: '0 4px 16px #000a',
+                    textShadow: `0 4px 16px ${theme.total.OverboxShadow}`,
                     letterSpacing: 4,
                 }}
                 /* mouse */
@@ -319,6 +323,7 @@ export function Blog_Route() {
           <Route path="wonderful_chat" element={<Wonderful_chat></Wonderful_chat>} />
           <Route path="wonderful_cook" element={<Wonderful_cook></Wonderful_cook>} />
           <Route path="wonderful_emerge" element={<Wonderful_emerge></Wonderful_emerge>} />
+          <Route path="wonderful_ebbinghaus" element={<Wonderful_ebbinghaus></Wonderful_ebbinghaus>} />
           <Route path="wonderful_english" element={<Wonderful_english></Wonderful_english>} />
           <Route path="wonderful_love" element={<Wonderful_love></Wonderful_love>} />
           <Route path="wonderful_map" element={<Wonderful_map></Wonderful_map>} />

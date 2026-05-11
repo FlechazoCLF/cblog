@@ -23,7 +23,7 @@
 /* article */
 import { article_cfg_category_get, article_cfg_get, article_cfg_category_add } from '../article/article_cfg'
 /* database */
-import { categorize_Cfg_Database_Init } from './categorize_cfg_database'
+import { categorize_Cfg_Database_Init } from '../../database/categorize_cfg_database'
 
 /****************************************************************************************************
 * Define

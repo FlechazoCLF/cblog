@@ -12,7 +12,7 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2026-03-01 05:32:08     cc          Auto Generate Don't Edit!!!
+ * 2026-05-08 14:55:33     cc          Auto Generate Don't Edit!!!
  * 
 */
 
@@ -21,7 +21,7 @@
 ****************************************************************************************************/
 
 /* article */
-import { article_cfg_item_add } from './article_cfg'
+import { article_cfg_item_add } from '../page/article/article_cfg'
 
 /****************************************************************************************************
 * Define
@@ -48,6 +48,8 @@ export function article_Cfg_Database_Init() {
     {
         /* cfg init */
         
+        article_cfg_item_add("csay","只有周末才能承载我对嵌入式的热爱","2026-04-26","flechazo","上海","已发布","32","everyone","热爱","","","","articles/csay/20260426只有周末才能承载我对嵌入式的热爱","20260426只有周末才能承载我对嵌入式的热爱");
+        article_cfg_item_add("csay","解锁新地图长沙","2026-04-5","flechazo","长沙","已发布","8","everyone","恋爱","","","","articles/csay/20260406解锁新地图长沙","20260406解锁新地图长沙");
         article_cfg_item_add("csay","拿到上海户口啦","2026-02-24","flechazo","上海","已发布","4","everyone","户口","","","","articles/csay/20260224拿到上海户口啦","20260224拿到上海户口啦");
         article_cfg_item_add("csay","❤去见小晴宝宝家长啦","2026-02-22","flechazo","武陟","已发布","8","everyone","见家长","","","","articles/csay/20260222见女朋友家长啦","20260222见女朋友家长啦");
         article_cfg_item_add("csay","和宝宝去九龙口滑雪啦","2026-02-20","flechazo","郑州","已发布","48","everyone","滑雪","","","","articles/csay/20260220去九龙口滑雪啦","20260220去九龙口滑雪啦");
@@ -189,6 +191,8 @@ export function article_Cfg_Database_Init() {
         article_cfg_item_add("个人项目","人生管理系统-事业-无人机","2025-06-11","flechazo","上海","已发布","8","everyone","","","","个人开发的无人机控制系统，支持自主飞行","articles/个人项目/cfly","cfly");
         article_cfg_item_add("个人项目","人生管理系统-事业-cblog","2025-02-15","flechazo","上海","已发布","8","everyone","","","","个人博客","articles/个人项目/cblog","cblog");
         article_cfg_item_add("个人项目","人生管理系统-事业-CCTools","2025-02-09","flechazo","上海","已发布","8","everyone","","","","个人开发的实用电脑工具","articles/个人项目/CCTools","CCTools");
+        article_cfg_item_add("保姆级教程","从输入网址到网页显示的完整链路","2026-04-08","flechazo","上海","已发布","32","everyone","","","","计算机网络面试全指南：从输入网址到网页显示的完整链路","articles/保姆级教程/20260408从输入网址到网页显示保姆级教程","20260408从输入网址到网页显示保姆级教程");
+        article_cfg_item_add("保姆级教程","以太网之计算机网络全景图保姆级教程","2026-04-08","flechazo","上海","已发布","32","everyone","","","","以太网之计算机网络全景图保姆级教程","articles/保姆级教程/20260408以太网之计算机网络全景图保姆级教程","20260408以太网之计算机网络全景图保姆级教程");
         article_cfg_item_add("保姆级教程","独立开发者个人工作站搭建保姆级教程🛠️","2025-11-17","flechazo","上海","已发布","8","everyone","组网 内网穿透","","","","articles/保姆级教程/20251116个人工作站搭建之网络篇保姆级教程","20251116个人工作站搭建之网络篇保姆级教程");
         article_cfg_item_add("保姆级教程","SOME/IP协议保姆级教程","2025-10-02","flechazo","上海","已发布","8","everyone","SOMEIP 保姆级教程","","","带你详细解读SOMEIP协议在AUTOSAR中的应用","articles/保姆级教程/20251002SOMEIP协议保姆级教程","20251002SOMEIP协议保姆级教程");
         article_cfg_item_add("保姆级教程","超简单windows中多开微信","2025-08-13","flechazo","上海","已发布","64","everyone","","","","简单几步实现Windows系统中微信多开","articles/保姆级教程/20250813超简单windows中多开微信","20250813超简单windows中多开微信");
@@ -236,6 +240,10 @@ export function article_Cfg_Database_Init() {
         article_cfg_item_add("日程","小柴和小晴相爱啦💝","2024-10-05","flechazo","上海","已发布","16","everyone","周年","每年 阳历","","","articles/日程/20241005年度小柴和小晴相爱啦","20241005年度小柴和小晴相爱啦");
         article_cfg_item_add("架构设计","架构设计-沉浸系统","2025-12-17","flechazo","上海","已发布","8","everyone","","","","记录复杂的架构设计","articles/架构设计/沉浸系统","沉浸系统");
         article_cfg_item_add("架构设计","架构设计-沉浸网络","2025-12-17","flechazo","上海","已发布","8","everyone","","","","记录复杂的架构设计","articles/架构设计/沉浸网络","沉浸网络");
+        article_cfg_item_add("艾宾浩斯","艾宾浩斯遗忘曲线感悟","2026-03-16","flechazo","上海","已发布","32","everyone","感悟","","","","articles/艾宾浩斯/20260316艾宾浩斯遗忘曲线感悟","20260316艾宾浩斯遗忘曲线感悟");
+        article_cfg_item_add("艾宾浩斯","艾宾浩斯遗忘曲线文章","2026-03-16","flechazo","上海","已发布","32","everyone","文章","","","","articles/艾宾浩斯/20260316艾宾浩斯遗忘曲线文章","20260316艾宾浩斯遗忘曲线文章");
+        article_cfg_item_add("艾宾浩斯","艾宾浩斯遗忘曲线视频","2026-03-16","flechazo","上海","已发布","32","everyone","视频","","","","articles/艾宾浩斯/20260316艾宾浩斯遗忘曲线视频","20260316艾宾浩斯遗忘曲线视频");
+        article_cfg_item_add("艾宾浩斯","艾宾浩斯遗忘曲线计划","2026-03-16","flechazo","上海","已发布","32","everyone","计划","","","","articles/艾宾浩斯/20260316艾宾浩斯遗忘曲线计划","20260316艾宾浩斯遗忘曲线计划");
         article_cfg_item_add("计划","2026年计划🌅","2026-01-01","flechazo","上海","已发布","8","everyone","todo","","","这里将会记录我每年的计划","articles/计划/2026年计划","2026年计划");
         article_cfg_item_add("计划","2025年计划🌅","2025-12-12","flechazo","上海","已发布","8","everyone","todo","","","这里将会记录我每年的计划","articles/计划/2025年计划","2025年计划");
     }while(0);

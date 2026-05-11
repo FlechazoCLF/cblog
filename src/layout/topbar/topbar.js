@@ -29,6 +29,8 @@ import { Author_Get } from '../../kernel/author/author';
 import { Topbar_Cfg_Init,Topbar_Cfg_Get } from './topbar_cfg'
 /* route */
 import { cblog_route_get } from '../../route/route'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -64,6 +66,7 @@ export function Topbar_Init() {
 ****************************************************************************************************/
 function Topbar_Show_Logo() {
     let home = null;
+    const theme = useTheme();
 
     do
     {
@@ -87,11 +90,11 @@ function Topbar_Show_Logo() {
                     /* mouse */
                     onMouseOver={e => {
                         e.currentTarget.style.transform = 'scale(1.25)';
-                        e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
                     onMouseOut={e => {
                         e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
                 />
             </a>
@@ -104,6 +107,7 @@ function Topbar_Show_Logo() {
 ****************************************************************************************************/
 function Topbar_Show_Navigate() {
     let topbar_cfg = null;
+    const theme = useTheme();
 
     do
     {
@@ -145,7 +149,7 @@ function Topbar_Show_Navigate() {
                             }}
                             /* mouse */
                             onMouseOver={e => {
-                                e.currentTarget.style.background = ' #F5F5F5';
+                                e.currentTarget.style.background = theme.total.surfaceSecondary;
                                 /* Show children if they exist */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
                                 const childrenDiv = parentDiv.querySelector('div:nth-child(2)');
@@ -197,13 +201,13 @@ function Topbar_Show_Navigate() {
                                     /* padding */
                                     padding: '8px',
                                     borderRadius: '8px',
-                                    background: ' #F5F5F5',
+                                    background: theme.total.surfaceSecondary,
                                 }}
                                 onMouseOver={e => {
-                                    e.currentTarget.style.background = ' #D4D4D4';
+                                    e.currentTarget.style.background = theme.total.surfaceHover;
                                 }}
                                 onMouseOut={e => {
-                                    e.currentTarget.style.background = ' #F5F5F5';
+                                    e.currentTarget.style.background = theme.total.surfaceSecondary;
                                 }}
                             >
                                 {child.name}
@@ -222,6 +226,7 @@ function Topbar_Show_Navigate() {
 ****************************************************************************************************/
 function Topbar_Show_QuickLink() {
     let github = null;
+    const theme = useTheme();
     /* author */
     const AuthContext = Author_Get();
     const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -248,18 +253,18 @@ function Topbar_Show_QuickLink() {
                     fontWeight: 'bold',
                     /* style */
                     borderRadius: '18px',
-                    boxShadow: '0 2px 8px #0002',
+                    boxShadow: theme.total.shadowSm,
                     cursor: 'pointer',
                 }}
                 /* mouse */
                 onClick={isAuthenticated ? () => logout() : () => login('flechazo','')}
                 onMouseOver={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
-                    e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
                 onMouseOut={e => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
             >
                 {isAuthenticated ? (
@@ -285,15 +290,15 @@ function Topbar_Show() {
     return (
         <div
             style={{
-                    /* Horizontal Layout */
-                    display: 'flex',
-                    /* layout : 1   111   1 */
-                    justifyContent: 'space-between',
-                    /* center */
-                    alignItems: 'center',
-                    /* size */
-                    height: 64,
-                    padding: '0 8px',
+                /* Horizontal Layout */
+                display: 'flex',
+                /* layout : 1   111   1 */
+                justifyContent: 'space-between',
+                /* center */
+                alignItems: 'center',
+                /* size */
+                height: 64,
+                padding: '0 8px',
             }}
         >
             {/* logo */}
@@ -310,6 +315,7 @@ function Topbar_Show() {
 * Topbar()
 ****************************************************************************************************/
 export function Topbar() {
+    const theme = useTheme();
 
     do
     {
@@ -319,28 +325,28 @@ export function Topbar() {
     return (
         <div
             style={{
-                    /* top */
-                    top: 10,
-                    position: 'sticky',
-                    zIndex: 10000,
-                    /* width */
-                    width: '80%',
-                    /* color */
-                    background: 'rgba(245, 245, 245, 0.6)',
-                    backdropFilter: 'blur(15px)',
-                    /* style */
-                    margin: '0 auto',
-                    borderRadius: '90px',
-                    boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
+                /* top */
+                top: 10,
+                position: 'sticky',
+                zIndex: 10000,
+                /* width */
+                width: '80%',
+                /* color */
+                background: 'rgba(245, 245, 245, 0.6)',
+                backdropFilter: 'blur(15px)',
+                /* style */
+                margin: '0 auto',
+                borderRadius: '90px',
+                boxShadow: theme.total.shadowSm,
             }}
             /* mouse */
             onMouseOver={e => {
                 e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 35px rgba(0, 0, 0, 0.6)';
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
             onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 30px rgba(0, 0, 0, 0.25)';
+                e.currentTarget.style.boxShadow = theme.total.shadowSm;
             }}
         >
             {/* show */}

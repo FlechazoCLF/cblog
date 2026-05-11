@@ -24,6 +24,8 @@
 import React, { useState, useEffect } from 'react';
 /* categorize */
 import { categorize_cfg_item_get } from '../../categorize/categorize_cfg';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -79,6 +81,7 @@ export function Wonderful_cook_title() {
 * Wonderful_cook_filter()
 ****************************************************************************************************/
 export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookarticles,setFilterCookArticles,selectedTag,setSelectedTag) {
+    const theme = useTheme();
     /* get all tags */
     let allTags = [];
     cookarticles.forEach(item => {
@@ -109,7 +112,7 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
                     height: '36px',
                     /* color */
                     background: isSelected ? '#ff6b35' : (isAllTag ? '#34495e' : '#ff8c00'),
-                    color: '#ffffff',
+                    color: theme.card.background,
                     /* font */
                     fontWeight: isSelected ? 'bold' : '500',
                     fontSize: '0.9rem',
@@ -135,10 +138,10 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
                 }}
                 /* click */
                 onClick={() => {
-                    /* filter */
-                    setFilterCookArticles(isAllTag ? cookarticles : cookarticles.filter(item => item.tags.includes(tag)));
                     /* selected tag */
                     setSelectedTag(tag);
+                    /* filter */
+                    setFilterCookArticles(isAllTag ? cookarticles : cookarticles.filter(item => item.tags.includes(tag)));
                 }}
             >
                 {tag}
@@ -185,6 +188,7 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
 * Wonderful_cook_content()
 ****************************************************************************************************/
 export function Wonderful_cook_content(cookarticles) {
+    const theme = useTheme();
     return (
         <div
             style={{
@@ -220,8 +224,8 @@ export function Wonderful_cook_content(cookarticles) {
                             width: '160px',
                             height: '160px',
                             /* color */
-                            background: ' #FFFFFF',
-                            color: ' #333333',
+                            background: theme.card.background,
+                            color: theme.card.text,
                             /* font */
                             fontWeight: 'bold',
                             fontSize: '1.1rem',
@@ -339,6 +343,7 @@ export function Wonderful_cook_content(cookarticles) {
 * Wonderful_cook()
 ****************************************************************************************************/
 export function Wonderful_cook() {
+    const theme = useTheme();
     /* articles */
     const [cookarticles, setCookarticles] = useState([]);
     const [filtercookarticles, setFilterCookArticles] = useState([]);
@@ -367,7 +372,7 @@ export function Wonderful_cook() {
                 width: '90%',
                 padding: '24px',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

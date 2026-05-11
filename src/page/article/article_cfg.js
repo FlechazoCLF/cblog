@@ -23,7 +23,7 @@
 /* react */
 import React, { useContext } from 'react';
 /* database init */
-import { article_Cfg_Database_Init } from './article_cfg_database'
+import { article_Cfg_Database_Init } from '../../database/article_cfg_database'
 /* route */
 import { cblog_route_get } from '../../route/route'
 /* author */

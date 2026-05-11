@@ -32,6 +32,8 @@ import { Footer } from '../../layout/footer/footer'
 import { navigate_cfg_list, navigate_cfg_sticky_projects, Navigate_Cfg_Category_Get, Navigate_Cfg_Item_Search } from './navigate_cfg';
 /* route */
 import { cblog_route_get } from '../../route/route'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 /* color */
 import { color_get } from '../../kernel/color/color'
 
@@ -68,6 +70,7 @@ const navigate_view_mode_table = [
 ****************************************************************************************************/
 function Navigate_Show_Profile_avatar_image() {
     let aboutpath = null;
+    const theme = useTheme();
 
     do
     {
@@ -95,11 +98,11 @@ function Navigate_Show_Profile_avatar_image() {
                 onClick={() => window.location.href = aboutpath}
                 onMouseOver={e => {
                     e.currentTarget.style.transform = 'scale(1.45)';
-                    e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
                 onMouseOut={e => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
             />
         </div>
@@ -111,6 +114,7 @@ function Navigate_Show_Profile_avatar_image() {
 ****************************************************************************************************/
 function Navigate_Show_Profile_avatar_title() {
     let aboutpath = null;
+    const theme = useTheme();
 
     do
     {
@@ -123,13 +127,13 @@ function Navigate_Show_Profile_avatar_title() {
             <div 
                 style={{
                     /* color */
-                    color: ' #DB3A40',
+                    color: theme.total.primary,
                     /* font */
                     fontSize: '4rem',
                     fontWeight: 'bold',
                     letterSpacing: 8,
                     /* shadow */
-                    textShadow: '0 1px 1px #000a',
+                    textShadow: theme.total.shadowXs,
                 }}
             >
                 Flechazo
@@ -141,7 +145,7 @@ function Navigate_Show_Profile_avatar_title() {
                     fontSize: '1rem', 
                     fontWeight: 'normal', 
                     /* color */
-                    color: ' #525252',
+                    color: theme.total.description,
                 }}
             >
                 我在人间贩卖黄昏🌅<br/>
@@ -158,18 +162,18 @@ function Navigate_Show_Profile_avatar_title() {
                     fontWeight: 'bold',
                     /* style */
                     borderRadius: '18px',
-                    boxShadow: '0 2px 8px #0002',
+                    boxShadow: theme.total.shadowSm,
                     cursor: 'pointer',
                 }}
                 /* mouse */
                 onClick={() => window.location.href = aboutpath}
                 onMouseOver={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
-                    e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
                 onMouseOut={e => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
             >
                 <span>Just For Fun !</span>
@@ -213,6 +217,7 @@ function Navigate_Show_Profile() {
 * Navigate_Show_Sticky()
 ****************************************************************************************************/
 export function Navigate_Show_Sticky() {
+    const theme = useTheme();
 
     do
     {
@@ -247,19 +252,21 @@ export function Navigate_Show_Sticky() {
                         fontWeight: 'bold',
                         fontSize: '1.2rem',
                         /* color */
-                        background: ' #FFFFFF',
+                        background: theme.card.background,
                         /* style */
                         borderRadius: '18px',
-                        boxShadow: '0 2px 8px #0002',
+                        boxShadow: theme.total.shadowSm,
                     }}
                     /* mouse */
                     onMouseOver={e => {
                         e.currentTarget.style.transform = 'scale(1.25)';
-                        e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                        e.currentTarget.style.background = theme.card.hover;
                     }}
                     onMouseOut={e => {
                         e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
+                        e.currentTarget.style.background = theme.card.background;
                     }}
                 >
                     {/* title */}
@@ -277,7 +284,7 @@ export function Navigate_Show_Sticky() {
                             fontWeight: 'normal',
                             fontSize: '0.95rem',
                             /* color */
-                            color: ' #888888'
+                            color: theme.card.description
                         }}
                     >
                         {item.description}
@@ -318,6 +325,7 @@ function Navigate_Show_Navigate_Signature() {
 * Navigate_Show_Navigate_Control()
 ****************************************************************************************************/
 function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setViewMode) {
+    const theme = useTheme();
 
     do
     {
@@ -358,19 +366,19 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                         /* font */
                         fontSize: '16px',
                         /* style */
-                        border: '2px solid #e0e0e0',
+                        border: `2px solid ${theme.total.border}`,
                         borderRadius: '25px',
                         transition: 'all 0.3s ease',
                         backgroundColor: 'white',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                        boxShadow: theme.total.shadowSm
                     }}
                     onFocus={(e) => {
-                        e.target.style.borderColor = '#FA5A15';
-                        e.target.style.boxShadow = '0 4px 12px rgba(250,90,21,0.2)';
+                        e.target.style.borderColor = theme.total.primary;
+                        e.target.style.boxShadow = theme.total.shadowMd;
                     }}
                     onBlur={(e) => {
-                        e.target.style.borderColor = '#e0e0e0';
-                        e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                        e.target.style.borderColor = theme.total.border;
+                        e.target.style.boxShadow = theme.total.shadowSm;
                     }}
                 />
             </div>
@@ -384,7 +392,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                     /* style */
                     backgroundColor: 'white',
                     borderRadius: '25px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    boxShadow: theme.total.shadowSm,
                 }}
             >
                 <button
@@ -395,7 +403,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                         /* style */
                         border: 'none',
                         borderRadius: '20px',
-                        background: viewMode === 'grid' ? '#FA5A15' : 'transparent',
+                        background: viewMode === 'grid' ? theme.total.primary : 'transparent',
                         color: viewMode === 'grid' ? 'white' : 'black',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease'
@@ -411,7 +419,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                         /* style */
                         border: 'none',
                         borderRadius: '20px',
-                        background: viewMode === 'list' ? '#FA5A15' : 'transparent',
+                        background: viewMode === 'list' ? theme.total.primary : 'transparent',
                         color: viewMode === 'list' ? 'white' : 'black',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease'
@@ -428,6 +436,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
 * Navigate_Show_Navigate_Category()
 ****************************************************************************************************/
 function Navigate_Show_Navigate_Category(activeCategory,setActiveCategory) {
+    const theme = useTheme();
 
     do
     {
@@ -459,15 +468,15 @@ function Navigate_Show_Navigate_Category(activeCategory,setActiveCategory) {
                         width: '120px',
                         height: '50px',
                         /* color */
-                        color: activeCategory === section.category ? ' #FFFFFF' : ' #333333',
-                        background: activeCategory === section.category ? ' #FA5A15' : ' #FFFFFF',
+                        color: activeCategory === section.category ? theme.total.background : theme.total.text,
+                        background: activeCategory === section.category ? theme.total.primary : theme.total.background,
                         /* font */
                         fontWeight: 'bold',
                         fontSize: '1.1rem',
                         /* style */
                         cursor: 'pointer',
-                        boxShadow: activeCategory === section.category ? '0 18px 16px #fa5a1533' : '0 2px 8px #0002',
-                        border: '1px solid #eee',
+                        boxShadow: activeCategory === section.category ? `0 18px 16px ${theme.total.primary}33` : theme.total.shadowSm,
+                        border: `1px solid ${theme.total.border}`,
                         transition: 'all 0.2s',
                     }}
                     /* set active category */
@@ -475,11 +484,11 @@ function Navigate_Show_Navigate_Category(activeCategory,setActiveCategory) {
                     /* mouse */
                     onMouseOver={e => {
                         e.currentTarget.style.fontSize = '1.2rem';
-                        e.currentTarget.style.boxShadow = '0 8px 12px #0008';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
                     onMouseOut={e => {
                         e.currentTarget.style.fontSize = '1.1rem';
-                        e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
                 >
                     {section.category}
@@ -520,6 +529,7 @@ function Navigate_Show_Navigate_Item_Init() {
 * Navigate_Show_Item_Search_Info()
 ****************************************************************************************************/
 function Navigate_Show_Item_Search_Info(activeCategory,searchTerm) {
+    const theme = useTheme();
 
     do
     {
@@ -535,7 +545,7 @@ function Navigate_Show_Item_Search_Info(activeCategory,searchTerm) {
                 /* font */
                 fontSize: '14px',
                 /* color */
-                color: '#666',
+                color: theme.card.description,
             }}
         >
             搜索 "{searchTerm}" 找到 {Navigate_Cfg_Item_Search(activeCategory,searchTerm).length} 个结果
@@ -548,6 +558,7 @@ function Navigate_Show_Item_Search_Info(activeCategory,searchTerm) {
 ****************************************************************************************************/
 function Navigate_Show_Navigate_Item_List(items)
 {
+    const theme = useTheme();
     /* list */
     return (
         <div
@@ -611,7 +622,7 @@ function Navigate_Show_Navigate_Item_List(items)
                                     /* display */
                                     margin: '0 0 8px 0',
                                     /* style */
-                                    color: '#333',
+                                    color: theme.total.text,
                                     fontSize: '18px',
                                 }}
                             >
@@ -622,7 +633,7 @@ function Navigate_Show_Navigate_Item_List(items)
                                     /* display */
                                     margin: 0,
                                     /* style */
-                                    color: '#666',
+                                    color: theme.card.description,
                                     fontSize: '14px',
                                     lineHeight: '1.4',
                                 }}
@@ -642,6 +653,7 @@ function Navigate_Show_Navigate_Item_List(items)
 ****************************************************************************************************/
 function Navigate_Show_Navigate_Item_Grid(items)
 {
+    const theme = useTheme();
     /* grid */
     return (
         <div
@@ -728,7 +740,7 @@ function Navigate_Show_Navigate_Item_Grid(items)
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     /* style */
-                                    color: '#333',
+                                    color: theme.total.text,
                                     fontSize: '16px',
                                     fontWeight: '600',
                                     whiteSpace: 'nowrap',
@@ -743,7 +755,7 @@ function Navigate_Show_Navigate_Item_Grid(items)
                                     overflow: 'hidden',
                                     margin: 0,
                                     /* style */
-                                    color: '#666',
+                                    color: theme.card.description,
                                     fontSize: '13px',
                                     lineHeight: '1.4',
                                     WebkitLineClamp: 2,
@@ -826,6 +838,7 @@ export function Navigate_Show_Navigate() {
 * Navigate_Show_Donate()
 ****************************************************************************************************/
 export function Navigate_Show_Donate() {
+    const theme = useTheme();
 
     do
     {
@@ -849,9 +862,9 @@ export function Navigate_Show_Donate() {
                     width: '50%',
                     height: '1px',
                     /* color */
-                    background: 'linear-gradient(to right, transparent 0%, #999 30%, #999 70%, transparent 100%)',
+                    background: `linear-gradient(to right, transparent 0%, ${theme.card.description} 30%, ${theme.card.description} 70%, transparent 100%)`,
                     /* style */
-                    boxShadow: '0 2px 8px #0003',
+                    boxShadow: theme.total.shadowSm,
                 }}
             />
             {/* Donate */}
@@ -873,7 +886,7 @@ export function Navigate_Show_Donate() {
                             fontWeight: 'bold',
                             fontSize: '1.3rem',
                             /* color */
-                            color: '#FA5A15', 
+                            color: theme.total.primary, 
                         }}
                     >
                         给我点一杯咖啡 ☕
@@ -884,7 +897,7 @@ export function Navigate_Show_Donate() {
                             fontWeight: 'normal',
                             fontSize: '1rem',
                             /* color */
-                            color: '#888888',
+                            color: theme.card.description,
                         }}
                     >
                         如果你喜欢本站，欢迎扫码支持我！
@@ -898,16 +911,16 @@ export function Navigate_Show_Donate() {
                         width: 120,
                         height: 120,
                         borderRadius: 12,
-                        boxShadow: '0 2px 8px #0001',
+                        boxShadow: theme.total.shadowSm,
                     }}
                     /* mouse */
                     onMouseOver={e => {
                         e.currentTarget.style.transform = 'scale(1.56)';
-                        e.currentTarget.style.boxShadow = '0 6px 24px #0002';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
                     onMouseOut={e => {
                         e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px #0001';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
                 />
             </div>

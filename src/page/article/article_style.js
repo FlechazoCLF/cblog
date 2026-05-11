@@ -24,6 +24,8 @@
 import React,{ useState, useEffect } from 'react';
 /* mermaid */
 import { Article_Mermaid_Init,Article_Mermaid } from './components/article_mermaid'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -154,17 +156,20 @@ export function article_style_table() {
 ****************************************************************************************************/
 export function article_style_table_head() {
     return (
-        ({node, ...props}) => (
-            <thead
-                style={{
-                    /* style */
-                    backgroundColor: '#f0f5ff',
-                    color: '#333',
-                }}
-                {...props}
-            >
-            </thead>
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <thead
+                    style={{
+                        /* style */
+                        backgroundColor: '#f0f5ff',
+                        color: theme.total.text,
+                    }}
+                    {...props}
+                >
+                </thead>
+            )
+        }
     );
 }
 
@@ -173,16 +178,19 @@ export function article_style_table_head() {
 ****************************************************************************************************/
 export function article_style_table_body() {
     return (
-        ({node, ...props}) => (
-            <tbody 
-                style={{
-                    /* style */
-                    backgroundColor: '#fff'
-                }}
-                {...props} 
-            >
-            </tbody>
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <tbody 
+                    style={{
+                        /* style */
+                        backgroundColor: theme.total.background
+                    }}
+                    {...props} 
+                >
+                </tbody>
+            )
+        }
     );
 }
 
@@ -191,23 +199,26 @@ export function article_style_table_body() {
 ****************************************************************************************************/
 export function article_style_table_row() {
     return (
-        ({node, isOdd, index, ...props}) => (
-            <tr
-                style={{
-                    /* style */
-                    backgroundColor: (index % 2 === 0) ? '#ffffff' : '#f9f9f9',
-                    borderBottom: '1px solid #e0e0e0',
-                    transition: 'background-color 0.2s'
-                }}
-                onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f0f7ff';
-                }}
-                onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = (index % 2 === 0) ? '#ffffff' : '#f9f9f9';
-                }}
-                {...props}
-            />
-        )
+        ({node, isOdd, index, ...props}) => {
+            const theme = useTheme();
+            return (
+                <tr
+                    style={{
+                        /* style */
+                        backgroundColor: (index % 2 === 0) ? theme.total.background : '#f9f9f9',
+                        borderBottom: '1px solid #e0e0e0',
+                        transition: 'background-color 0.2s'
+                    }}
+                    onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = '#f0f7ff';
+                    }}
+                    onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = (index % 2 === 0) ? theme.total.background : '#f9f9f9';
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -258,6 +269,7 @@ export function article_style_table_data() {
 ****************************************************************************************************/
 export function article_style_code() {
     return ({ className, children, ...props }) => {
+        const theme = useTheme();
         /* mermaid */
         const match = /language-(\w+)/.exec(className || '');
         if (match && match[1] === 'mermaid') {
@@ -278,7 +290,7 @@ export function article_style_code() {
                     overflowX: 'auto',
                     /* color */
                     backgroundColor: '#f5f5f5',
-                    color: '#333',
+                    color: theme.total.text,
                     /* style */
                     borderRadius: '4px',
                     fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
@@ -301,20 +313,23 @@ export function article_style_code() {
 ****************************************************************************************************/
 export function article_style_h1() {
     return (
-        ({node, ...props}) => (
-            <h1
-                style={{
-                    /* layout */
-                    margin: '24px 0 16px',
-                    width: '100%',
-                    /* style */
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    color: '#333',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <h1
+                    style={{
+                        /* layout */
+                        margin: '24px 0 16px',
+                        width: '100%',
+                        /* style */
+                        fontSize: '2rem',
+                        fontWeight: 'bold',
+                        color: theme.total.text,
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -323,20 +338,23 @@ export function article_style_h1() {
 ****************************************************************************************************/
 export function article_style_h2() {
     return (
-        ({node, ...props}) => (
-            <h2
-                style={{
-                    /* layout */
-                    margin: '20px 0 14px',
-                    width: '100%',
-                    /* style */
-                    fontSize: '1.75rem',
-                    fontWeight: 'bold',
-                    color: '#333',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <h2
+                    style={{
+                        /* layout */
+                        margin: '20px 0 14px',
+                        width: '100%',
+                        /* style */
+                        fontSize: '1.75rem',
+                        fontWeight: 'bold',
+                        color: theme.total.text,
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -345,20 +363,23 @@ export function article_style_h2() {
 ****************************************************************************************************/
 export function article_style_h3() {
     return (
-        ({node, ...props}) => (
-            <h3
-                style={{
-                    /* layout */
-                    margin: '18px 0 12px',
-                    width: '100%',
-                    /* style */
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    color: '#333',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <h3
+                    style={{
+                        /* layout */
+                        margin: '18px 0 12px',
+                        width: '100%',
+                        /* style */
+                        fontSize: '1.5rem',
+                        fontWeight: 'bold',
+                        color: theme.total.text,
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -386,6 +407,7 @@ export function article_style_p() {
 
     return (
         ({node, ...props}) => {
+            const theme = useTheme();
             /* check type */
             if(node && node.children && node.children.some(child => child.tagName === 'img'))
             {
@@ -409,7 +431,7 @@ export function article_style_p() {
                             verticalAlign: 'baseline',
                             /* style */
                             fontSize: '1rem',
-                            color: '#333'
+                            color: theme.total.text
                         }}
                         {...props}
                     />
@@ -432,7 +454,7 @@ export function article_style_p() {
                             verticalAlign: 'top',
                             /* style */
                             fontSize: '1rem',
-                            color: '#333'
+                            color: theme.total.text
                         }}
                         {...props}
                     />

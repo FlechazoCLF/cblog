@@ -31,7 +31,7 @@ const path = require('path');
 /* input folder */
 const DIRECTORY_GENERATOR_INPUT_PATH = 'public';
 /* output file */
-const DIRECTORY_GENERATOR_OUTPUT_FILE = './src/kernel/directory/directory_database.js';
+const DIRECTORY_GENERATOR_OUTPUT_FILE = './src/database/directory_database.js';
 
 /****************************************************************************************************
 * Variable

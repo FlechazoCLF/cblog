@@ -8,10 +8,13 @@ priority: 8
 authority: everyone
 category: 个人项目
 tags: 
+calendar: 
 cover: 
 description: 个人开发的轻量级操作系统，用于嵌入式设备
 icon: 
 ---
+
+
 
 # 缘起
 

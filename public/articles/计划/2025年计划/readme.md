@@ -8,10 +8,13 @@ priority: 8
 authority: everyone
 category: 计划
 tags: todo
+calendar: 
 cover: 
 description: 这里将会记录我每年的计划
-icon:
+icon: 
 ---
+
+
 # 缘起
 
 <details open>
@@ -36,6 +39,7 @@ icon:
 - [x] 文章关联一下map页面的地点
 - [x] 买一个服务器，搭建内网穿透，最后本地电脑搭建gitea，cloudreve
 - [ ] CCOS中实现DH算法
+  - [ ] 先开始移植到STM32F103吧
   - [ ] https://xiaolincoding.com/network/2_http/https_ecdhe.html#dh-%E7%AE%97%E6%B3%95实现一下
   - [ ] https://www.cnblogs.com/qiuluoyuweiliang/category/2237744.html这里的算法C语言实现一下
   - [ ] 关于一个定时保护的机制实现，也就是说每个线程都会有一个记录值，这个值根据卡尔曼滤波来预测或者说去计算当前的运行事件，当运行超过10次之后，会有一个曲线，那用户可定义这个事件的突然变长异常的情况，也可以用户输入预期执行时长
@@ -47,6 +51,7 @@ icon:
     - [ ] 画图
     - [ ] 求极限
     - [ ] 求导数
+  
 - [ ] 继续我之前的cCar项目，拆解了多个模块，这些都拆分为单独的项目，今后复用
   - [x] 电源模块
     - [x] 原理图设计
@@ -71,11 +76,12 @@ icon:
   - [ ] 通信模块
     - [x] USB转串口
       - [ ] 打板子
-  
+
     - [ ] USB转网口
-  
+
 - [ ] 整理OS的特性，然后重构CCOS，灵活、轻便、服务化等等
 - [ ] 坚持优化我的cblog
+  - [ ] 开源一下我的个人博客，写一下readme，截屏一下博客的功能
   - [ ] 大佬https://innei.in/
   - [x] 滚动轴优化
   - [ ] 侧边栏添加一个收起的按钮

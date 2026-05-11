@@ -25,8 +25,10 @@ import React, { useState, useEffect } from 'react';
 import { kernel_file_read } from '../../../kernel/file/kernel_file';
 /* config */
 import { wonderful_emerge_cfg_info } from './wonderful_emerge_cfg';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 /* directory */
-import { directory_generator_database_get,directory_generator_database_get_folder } from '../../../kernel/directory/directory_database';
+import { directory_generator_database_get,directory_generator_database_get_folder } from '../../../database/directory_database';
 
 /****************************************************************************************************
 * Define
@@ -114,6 +116,7 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
 * Wonderful_emerge_header()
 ****************************************************************************************************/
 function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
+    const theme = useTheme();
     return (
         <div 
             style={{ 
@@ -132,7 +135,7 @@ function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
                         /* layout */
                         marginBottom: '5px',
                         /* style */
-                        color: '#333',
+                        color: theme.total.text,
                     }}
                 >
                     架构设计工具
@@ -165,7 +168,7 @@ function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
                         borderRadius: '4px',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
-                        color: '#333',
+                        color: theme.total.text,
                         fontWeight: 'bold',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}
@@ -433,6 +436,7 @@ function Wonderful_emerge_selectBack(selectedPath, setSelectedPath) {
 * Wonderful_emerge()
 ****************************************************************************************************/
 export function Wonderful_emerge() {
+    const theme = useTheme();
     /* selected folder path */
     const [selectedPath, setSelectedPath] = useState(["root"]);
     /* calculate columns based on current selected path */
@@ -445,7 +449,7 @@ export function Wonderful_emerge() {
                 width: '90%',
                 padding: '24px',
                 /* style */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}

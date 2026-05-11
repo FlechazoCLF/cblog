@@ -33,6 +33,8 @@ import { Window_Get_Width } from '../../kernel/window/window';
 import { Hoverball_Item_Register,Hoverball_Item_Update } from '../hoverball/hoverball'
 /* sidebar state */
 import { Sidebar_State,useSidebarState } from './sidebar_state'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -92,6 +94,7 @@ export function Sidebar_Click() {
 * Sidebar_Profile()
 ****************************************************************************************************/
 export function Sidebar_Profile() {
+    const theme = useTheme();
 
     do
     {
@@ -116,11 +119,11 @@ export function Sidebar_Profile() {
                 /* mouse */
                 onMouseOver={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
-                    e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
                 onMouseOut={e => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
             />
             {/* name */}
@@ -192,6 +195,7 @@ export function Sidebar_Social() {
 ****************************************************************************************************/
 export function Sidebar_Navigate() {
     let topbar_cfg = null;
+    const theme = useTheme();
 
     do
     {
@@ -228,7 +232,7 @@ export function Sidebar_Navigate() {
                             }}
                             /* mouse */
                             onMouseOver={e => {
-                                e.currentTarget.style.background = ' #D4D4D4';
+                                e.currentTarget.style.background = theme.navigate.hover;
                                 /* Show children if they exist */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
                                 const childrenDiv = parentDiv.querySelector('div:nth-child(2)');
@@ -280,10 +284,10 @@ export function Sidebar_Navigate() {
                                     borderRadius: '8px',
                                 }}
                                 onMouseOver={e => {
-                                    e.currentTarget.style.background = ' #D4D4D4';
+                                    e.currentTarget.style.background = theme.navigate.hover;
                                 }}
                                 onMouseOut={e => {
-                                    e.currentTarget.style.background = ' #F5F5F5';
+                                    e.currentTarget.style.background = theme.navigate.background;
                                 }}
                             >
                                 {child.name}
@@ -325,6 +329,7 @@ export function Sidebar_Tail() {
 * Sidebar()
 ****************************************************************************************************/
 export function Sidebar() {
+    const theme = useTheme();
     /* open/close sidebar button */
     const [isOpenSidebar, setisOpenSidebar] = useState(Sidebar_State.get());
     useEffect(() => {
@@ -347,7 +352,7 @@ export function Sidebar() {
                     padding: isOpenSidebar ? '32px 16px' : '0',
                     maxHeight: 'calc(120vh - 80px - 40px)',
                     /* color */
-                    background: 'rgba(245, 245, 245, 0.6)',
+                    background: theme.total.surfaceSecondary,
                     backdropFilter: 'blur(15px)',
                     /* animation */
                     transition: 'all 0.5s ease, transform 0.5s ease, opacity 0.5s ease',
@@ -357,16 +362,16 @@ export function Sidebar() {
                     overflow: isOpenSidebar ? 'visible' : 'hidden',
                     /* style */
                     borderRadius: '32px',
-                    boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
+                    boxShadow: theme.total.shadowSm,
                 }}
                 /* mouse */
                 onMouseOver={e => {
                     e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                    e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
                 onMouseOut={e => {
                     e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
             >
                 {isOpenSidebar && (

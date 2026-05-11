@@ -8,10 +8,13 @@ priority: 8
 authority: everyone
 category: 个人项目
 tags: 
+calendar: 
 cover: 
 description: 个人开发的无人机控制系统，支持自主飞行
 icon: 
 ---
+
+
 
 # 缘起
 

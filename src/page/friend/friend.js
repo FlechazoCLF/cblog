@@ -25,6 +25,8 @@
 import React, { useState, useEffect } from 'react';
 /* author */
 import { Author_Get } from '../../kernel/author/author';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 /* friend cfg */
 import { friend_cfg_siteInfo, friend_cfg_links, friend_cfg_message, Friend_Cfg_Links_Add, Friend_Cfg_Message_Add } from './friend_cfg';
 
@@ -48,6 +50,8 @@ import { friend_cfg_siteInfo, friend_cfg_links, friend_cfg_message, Friend_Cfg_L
 * Friend_Title()
 ****************************************************************************************************/
 function Friend_Title() {
+    const theme = useTheme();
+    
     do
     {
 
@@ -61,7 +65,7 @@ function Friend_Title() {
                 marginBottom: '40px',
                 padding: '30px',
                 /* style */
-                backgroundColor: 'white',
+                backgroundColor: theme.total.surface,
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             }}
@@ -73,7 +77,7 @@ function Friend_Title() {
                     marginBottom: '10px',
                     /* style */
                     fontSize: '32px',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 🤝 友情链接
@@ -83,7 +87,7 @@ function Friend_Title() {
                 style={{
                     /* layout */
                     /* style */
-                    color: '#7f8c8d',
+                    color: theme.total.textSecondary,
                     fontSize: '16px',
                     lineHeight: '1.6',
                 }}
@@ -98,6 +102,8 @@ function Friend_Title() {
 * Friend_Links()
 ****************************************************************************************************/
 function Friend_Links(links) {
+    const theme = useTheme();
+    
     do
     {
 
@@ -118,7 +124,7 @@ function Friend_Links(links) {
                     marginBottom: '20px',
                     /* style */
                     fontSize: '24px',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 🌟 推荐站点
@@ -139,7 +145,7 @@ function Friend_Links(links) {
                             /* layout */
                             padding: '20px',
                             /* style */
-                            backgroundColor: 'white',
+                            backgroundColor: theme.total.surface,
                             borderRadius: '12px',
                             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -176,7 +182,7 @@ function Friend_Links(links) {
                                     width: '50px',
                                     height: '50px',
                                     borderRadius: '50%',
-                                    backgroundColor: '#f8f9fa',
+                                    backgroundColor: theme.total.surfaceSecondary,
                                     fontSize: '24px',
                                 }}
                             >
@@ -189,7 +195,7 @@ function Friend_Links(links) {
                                         /* layout */
                                         margin: 0,
                                         /* style */
-                                        color: '#2c3e50',
+                                        color: theme.total.textPrimary,
                                         fontSize: '18px',
                                     }}
                                 >
@@ -761,6 +767,7 @@ function Friend_Message(messages) {
 * Friend()
 ****************************************************************************************************/
 export function Friend() {
+    const theme = useTheme();
 
     do
     {
@@ -775,7 +782,7 @@ export function Friend() {
                 padding: '24px',
                 /* style */
                 minHeight: '100vh',
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 boxSizing: 'border-box',
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',

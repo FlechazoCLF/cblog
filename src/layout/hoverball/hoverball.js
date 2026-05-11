@@ -21,6 +21,8 @@
 ****************************************************************************************************/
 /* react */
 import React, { useState, useRef, useEffect } from 'react';
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 /****************************************************************************************************
 * Define
 ****************************************************************************************************/
@@ -43,6 +45,7 @@ const Hoverball_t = [];
 * Hoverball_Item()
 ****************************************************************************************************/
 function Hoverball_Item({ icon, label, onClickFunc, active, color }) {
+    const theme = useTheme();
     /* hover */
     const [isHovered, setIsHovered] = useState(false);
 
@@ -63,20 +66,16 @@ function Hoverball_Item({ icon, label, onClickFunc, active, color }) {
                 gap: '12px',
                 padding: '12px 20px',
                 /* style */
-                background: isHovered 
-                    ? 'rgba(255, 255, 255, 0.95)'
-                    : `linear-gradient(135deg, ${color}22 50%, ${color}11 100%)`,
-                border: `2px solid ${active ? color : '#e0e0e0'}`,
+                background: isHovered ? `${theme.total.background}F2` : `linear-gradient(135deg, ${color}22 50%, ${color}11 100%)`,
+                border: `2px solid ${active ? color : theme.total.border}`,
                 borderRadius: '12px',
-                boxShadow: isHovered
-                    ? `0 6px 20px ${color}33`
-                    : '0 4px 12px rgba(0, 0, 0, 0.1)',
+                boxShadow: isHovered ? `0 6px 20px ${color}33` : `0 4px 12px ${theme.total.overlay}`,
                 /* animation */
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: isHovered ? 'translateY(-2px) scale(1.02)' : 'translateY(0)',
                 cursor: 'pointer',
                 /* font */
-                color: '#333',
+                color: theme.total.text,
                 fontWeight: active ? '600' : '500',
                 fontSize: '14px',
             }}
@@ -92,18 +91,14 @@ function Hoverball_Item({ icon, label, onClickFunc, active, color }) {
                     width: '28px',
                     height: '28px',
                     /* color */
-                    background: active 
-                        ? `linear-gradient(135deg, ${color} 0%, ${color} 100%)`
-                        : 'rgba(255, 255, 255, 0.8)',
-                    color: active ? 'white' : color,
+                    background: active ? `linear-gradient(135deg, ${color} 0%, ${color} 100%)` : `${theme.total.background}F2`,
+                    color: active ? theme.total.background : color,
                     /* font */
                     fontSize: '16px',
                     fontWeight: 'bold',
                     /* style */
                     borderRadius: '8px',
-                    boxShadow: active 
-                        ? `0 2px 8px ${color}66`
-                        : '0 2px 6px rgba(0, 0, 0, 0.1)',
+                    boxShadow: active ? `0 2px 8px ${color}66` : `0 2px 6px ${theme.total.overlay}`,
                     transition: 'all 0.3s ease',
                 }}
             >
@@ -222,6 +217,7 @@ export function Hoverball_Item_Update(name,{icon,label,active,color}) {
 * Hoverball_Menu()
 ****************************************************************************************************/
 export function Hoverball_Menu() {
+    const theme = useTheme();
     /* open */
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
@@ -292,7 +288,7 @@ export function Hoverball_Menu() {
                     /* color */
                     border: 'none',
                     background:'transparent',
-                    color: 'rgba(0, 0, 0, 0.6)',
+                    color: `${theme.total.background}1A`,
                     /* font */
                     fontSize: '48px',
                     fontWeight: 'bold',
@@ -300,11 +296,11 @@ export function Hoverball_Menu() {
                 }}
                 onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'scale(1.25)';
-                    e.currentTarget.style.color = 'rgba(0, 0, 0, 1)';
+                    e.currentTarget.style.color = `${theme.total.background}99`;
                 }}
                 onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.color = 'rgba(0, 0, 0, 0.6)';
+                    e.currentTarget.style.color = `${theme.total.background}1A`;
                 }}
             >
                 {isMenuOpen ? '🧣' : '🌅'}

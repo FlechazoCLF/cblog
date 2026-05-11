@@ -26,6 +26,8 @@ import { useParams } from "react-router-dom";
 import { Categorize_Cfg_Init, categorize_cfg_get, categorize_cfg_item_get } from './categorize_cfg'
 /* route */
 import { cblog_route_get } from '../../route/route'
+/* theme */
+import { useTheme } from '../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -67,6 +69,7 @@ export function Categorize_Init() {
 export function CategorizeDetail() {
     const { category } = useParams();
     let categorize = null;
+    const theme = useTheme();
 
     do
     {
@@ -86,7 +89,7 @@ export function CategorizeDetail() {
                 justifyContent: 'center',
                 textAlign: 'center',
                 /* color */
-                background: ' #FFFFFF',
+                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
                 boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
@@ -101,7 +104,7 @@ export function CategorizeDetail() {
                     fontSize: '2rem',
                     fontWeight: 'bold',
                     /* color */
-                    color: ' #333333',
+                    color: theme.total.text,
                     /* style */
                     borderBottom: '2px solid #007bff',
                 }}>
@@ -136,19 +139,19 @@ export function CategorizeDetail() {
                             fontWeight: 'bold',
                             fontSize: '1.2rem',
                             /* color */
-                            background: ' #FFFFFF',
+                            background: theme.card.background,
                             /* style */
                             borderRadius: '18px',
-                            boxShadow: '0 2px 8px #0002',
+                            boxShadow: theme.total.shadowSm,
                         }}
                         /* mouse */
                         onMouseOver={e => {
                             e.currentTarget.style.transform = 'scale(1.15)';
-                            e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
                         }}
                         onMouseOut={e => {
                             e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                         }}
                     >
                         <div>
@@ -166,6 +169,7 @@ export function CategorizeDetail() {
 ****************************************************************************************************/
 export function Categorize_Item(categories) {
     let category_route = "";
+    const theme = useTheme();
 
     do
     {
@@ -199,20 +203,20 @@ export function Categorize_Item(categories) {
                             width: '280px',
                             height: '140px',
                             /* color */
-                            background: ' #FFFFFF',
+                            background: theme.card.background,
                             /* style */
                             border: '1px solid #eaeaea',
                             borderRadius: '18px',
-                            boxShadow: '0 2px 8px #0002',
+                            boxShadow: theme.total.shadowSm,
                         }}
                         /* mouse */
                         onMouseOver={e => {
                             e.currentTarget.style.transform = 'scale(1.25)';
-                            e.currentTarget.style.boxShadow = '0 18px 16px #0008';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
                         }}
                         onMouseOut={e => {
                             e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px #0002';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                         }}
                     >
                         <div>
@@ -257,6 +261,7 @@ export function Categorize_Statistic(categories) {
 ****************************************************************************************************/
 export function Categorize() {
     let categories = null;
+    const theme = useTheme();
 
     do
     {
@@ -297,7 +302,7 @@ export function Categorize() {
                 fontSize: '2rem',
                 fontWeight: 'bold',
                 /* color */
-                color: ' #333333',
+                color: theme.total.text,
                 /* style */
                 borderBottom: '2px solid #FA5A15',
             }}>

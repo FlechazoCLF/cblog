@@ -24,6 +24,8 @@
 import React, { useEffect, useRef } from 'react';
 /* mermaid */
 import mermaid from 'mermaid';
+/* theme */
+import { useTheme } from '../../../kernel/theme/theme'
 
 /****************************************************************************************************
 * Define
@@ -76,6 +78,7 @@ export function Article_Mermaid({ chart }) {
     const lastPosition = useRef({ x: 0, y: 0 });
     const scale = useRef(1);
     const isFullscreen = useRef(false);
+    const theme = useTheme();
 
     /* mouse */
     /* drag */
@@ -456,7 +459,7 @@ export function Article_Mermaid({ chart }) {
                 overflow: 'hidden',
                 padding: '10px',
                 boxSizing: 'border-box',
-                backgroundColor: '#fff',
+                backgroundColor: theme.total.background,
                 position: 'relative'
             }} 
         />
