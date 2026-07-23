@@ -28,6 +28,8 @@ const path = require('path');
 * Define
 ****************************************************************************************************/
 
+/* debug */
+const DIRECTORY_GENERATOR_DEBUG_MODE = false;
 /* input folder */
 const DIRECTORY_GENERATOR_INPUT_PATH = 'public';
 /* output file */
@@ -143,7 +145,7 @@ function directory_generator_create_database_info_layer(info,layer) {
         {
             continue;
         }
-        /* get templete */
+        /* get template */
         let lines = info.split('\n');
         /* for each line */
         for(let i=0; i < lines.length; i++)
@@ -216,25 +218,74 @@ function directory_generator_create_database_info(directoryTree,layer) {
 }
 
 /****************************************************************************************************
+* directory_generator_create_database_info_compress()
+****************************************************************************************************/
+function directory_generator_create_database_info_compress(directoryTree,layer) {
+    let directory_info = "";
+    let directory_info_children = "";
+
+    do
+    {
+        /* parent */
+        directory_info += `\
+{\
+    /* ${directoryTree.name} */\
+    name: "${directoryTree.name}",\
+    type: "${directoryTree.type}",\
+    path: "${directoryTree.path.replace(/\\/g,'/')}",\
+    description: "${directoryTree.description}",\
+    icon: "${directoryTree.icon}",\
+    children: [\
+        {{directory_info_children}}\
+    ]\
+}`;
+        /* end */
+        directory_info += (layer == 0) ? ";" : ",";
+        /* children */
+        for(let i=0; i < directoryTree.children.length; i++)
+        {
+            const child = directoryTree.children[i];
+            /* check is folder */
+            if(child.type == "folder")
+            {
+                /* add */
+                directory_info_children += `${directory_generator_create_database_info_compress(child,layer+1)}`;
+            }
+            else
+            {
+                /* add */
+                directory_info_children += `${directory_generator_create_database_info_compress(child,layer+1)}`;
+            }
+        }
+        /* fill */
+        directory_info = directory_info.replace("{{directory_info_children}}",directory_info_children);
+    }while(0);
+
+    return directory_info;
+}
+
+/****************************************************************************************************
 * directory_generator_create_database()
 ****************************************************************************************************/
 function directory_generator_create_database(directoryTree) {
-    let templete = "";
+    let template = "";
     
     do
     {
-        /* get templete */
-        const templetePath = path.join(__dirname, 'directory_generator_templete.js');
+        /* get template */
+        const templatePath = path.join(__dirname, 'directory_generator_template.js');
         /* read */
-        templete = fs.readFileSync(templetePath, 'utf8');
+        template = fs.readFileSync(templatePath, 'utf8');
         /* fill info */
-        let directory_info = directory_generator_create_database_info(directoryTree,0);
+        let directory_info = (DIRECTORY_GENERATOR_DEBUG_MODE == true) ? 
+                            directory_generator_create_database_info(directoryTree,0):
+                            directory_generator_create_database_info_compress(directoryTree,0);
         /* replace */
-        templete = templete.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
-        templete = templete.replace("{{directory_info}}",directory_info);
+        template = template.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
+        template = template.replace("{{directory_info}}",directory_info);
     }while(0);
 
-    return templete;
+    return template;
 }
 
 /****************************************************************************************************

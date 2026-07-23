@@ -57,6 +57,7 @@ const Wonderful_ebbinghaus_events_tags_map = {
 * Wonderful_ebbinghaus_header()
 ****************************************************************************************************/
 function Wonderful_ebbinghaus_header() {
+    const theme = useTheme();
     return (
         <div>
             {/* title */}
@@ -66,7 +67,7 @@ function Wonderful_ebbinghaus_header() {
                     textAlign: 'center',
                     marginBottom: '10px',
                     /* style */
-                    color: '#e74c3c',
+                    color: theme.total.primary,
                 }}
             >
                 〰️艾宾浩斯遗忘曲线
@@ -78,7 +79,7 @@ function Wonderful_ebbinghaus_header() {
                     textAlign: 'center',
                     marginBottom: '30px',
                     /* style */
-                    color: '#7f8c8d',
+                    color: theme.total.textMuted,
                 }}
             >
                 人生的感悟需要反复思考
@@ -90,7 +91,7 @@ function Wonderful_ebbinghaus_header() {
 /****************************************************************************************************
 * Wonderful_ebbinghaus_filter()
 ****************************************************************************************************/
-function Wonderful_ebbinghaus_filter(events,setevents,filterevents,setfilterEvents,selectedTime,setSelectedTime) {
+function Wonderful_ebbinghaus_filter({events,setevents,filterevents,setfilterEvents,selectedTime,setSelectedTime}) {
     const theme = useTheme();
     /* get all times */
     let allTimes = ["全部","今天","近3天","近7天","近30天","近90天","近180天"];
@@ -139,29 +140,29 @@ function Wonderful_ebbinghaus_filter(events,setevents,filterevents,setfilterEven
                     minWidth: '60px',
                     height: '36px',
                     /* color */
-                    background: isSelected ? '#ff6b35' : (isAllTime ? '#34495e' : '#ff8c00'),
+                    background: isSelected ? theme.total.blockquoteBorder : (isAllTime ? theme.total.textSecondary : theme.total.primaryHover),
                     color: theme.card.background,
                     /* font */
                     fontWeight: isSelected ? 'bold' : '500',
                     fontSize: '0.9rem',
                     /* style */
                     borderRadius: '20px',
-                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : theme.total.shadowSm,
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: isSelected ? '2px solid #ff4757' : 'none',
+                    border: isSelected ? `2px solid ${theme.total.primary}` : 'none',
                 }}
                 /* mouse */
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }
                 }}
                 /* click */
@@ -197,7 +198,7 @@ function Wonderful_ebbinghaus_filter(events,setevents,filterevents,setfilterEven
                     /* style */
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 🏷️ 按遗忘时间筛选
@@ -211,7 +212,7 @@ function Wonderful_ebbinghaus_filter(events,setevents,filterevents,setfilterEven
 /****************************************************************************************************
 * Wonderful_ebbinghaus_category_filter()
 ****************************************************************************************************/
-function Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setfilterEvents,selectedTag,setSelectedTag) {
+function Wonderful_ebbinghaus_category_filter({events,setevents,filterevents,setfilterEvents,selectedTag,setSelectedTag}) {
     const theme = useTheme();
     /* get all tags */
     let allTags = [];
@@ -243,29 +244,29 @@ function Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setf
                     minWidth: '60px',
                     height: '36px',
                     /* color */
-                    background: isSelected ? '#ff6b35' : (isAllTag ? '#34495e' : '#ff8c00'),
+                    background: isSelected ? theme.total.blockquoteBorder : (isAllTag ? theme.total.textSecondary : theme.total.primaryHover),
                     color: theme.card.background,
                     /* font */
                     fontWeight: isSelected ? 'bold' : '500',
                     fontSize: '0.9rem',
                     /* style */
                     borderRadius: '20px',
-                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : theme.total.shadowSm,
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: isSelected ? '2px solid #ff4757' : 'none',
+                    border: isSelected ? `2px solid ${theme.total.primary}` : 'none',
                 }}
                 /* mouse */
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }
                 }}
                 /* click */
@@ -292,7 +293,7 @@ function Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setf
                 padding: '20px 0',
                 marginBottom: '20px',
                 /* style */
-                borderBottom: '1px solid #ecf0f1',
+                borderBottom: `1px solid ${theme.total.progressBg}`,
             }}
         >
             {/* filter title */}
@@ -305,7 +306,7 @@ function Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setf
                     /* style */
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 🏷️ 按标签筛选
@@ -319,7 +320,7 @@ function Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setf
 /****************************************************************************************************
 * Wonderful_ebbinghaus_content()
 ****************************************************************************************************/
-function Wonderful_ebbinghaus_content(events) {
+function Wonderful_ebbinghaus_content({events}) {
     const theme = useTheme();
     return (
         <div
@@ -363,20 +364,20 @@ function Wonderful_ebbinghaus_content(events) {
                             fontSize: '1.1rem',
                             /* style */
                             borderRadius: '20px',
-                            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+                            boxShadow: theme.total.shadowSm,
                             transition: 'all 0.3s ease',
                             cursor: 'pointer',
                             border: '3px solid transparent',
                         }}
                         /* mouse */
-                        onMouseOver={e => {
+                        onMouseEnter={e => {
                             e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                            e.currentTarget.style.borderColor = '#ff6b35';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                            e.currentTarget.style.borderColor = theme.total.blockquoteBorder;
                         }}
-                        onMouseOut={e => {
+                        onMouseLeave={e => {
                             e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                             e.currentTarget.style.borderColor = 'transparent';
                         }}
                         /* click */
@@ -428,8 +429,8 @@ function Wonderful_ebbinghaus_content(events) {
                                     /* layout */
                                     padding: '2px 8px',
                                     /* color */
-                                    background: ' #ecf0f1',
-                                    color: ' #7f8c8d',
+                                    background: theme.total.progressBg,
+                                    color: theme.total.textMuted,
                                     /* font */
                                     fontSize: '0.75rem',
                                     fontWeight: '500',
@@ -454,7 +455,7 @@ function Wonderful_ebbinghaus_content(events) {
                             fontSize: '0.85rem',
                             lineHeight: '1.4',
                             /* color */
-                            color: '#95a5a6',
+                            color: theme.total.textMuted,
                             /* style */
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -504,30 +505,25 @@ export function Wonderful_ebbinghaus() {
                 flexDirection: 'column',
                 width: '90%',
                 padding: '24px',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* header */}
-            {Wonderful_ebbinghaus_header()}
+            <Wonderful_ebbinghaus_header />
             {/* ebbinghaus filter */}
-            {Wonderful_ebbinghaus_filter(events,setevents,filterevents,setfilterEvents,selectedTime,setSelectedTime)}
+            <Wonderful_ebbinghaus_filter events={events} setevents={setevents} filterevents={filterevents} setfilterEvents={setfilterEvents} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
             {/* category filter */}
-            {Wonderful_ebbinghaus_category_filter(events,setevents,filterevents,setfilterEvents,selectedTag,setSelectedTag)}
+            <Wonderful_ebbinghaus_category_filter events={events} setevents={setevents} filterevents={filterevents} setfilterEvents={setfilterEvents} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
             {/* content */}
-            {Wonderful_ebbinghaus_content(filterevents)}
+            <Wonderful_ebbinghaus_content events={filterevents} />
         </div>
     );
 }

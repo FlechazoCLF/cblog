@@ -23,7 +23,7 @@
 /* react */
 import React, { useEffect, useRef } from 'react';
 /* mermaid */
-import mermaid from 'mermaid';
+/* import mermaid from 'mermaid'; */
 /* theme */
 import { useTheme } from '../../../kernel/theme/theme'
 
@@ -39,17 +39,30 @@ import { useTheme } from '../../../kernel/theme/theme'
 * Variable
 ****************************************************************************************************/
 
+/* mermaid */
+let mermaid = null;
+
 /****************************************************************************************************
 * Function Interface
 ****************************************************************************************************/
 
 /****************************************************************************************************
+* Article_Mermaid_Import()
+****************************************************************************************************/
+async function Article_Mermaid_Import() {
+    if (!mermaid) mermaid = (await import('mermaid')).default;
+    return mermaid;
+}
+
+/****************************************************************************************************
 * Article_Mermaid_Init()
 ****************************************************************************************************/
-export function Article_Mermaid_Init() {
+export async function Article_Mermaid_Init() {
 
     do
     {
+        /* import mermaid */
+        await Article_Mermaid_Import();
         /* mermaid init */
         mermaid.initialize({
             startOnLoad: false,
@@ -416,8 +429,8 @@ export function Article_Mermaid({ chart }) {
                     fullscreenButton.style.right = '10px';
                     fullscreenButton.style.zIndex = '100';
                     fullscreenButton.style.padding = '5px 10px';
-                    fullscreenButton.style.backgroundColor = ' #f0f0f0';
-                    fullscreenButton.style.border = '1px solid #ccc';
+                    fullscreenButton.style.backgroundColor = theme.total.surfaceHover;
+                    fullscreenButton.style.border = `1px solid ${theme.total.border}`;
                     fullscreenButton.style.borderRadius = '4px';
                     fullscreenButton.style.cursor = 'pointer';
                     fullscreenButton.addEventListener('click', toggleFullscreen);

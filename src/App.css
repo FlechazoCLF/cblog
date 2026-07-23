@@ -9,8 +9,6 @@
     /* Remove default margins and inliers for all elements */
     margin: 0;
     padding: 0;
-    /* animation */
-    transition: all 0.2s;
 }
 
 /****************************************************************************************************
@@ -22,14 +20,10 @@ a {
     color: #525252;
     /* underline */
     text-decoration: none;
-    /* animate */
-    transition: all 0.2s;
 }
 a:hover {
-    /* colot */
+    /* color */
     color: #000000;
-    /* animate */
-    font-size: 1.1em;
 }
 
 /****************************************************************************************************

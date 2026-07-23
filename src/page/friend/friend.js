@@ -67,7 +67,7 @@ function Friend_Title() {
                 /* style */
                 backgroundColor: theme.total.surface,
                 borderRadius: '12px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                boxShadow: theme.total.shadowSm,
             }}
         >
             {/* title */}
@@ -101,7 +101,7 @@ function Friend_Title() {
 /****************************************************************************************************
 * Friend_Links()
 ****************************************************************************************************/
-function Friend_Links(links) {
+function Friend_Links({links}) {
     const theme = useTheme();
     
     do
@@ -147,17 +147,17 @@ function Friend_Links(links) {
                             /* style */
                             backgroundColor: theme.total.surface,
                             borderRadius: '12px',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            boxShadow: theme.total.shadowSm,
                             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             cursor: 'pointer',
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-5px)';
-                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                         }}
                         onClick={() => window.open(link.url, '_blank')}
                     >
@@ -207,7 +207,7 @@ function Friend_Links(links) {
                                         /* layout */
                                         margin: 0,
                                         /* style */
-                                        color: '#3498db',
+                                        color: theme.total.textLink,
                                         fontSize: '14px',
                                     }}
                                 >
@@ -222,7 +222,7 @@ function Friend_Links(links) {
                                 /* style */
                                 lineHeight: '1.5',
                                 fontSize: '14px',
-                                color: '#7f8c8d',
+                                color: theme.total.textMuted,
                             }}
                         >
                             {link.description}
@@ -237,7 +237,8 @@ function Friend_Links(links) {
 /****************************************************************************************************
 * Friend_Info()
 ****************************************************************************************************/
-function Friend_Info(siteInfo) {
+function Friend_Info({siteInfo}) {
+    const theme = useTheme();
     do
     {
 
@@ -250,9 +251,9 @@ function Friend_Info(siteInfo) {
                 marginBottom: '40px',
                 padding: '30px',
                 /* style */
-                backgroundColor: 'white',
+                backgroundColor: theme.total.surfaceSecondary,
                 borderRadius: '12px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                boxShadow: theme.total.shadowSm,
             }}
         >
             {/* title */}
@@ -263,7 +264,7 @@ function Friend_Info(siteInfo) {
                     textAlign: 'center',
                     /* style */
                     fontSize: '24px',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 📋 本站信息
@@ -303,7 +304,7 @@ function Friend_Info(siteInfo) {
                                     /* layout */
                                     margin: 0, 
                                     /* style */
-                                    color: '#2c3e50',
+                                    color: theme.total.textSecondary,
                                 }}
                             >
                                 {siteInfo.name}
@@ -314,7 +315,7 @@ function Friend_Info(siteInfo) {
                                     /* layout */
                                     margin: 0,
                                     /* style */
-                                    color: '#3498db', 
+                                    color: theme.total.textLink,
                                     fontSize: '14px',
                                 }}
                             >
@@ -328,7 +329,7 @@ function Friend_Info(siteInfo) {
                             /* layout */
                             marginBottom: '15px',
                             /* style */
-                            color: '#7f8c8d',
+                            color: theme.total.textDisabled,
                             lineHeight: '1.6',
                         }}
                     >
@@ -347,7 +348,7 @@ function Friend_Info(siteInfo) {
                         <strong 
                             style={{
                                 /* style */
-                                color: '#2c3e50' 
+                                color: theme.total.textPrimary,
                             }}
                         >
                             站长：
@@ -355,7 +356,7 @@ function Friend_Info(siteInfo) {
                         <span 
                             style={{
                                 /* style */
-                                color: '#7f8c8d' 
+                                color: theme.total.textSecondary,
                             }}
                         >
                             {siteInfo.author}
@@ -371,7 +372,7 @@ function Friend_Info(siteInfo) {
                         <strong 
                             style={{
                                 /* style */
-                                color: '#2c3e50' 
+                                color: theme.total.textPrimary,
                             }}
                         >
                             邮箱：
@@ -379,7 +380,7 @@ function Friend_Info(siteInfo) {
                         <span 
                             style={{
                                 /* style */
-                                color: '#7f8c8d' 
+                                color: theme.total.textSecondary,
                             }}
                         >
                             {siteInfo.email}
@@ -393,7 +394,7 @@ function Friend_Info(siteInfo) {
                                 display: 'block', 
                                 marginBottom: '8px',
                                 /* style */
-                                color: '#2c3e50', 
+                                color: theme.total.textPrimary,
                             }}
                         >
                             标签：
@@ -414,8 +415,8 @@ function Friend_Info(siteInfo) {
                                         /* layout */
                                         padding: '4px 8px',
                                         /* style */
-                                        backgroundColor: '#e3f2fd',
-                                        color: '#1976d2',
+                                        backgroundColor: theme.total.infoBg,
+                                        color: theme.total.info,
                                         borderRadius: '12px',
                                         fontSize: '12px',
                                     }}
@@ -434,7 +435,8 @@ function Friend_Info(siteInfo) {
 /****************************************************************************************************
 * Friend_Message_Input()
 ****************************************************************************************************/
-function Friend_Message_Input(newMessage,setNewMessage) {
+function Friend_Message_Input({newMessage, setNewMessage}) {
+    const theme = useTheme();
     return (
         <div 
             style={{
@@ -442,7 +444,7 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                 padding: '20px',
                 marginBottom: '30px',
                 /* style */
-                backgroundColor: '#f8f9fa',
+                backgroundColor: theme.total.surfaceSecondary,
                 borderRadius: '8px',
             }}
         >
@@ -465,7 +467,7 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                         padding: '12px',
                         outline: 'none',
                         /* style */
-                        border: '2px solid #e1e8ed',
+                        border: `2px solid ${theme.total.borderSecondary}`,
                         borderRadius: '6px',
                         fontSize: '14px',
                     }}
@@ -481,7 +483,7 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                         padding: '12px',
                         outline: 'none',
                         /* style */
-                        border: '2px solid #e1e8ed',
+                        border: `2px solid ${theme.total.borderSecondary}`,
                         borderRadius: '6px',
                         fontSize: '14px',
                     }}
@@ -497,7 +499,7 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                         padding: '12px',
                         outline: 'none',
                         /* style */
-                        border: '2px solid #e1e8ed',
+                        border: `2px solid ${theme.total.borderSecondary}`,
                         borderRadius: '6px',
                         fontSize: '14px',
                     }}
@@ -517,7 +519,7 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                     marginBottom: '15px',
                     /* style */
                     width: '100%',
-                    border: '2px solid #e1e8ed',
+                    border: `2px solid ${theme.total.borderSecondary}`,
                     borderRadius: '6px',
                     fontSize: '14px',
                 }}
@@ -532,16 +534,16 @@ function Friend_Message_Input(newMessage,setNewMessage) {
                     /* layout */
                     padding: '12px 24px',
                     /* style */
-                    color: 'white',
-                    backgroundColor: '#3498db',
+                    color: theme.total.textInverse,
+                    backgroundColor: theme.total.primary,
                     border: 'none',
                     borderRadius: '6px',
                     fontSize: '14px',
                     cursor: 'pointer',
                     transition: 'background-color 0.3s ease',
                 }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#2980b9'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#3498db'}
+                onMouseEnter={(e) => e.target.style.backgroundColor = theme.total.primaryHover}
+                onMouseLeave={(e) => e.target.style.backgroundColor = theme.total.primary}
             >
                 🚀 发表留言
             </button>
@@ -552,7 +554,8 @@ function Friend_Message_Input(newMessage,setNewMessage) {
 /****************************************************************************************************
 * Friend_Message_List()
 ****************************************************************************************************/
-function Friend_Message_List(messages) {
+function Friend_Message_List({messages}) {
+    const theme = useTheme();
     return (
         <div>
             {messages.length === 0 ? (
@@ -562,7 +565,7 @@ function Friend_Message_List(messages) {
                         textAlign: 'center',
                         padding: '40px',
                         /* style */
-                        color: '#7f8c8d',
+                        color: theme.total.textDisabled,
                     }}
                 >
                     <div 
@@ -594,9 +597,9 @@ function Friend_Message_List(messages) {
                                 /* layout */
                                 padding: '20px',
                                 /* style */
-                                backgroundColor: '#f8f9fa',
+                                backgroundColor: theme.total.surfaceSecondary,
                                 borderRadius: '8px',
-                                border: '1px solid #e9ecef',
+                                border: `1px solid ${theme.total.borderSecondary}`,
                             }}
                         >
                             <div style={{
@@ -624,8 +627,8 @@ function Friend_Message_List(messages) {
                                         width: '40px',
                                         height: '40px',
                                         borderRadius: '50%',
-                                        backgroundColor: '#3498db',
-                                        color: 'white',
+                                        backgroundColor: theme.total.primary,
+                                        color: theme.total.textInverse,
                                         fontSize: '16px',
                                         fontWeight: 'bold',
                                     }}>
@@ -643,7 +646,7 @@ function Friend_Message_List(messages) {
                                         >
                                             <strong 
                                                 style={{ 
-                                                    color: '#2c3e50' 
+                                                    color: theme.total.textPrimary,
                                                 }}
                                             >
                                                 {message.name}
@@ -657,7 +660,7 @@ function Friend_Message_List(messages) {
                                                         /* layout */
                                                         textDecoration: 'none',
                                                         /* style */
-                                                        color: '#3498db',
+                                                        color: theme.total.primary,
                                                         fontSize: '12px',
                                                     }}
                                                 >
@@ -668,7 +671,7 @@ function Friend_Message_List(messages) {
                                         <div style={{
                                             /* layout */
                                             /* style */
-                                            color: '#7f8c8d',
+                                            color: theme.total.textDisabled,
                                             fontSize: '12px',
                                         }}>
                                             {message.timestamp}
@@ -682,7 +685,7 @@ function Friend_Message_List(messages) {
                                     margin: 0,
                                     lineHeight: '1.6',
                                     /* style */
-                                    color: '#2c3e50',
+                                    color: theme.total.textSecondary,
                                 }}
                             >
                                 {message.content}
@@ -698,8 +701,8 @@ function Friend_Message_List(messages) {
 /****************************************************************************************************
 * Friend_Message()
 ****************************************************************************************************/
-function Friend_Message(messages) {
-
+function Friend_Message({messages}) {
+    const theme = useTheme();
     /* new message */
     const [newMessage, setNewMessage] = useState({
         name: '',
@@ -719,9 +722,9 @@ function Friend_Message(messages) {
                 /* layout */
                 padding: '30px',
                 /* style */
-                backgroundColor: 'white',
+                backgroundColor: theme.total.background,
                 borderRadius: '12px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                boxShadow: theme.total.shadowSm,
             }}
         >
             {/* title */}
@@ -732,17 +735,17 @@ function Friend_Message(messages) {
                     textAlign: 'center',
                     /* style */
                     fontSize: '24px',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 💬 留言板
             </h2>
 
             {/* form */}
-            {Friend_Message_Input(newMessage, setNewMessage)}
+            <Friend_Message_Input newMessage={newMessage} setNewMessage={setNewMessage} />
 
             {/* messages list */}
-            {Friend_Message_List(messages)}
+            <Friend_Message_List messages={messages} />
 
             {/* total */}
             {messages.length > 0 && (
@@ -752,7 +755,7 @@ function Friend_Message(messages) {
                         textAlign: 'center',
                         marginTop: '20px',
                         /* style */
-                        color: '#7f8c8d',
+                        color: theme.total.textMuted,
                         fontSize: '14px',
                     }}
                 >
@@ -785,16 +788,13 @@ export function Friend() {
                 background: theme.total.background,
                 boxSizing: 'border-box',
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             <div 
@@ -806,16 +806,16 @@ export function Friend() {
                 }}
             >
                 {/* title */}
-                {Friend_Title()}
+                <Friend_Title />
 
                 {/* friends list */}
-                {Friend_Links(friend_cfg_links)}
+                <Friend_Links links={friend_cfg_links} />
 
                 {/* site info*/}
-                {Friend_Info(friend_cfg_siteInfo)}
+                <Friend_Info siteInfo={friend_cfg_siteInfo} />
 
                 {/* friends message */}
-                {Friend_Message(friend_cfg_message)}
+                <Friend_Message messages={friend_cfg_message} />
             </div>
         </div>
     );

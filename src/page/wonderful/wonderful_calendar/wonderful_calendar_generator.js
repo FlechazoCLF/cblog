@@ -30,6 +30,9 @@ const { article_database_get } = require('../../../kernel/article/article_databa
 
 /* output file */
 const ARTICLE_CFG_GENERATOR_OUTPUT_ARTICLE = './src/database/wonderful_calendar_database.js';
+/* email config */
+const TRANSMIT_EMAIL = '3253290979@qq.com';
+const RECEIVE_EMAIL = '837207595@qq.com';
 
 /****************************************************************************************************
 * Function Interface
@@ -177,14 +180,14 @@ function Calendar_Week_Translate(weekName) {
 * article_cfg_generator_create_database()
 ****************************************************************************************************/
 function article_cfg_generator_create_database(articles) {
-    let templete = "";
+    let template = "";
 
     do
     {
-        /* get templete */
-        const templetePath = path.join(__dirname, 'wonderful_calendar_database_templete.js');
+        /* get template */
+        const templatePath = path.join(__dirname, 'wonderful_calendar_database_template.js');
         /* read */
-        templete = fs.readFileSync(templetePath, 'utf8');
+        template = fs.readFileSync(templatePath, 'utf8');
         /* init function */
         let calendar_database = "";
 
@@ -199,17 +202,17 @@ function article_cfg_generator_create_database(articles) {
             calendar_database += `
         {
             enable: true,
-            route: { fromname: '🌅 flechazo', fromemail: '3253290979@qq.com', to: [${Calendar_Email_Sendto_Parser(article) || "{name: 'flechazo', email: '837207595@qq.com'},"}], },
+            route: { fromname: '🌅 flechazo', fromemail: '${TRANSMIT_EMAIL}', to: [${Calendar_Email_Sendto_Parser(article) || `{name: 'flechazo', email: '${RECEIVE_EMAIL}'},`}], },
             time: { year: '${((article.calendar.includes("每年")) || (article.calendar.includes("每月") || (article.calendar.includes("每日")))) ? ('*') : (article.date.slice(0,4))}', month: '${((article.calendar.includes("每月")) || (article.calendar.includes("每日"))) ? ('*') : (article.date.slice(5,7))}', day: '${(article.calendar.includes("每日")) ? ('*') : (article.date.slice(8,10))}', hour: '10', minute: '00', week: '${Calendar_Week_Translate(article.calendar)}', },
             content: { title: '${article.title}', text: '${article.description}',},
         },`
         })
         /* replace */
-        templete = templete.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
-        templete = templete.replace("{{calendar_database}}",calendar_database);
+        template = template.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
+        template = template.replace("{{calendar_database}}",calendar_database);
     }while(0);
 
-    return templete;
+    return template;
 }
 
 /****************************************************************************************************

@@ -22,6 +22,8 @@
 ****************************************************************************************************/
 /* react */
 import React, { useState, useEffect } from 'react';
+/* router */
+import { Link } from 'react-router-dom';
 /* article */
 import { article_cfg_get } from '../../article/article_cfg';
 /* theme */
@@ -262,14 +264,14 @@ function Wonderful_calendar_get_event(year,month,day) {
 /****************************************************************************************************
 * Wonderful_calendar_view_events_list()
 ****************************************************************************************************/
-function Wonderful_calendar_view_events_list(events) {
+function Wonderful_calendar_view_events_list({events}) {
     const theme = useTheme();
     return (
         <>
             {events.map((event, index) => (
-                <a
+                <Link
                     key={index}
-                    href={event.article}
+                    to={event.article}
                     style={{
                         /* layout */
                         display: 'flex',
@@ -277,7 +279,7 @@ function Wonderful_calendar_view_events_list(events) {
                         gap: '10px',
                         padding: '24px',
                         /* color */
-                        backgroundColor: '#e3f2fd',
+                        backgroundColor: theme.total.surfaceHover,
                         /* style */
                         borderRadius: '24px',
                     }}
@@ -301,8 +303,8 @@ function Wonderful_calendar_view_events_list(events) {
                                         /* layout */
                                         padding: '4px 8px',
                                         /* color */
-                                        color: '#000000',
-                                        backgroundColor: '#ffc7c9',
+                                        color: theme.total.textPrimary,
+                                        backgroundColor: theme.total.warningBg,
                                         /* font */
                                         fontWeight: '500',
                                         fontSize: '12px',
@@ -319,8 +321,8 @@ function Wonderful_calendar_view_events_list(events) {
                                     /* layout */
                                     padding: '4px 8px',
                                     /* color */
-                                    color: '#666666',
-                                    backgroundColor: '#e0e0e0',
+                                    color: theme.total.textSecondary,
+                                    backgroundColor: theme.total.borderSecondary,
                                     /* font */
                                     fontSize: '12px',
                                     /* style */
@@ -372,7 +374,7 @@ function Wonderful_calendar_view_events_list(events) {
                         <span
                             style={{
                                 /* color */
-                                color: '#1890ff',
+                                color: theme.total.info,
                                 /* font */
                                 fontSize: '14px',
                                 fontWeight: '600',
@@ -381,7 +383,7 @@ function Wonderful_calendar_view_events_list(events) {
                             {event.cycle}
                         </span>
                     </div>
-                </a>
+                </Link>
             ))}
         </>
     );
@@ -390,7 +392,8 @@ function Wonderful_calendar_view_events_list(events) {
 /****************************************************************************************************
 * Wonderful_calendar_view_events()
 ****************************************************************************************************/
-function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,showEventModal,setShowEventModal,events) {
+function Wonderful_calendar_view_events({selectedYear,selectedMonth,selectedDay,showEventModal,setShowEventModal,events}) {
+    const theme = useTheme();
     /* check show modal */
     if (!showEventModal || !selectedDay) return null;
     /* get events for the day */
@@ -408,7 +411,7 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
                 right: 0,
                 bottom: 0,
                 /* color */
-                background: 'rgba(0, 0, 0, 0 0.5)',
+                background: `${theme.total.primaryLight}88`,
                 /* style */
                 zIndex: 1000,
                 animation: 'fadeIn 0.3s ease',
@@ -426,10 +429,10 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
                     maxHeight: '90vh',
                     overflowY: 'auto',
                     /* color */
-                    background: 'white',
+                    background: theme.total.background,
                     /* style */
                     borderRadius: '20px',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.2)',
+                    boxShadow: theme.total.shadowSm,
                     animation: 'slideUp 0.3s ease',
                 }}
                 onClick={e => e.stopPropagation()}
@@ -443,10 +446,10 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
                         alignItems: 'center',
                         padding: '20px 25px',
                         /* color */
-                        color: 'white',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        color: theme.total.textInverse,
+                        background: `linear-gradient(135deg, ${theme.total.primary} 0%, ${theme.total.info} 100%)`,
                         /* style */
-                        borderBottom: '1px solid #eee',
+                        borderBottom: `1px solid ${theme.total.borderSecondary}`,
                     }}
                 >
                     {/* title */}
@@ -457,7 +460,7 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
                     <button
                         style={{
                             /* color */
-                            color: 'white',
+                            color: theme.total.textInverse,
                             background: 'none',
                             /* style */
                             border: 'none',
@@ -489,21 +492,21 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
                                 }}
                             >
                                 {/* events */}
-                                {Wonderful_calendar_view_events_list(dayEvents)}
+                                <Wonderful_calendar_view_events_list events={dayEvents} />
                             </div>
                         ) : (
                             <div
                                 style={{
                                     textAlign: 'center',
                                     padding: '40px 20px',
-                                    color: '#6c757d',
+                                    color: theme.total.textSecondary,
                                 }}
                             >
                                 <div
                                     style={{
                                         fontSize: '3rem',
                                         marginBottom: '15px',
-                                        color: '#e9ecef',
+                                        color: theme.total.textDisabled,
                                     }}
                                 >
                                     📅
@@ -522,7 +525,8 @@ function Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,s
 /****************************************************************************************************
 * Wonderful_calendar_view_years_list()
 ****************************************************************************************************/
-function Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCurrentView, events) {
+function Wonderful_calendar_view_years_list({selectedYear, setSelectedYear, setCurrentView, events}) {
+    const theme = useTheme();
     /* get all years */
     const years = Wonderful_calendar_getYears();
     const currentYear = new Date().getFullYear();
@@ -541,12 +545,12 @@ function Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCu
                             textAlign: 'center',
                             padding: '16px',
                             /* color */
-                            background: (year == currentYear) ? '#fad0c4' : '#e9ecef',
+                            background: (year == currentYear) ? theme.total.primaryLight : theme.total.surfaceHover,
                             /* style */
                             borderRadius: '12px',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
-                            border: `2px solid ${(year === selectedYear) ? '#667eea' : 'transparent'}`,
+                            border: `2px solid ${(year === selectedYear) ? theme.total.info : 'transparent'}`,
                         }}
                         onClick={() => {
                             /* set year */
@@ -564,7 +568,7 @@ function Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCu
                                 fontSize: '2.2rem',
                                 fontWeight: 'bold',
                                 /* style */
-                                color: '#2c3e50',
+                                color: theme.total.textPrimary,
                             }}
                         >
                             {year}
@@ -575,7 +579,7 @@ function Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCu
                                 /* font */
                                 fontSize: '0.9rem',
                                 /* style */
-                                color: '#6c757d',
+                                color: theme.total.textSecondary,
                             }}
                         >
                             {yearEvents.length} 篇
@@ -590,7 +594,8 @@ function Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCu
 /****************************************************************************************************
 * Wonderful_calendar_view_years()
 ****************************************************************************************************/
-function Wonderful_calendar_view_years(selectedYear, setSelectedYear, setCurrentView, events) {
+function Wonderful_calendar_view_years({selectedYear, setSelectedYear, setCurrentView, events}) {
+    const theme = useTheme();
 
     return (
         <>
@@ -603,9 +608,9 @@ function Wonderful_calendar_view_years(selectedYear, setSelectedYear, setCurrent
                     alignItems: 'center',
                     padding: '16px 24px',
                     /* style */
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: `linear-gradient(135deg, ${theme.total.primary} 0%, ${theme.total.info} 100%)`,
+                    color: theme.total.textInverse,
+                    borderBottom: `1px solid ${theme.total.background}88`,
                     borderRadius: '16px',
                 }}
             >
@@ -623,7 +628,7 @@ function Wonderful_calendar_view_years(selectedYear, setSelectedYear, setCurrent
                     marginTop: '16px',
                 }}
             >
-                {Wonderful_calendar_view_years_list(selectedYear, setSelectedYear, setCurrentView, events)}
+                <Wonderful_calendar_view_years_list selectedYear={selectedYear} setSelectedYear={setSelectedYear} setCurrentView={setCurrentView} events={events} />
             </div>
         </>
     );
@@ -632,7 +637,8 @@ function Wonderful_calendar_view_years(selectedYear, setSelectedYear, setCurrent
 /****************************************************************************************************
 * Wonderful_calendar_view_months_list()
 ****************************************************************************************************/
-function Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events) {
+function Wonderful_calendar_view_months_list({selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events}) {
+    const theme = useTheme();
     const monthNames = Calendar_getMonthNames;
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
@@ -651,11 +657,11 @@ function Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSel
                             padding: '20px',
                             textAlign: 'center',
                             /* color */
-                            background: ((selectedYear == currentYear) && (monthNumber == currentMonth)) ? '#fad0c4' : '#e9ecef',
+                            background: ((selectedYear == currentYear) && (monthNumber == currentMonth)) ? theme.total.primaryLight : theme.total.surfaceHover,
                             /* style */
                             borderRadius: '12px',
                             cursor: 'pointer',
-                            border: `2px solid ${((monthNumber) === selectedMonth) ? '#667eea' : 'transparent'}`,
+                            border: `2px solid ${((monthNumber) === selectedMonth) ? theme.total.info : 'transparent'}`,
                         }}
                         onClick={() => {
                             /* day */
@@ -671,7 +677,7 @@ function Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSel
                                 fontSize: '1.5rem',
                                 fontWeight: 'bold',
                                 /* color */
-                                color: '#2c3e50',
+                                color: theme.total.textPrimary,
                             }}
                         >
                             {month}
@@ -679,7 +685,7 @@ function Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSel
                         <div
                             style={{
                                 /* color */
-                                color: '#6c757d',
+                                color: theme.total.textSecondary,
                                 /* font */
                                 fontSize: '0.9rem',
                             }}
@@ -695,7 +701,8 @@ function Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSel
 /****************************************************************************************************
 * Wonderful_calendar_view_months()
 ****************************************************************************************************/
-function Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events) {
+function Wonderful_calendar_view_months({selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events}) {
+    const theme = useTheme();
 
     return (
         <>
@@ -707,9 +714,9 @@ function Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelected
                     alignItems: 'center',
                     padding: '16px 24px',
                     /* style */
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: `linear-gradient(135deg, ${theme.total.primary} 0%, ${theme.total.info} 100%)`,
+                    color: theme.total.textInverse,
+                    borderBottom: `1px solid ${theme.total.background}88`,
                     borderRadius: '16px',
                 }}
             >
@@ -723,8 +730,8 @@ function Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelected
                         display: 'flex',
                         alignItems: 'center',
                         /* color */
-                        color: 'white',
-                        background: 'rgba(255, 255, 255, 0.2)',
+                        color: theme.total.textInverse,
+                        background: `1px solid ${theme.total.background}88`,
                         border: 'none',
                         /* style */
                         borderRadius: '8px',
@@ -750,7 +757,7 @@ function Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelected
                     marginTop: '20px',
                 }}
             >
-                {Wonderful_calendar_view_months_list(selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events)}
+                <Wonderful_calendar_view_months_list selectedYear={selectedYear} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} setCurrentView={setCurrentView} events={events} />
             </div>
         </>
     );
@@ -759,7 +766,8 @@ function Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelected
 /****************************************************************************************************
 * Wonderful_calendar_view_days_list()
 ****************************************************************************************************/
-function Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events) {
+function Wonderful_calendar_view_days_list({selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events}) {
+    const theme = useTheme();
     /* get days */
     const days = Wonderful_calendar_generate_days(selectedYear, selectedMonth);
     const currentYear = new Date().getFullYear();
@@ -785,8 +793,8 @@ function Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selected
                             borderRadius: '12px',
                             cursor: 'pointer',
                             background: ((selectedYear == currentYear) && (selectedMonth == currentMonth) && (day == currentDay)) ?
-                                '#fad0c4' : 
-                                (day && (dayEvents.length > 0)) ? '#ebc0fd' : '#e9ecef',
+                                theme.total.primaryLight : 
+                                (day && (dayEvents.length > 0)) ? theme.total.selection : theme.total.tagBg,
                         }}
                         onClick={() => {
                             /* set day */
@@ -802,7 +810,7 @@ function Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selected
                                 <div
                                     style={{
                                         /* color */
-                                        color: '#2c3e50',
+                                        color: theme.total.textPrimary,
                                         /* font */
                                         fontSize: '1.2rem',
                                         fontWeight: '500',
@@ -814,7 +822,7 @@ function Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selected
                                 <div
                                     style={{
                                         /* color */
-                                        color: '#6c757d',
+                                        color: theme.total.textSecondary,
                                         /* font */
                                         fontSize: '0.9rem',
                                     }}
@@ -833,7 +841,8 @@ function Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selected
 /****************************************************************************************************
 * Wonderful_calendar_view_days()
 ****************************************************************************************************/
-function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events) {
+function Wonderful_calendar_view_days({selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events}) {
+    const theme = useTheme();
 
     return (
         <>
@@ -845,10 +854,10 @@ function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, 
                     alignItems: 'center',
                     padding: '16px 24px',
                     /* color */
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
+                    background: `linear-gradient(135deg, ${theme.total.primary} 0%, ${theme.total.info} 100%)`,
+                    color: theme.total.textInverse,
                     /* style */
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderBottom: `1px solid ${theme.total.background}88`,
                     borderRadius: '16px',
                 }}
             >
@@ -865,8 +874,8 @@ function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, 
                         gap: '8px',
                         padding: '8px 16px',
                         /* color */
-                        color: 'white',
-                        background: 'rgba(255, 255, 255, 0.2)',
+                        color: theme.total.textInverse,
+                        background: `1px solid ${theme.total.background}88`,
                         /* style */
                         border: 'none',
                         borderRadius: '8px',
@@ -890,9 +899,9 @@ function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, 
                     padding: '10px 0',
                     marginTop: '16px',
                     /* style */
-                    background: '#f8f9fa',
-                    borderTop: '1px solid #eee',
-                    borderBottom: '1px solid #eee',
+                    background: theme.total.surfaceSecondary,
+                    borderTop: `1px solid ${theme.total.borderSecondary}`,
+                    borderBottom: `1px solid ${theme.total.borderSecondary}`,
                 }}
             >
                 {['一', '二', '三', '四', '五', '六', '日'].map(day => (
@@ -903,7 +912,7 @@ function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, 
                             textAlign: 'center',
                             fontWeight: 'bold',
                             /* color */
-                            color: '#6c757d',
+                            color: theme.total.textSecondary,
                             /* font */
                             fontSize: '1.1rem',
                         }}
@@ -922,7 +931,7 @@ function Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, 
                     marginTop: '16px',
                 }}
             >
-                {Wonderful_calendar_view_days_list(selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events)}
+                <Wonderful_calendar_view_days_list selectedYear={selectedYear} selectedMonth={selectedMonth} selectedDay={selectedDay} setSelectedDay={setSelectedDay} setCurrentView={setCurrentView} setShowEventModal={setShowEventModal} events={events} />
             </div>
         </>
     );
@@ -984,31 +993,26 @@ export function Wonderful_calendar() {
                 width: '90%',
                 padding: '24px',
                 margin: '0 auto',
-                maxWidth: '860px',
-                /* color */
-                background: theme.total.background,
+                maxWidth: '960px',
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* title */}
-            {Wonderful_calendar_title()}
+            <Wonderful_calendar_title />
             {/* calendar */}
-            {currentView === 'year' && Wonderful_calendar_view_years(selectedYear, setSelectedYear, setCurrentView, events)}
-            {currentView === 'month' && Wonderful_calendar_view_months(selectedYear, selectedMonth, setSelectedMonth, setCurrentView, events)}
-            {currentView === 'day' && Wonderful_calendar_view_days(selectedYear, selectedMonth, selectedDay, setSelectedDay, setCurrentView, setShowEventModal, events)}
+            {currentView === 'year' && <Wonderful_calendar_view_years selectedYear={selectedYear} setSelectedYear={setSelectedYear} setCurrentView={setCurrentView} events={events} />}
+            {currentView === 'month' && <Wonderful_calendar_view_months selectedYear={selectedYear} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} setCurrentView={setCurrentView} events={events} />}
+            {currentView === 'day' && <Wonderful_calendar_view_days selectedYear={selectedYear} selectedMonth={selectedMonth} selectedDay={selectedDay} setSelectedDay={setSelectedDay} setCurrentView={setCurrentView} setShowEventModal={setShowEventModal} events={events} />}
             {/* events */}
-            {Wonderful_calendar_view_events(selectedYear,selectedMonth,selectedDay,showEventModal,setShowEventModal,events)}
+            <Wonderful_calendar_view_events selectedYear={selectedYear} selectedMonth={selectedMonth} selectedDay={selectedDay} showEventModal={showEventModal} setShowEventModal={setShowEventModal} events={events} />
         </div>
     );
 }

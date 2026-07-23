@@ -23,6 +23,8 @@
 
 /* react */
 import React, { useContext } from 'react';
+/* react-router-dom */
+import { Link } from 'react-router-dom';
 /* author */
 import { Author_Get } from '../../kernel/author/author';
 /* cfg */
@@ -76,8 +78,8 @@ function Topbar_Show_Logo() {
 
     return (
         <div>
-            <a 
-                href={home.url}
+            <Link 
+                to={home.url}
             >
                 <img
                     /* logo */
@@ -86,18 +88,19 @@ function Topbar_Show_Logo() {
                     style={{
                         height: '55px',
                         borderRadius: '45px',
+                        transition: 'all 0.5s ease',
                     }}
                     /* mouse */
-                    onMouseOver={e => {
+                    onMouseEnter={e => {
                         e.currentTarget.style.transform = 'scale(1.25)';
                         e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
-                    onMouseOut={e => {
+                    onMouseLeave={e => {
                         e.currentTarget.style.transform = 'scale(1)';
                         e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
                 />
-            </a>
+            </Link>
         </div>
     );
 }
@@ -137,8 +140,8 @@ function Topbar_Show_Navigate() {
                 >
                     {/* root */}
                     <div>
-                        <a 
-                            href={item.url}
+                        <Link 
+                            to={item.url}
                             style={{
                                 /* layout */
                                 display: 'flex',
@@ -148,7 +151,7 @@ function Topbar_Show_Navigate() {
                                 borderRadius : '10px',
                             }}
                             /* mouse */
-                            onMouseOver={e => {
+                            onMouseEnter={e => {
                                 e.currentTarget.style.background = theme.total.surfaceSecondary;
                                 /* Show children if they exist */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
@@ -158,7 +161,7 @@ function Topbar_Show_Navigate() {
                                     childrenDiv.style.display = 'block';
                                 }
                             }}
-                            onMouseOut={e => {
+                            onMouseLeave={e => {
                                 e.currentTarget.style.background = 'transparent';
                                 /* Hide children by child */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
@@ -170,7 +173,7 @@ function Topbar_Show_Navigate() {
                             }}
                         >
                             {item.name}
-                        </a>
+                        </Link>
                     </div>
                     {/* children */}
                     {item.children && item.children.length > 0 && (
@@ -185,16 +188,16 @@ function Topbar_Show_Navigate() {
                             padding: '5px',
                             borderRadius: '8px',
                         }}
-                        onMouseOver={e => {
+                        onMouseEnter={e => {
                             e.currentTarget.style.display = 'block';
                         }}
-                        onMouseOut={e => {
+                        onMouseLeave={e => {
                             e.currentTarget.style.display = 'none';
                         }}
                     >
                         {item.children.map(child => (
-                            <a 
-                                href={child.url} 
+                            <Link 
+                                to={child.url} 
                                 style={{
                                     /* layout */
                                     display: 'block',
@@ -203,15 +206,15 @@ function Topbar_Show_Navigate() {
                                     borderRadius: '8px',
                                     background: theme.total.surfaceSecondary,
                                 }}
-                                onMouseOver={e => {
-                                    e.currentTarget.style.background = theme.total.surfaceHover;
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.background = theme.navigate.hover;
                                 }}
-                                onMouseOut={e => {
+                                onMouseLeave={e => {
                                     e.currentTarget.style.background = theme.total.surfaceSecondary;
                                 }}
                             >
                                 {child.name}
-                            </a>
+                            </Link>
                         ))}
                     </div>
                     )}
@@ -258,11 +261,11 @@ function Topbar_Show_QuickLink() {
                 }}
                 /* mouse */
                 onClick={isAuthenticated ? () => logout() : () => login('flechazo','')}
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
                     e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
@@ -302,11 +305,11 @@ function Topbar_Show() {
             }}
         >
             {/* logo */}
-            {Topbar_Show_Logo()}
+            <Topbar_Show_Logo />
             {/* navigate */}
-            {Topbar_Show_Navigate()}
+            <Topbar_Show_Navigate />
             {/* quick link */}
-            {Topbar_Show_QuickLink()}
+            <Topbar_Show_QuickLink />
         </div>
     );
 }
@@ -332,25 +335,26 @@ export function Topbar() {
                 /* width */
                 width: '80%',
                 /* color */
-                background: 'rgba(245, 245, 245, 0.6)',
+                background: `${theme.total.background}5F`,
                 backdropFilter: 'blur(15px)',
                 /* style */
                 margin: '0 auto',
                 borderRadius: '90px',
                 boxShadow: theme.total.shadowSm,
+                transition: 'all 0.3s ease',
             }}
             /* mouse */
-            onMouseOver={e => {
+            onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
                 e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
+            onMouseLeave={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.boxShadow = theme.total.shadowSm;
             }}
         >
             {/* show */}
-            {Topbar_Show()}
+            <Topbar_Show />
         </div>
     );
 }

@@ -51,6 +51,7 @@ export let topbar_cfg_list = [
     {page:'wonderful',       name:"🥯wonderful",       url: "/", children:[
         {page:'wonderful_love',       name:"💝love",       url: "/"},
         {page:'wonderful_calendar',   name:"📅calendar",   url: "/"},
+        {page:'wonderful_color',      name:"🎨color",      url: "/"},
         {page:'wonderful_chat',       name:"🎰chat",       url: "/"},
         {page:'wonderful_cook',       name:"🍛cook",       url: "/"},
         {page:'wonderful_english',    name:"📖english",    url: "/"},

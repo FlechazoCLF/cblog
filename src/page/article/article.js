@@ -22,7 +22,7 @@
 
 /* react */
 import React,{ useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 /* author */
 import { Author_State_Get } from '../../kernel/author/author';
 /* route */
@@ -104,36 +104,36 @@ export function Article_Markdown_Frontmatter(frontmatter) {
             >
                 {/* date */}
                 {frontmatter.date && 
-                    <a
-                        href={`${cblog_route_get("csay").url}`}
+                    <Link
+                        to={`${cblog_route_get("csay").url}`}
                     >
                         📅 {frontmatter.date}
-                    </a>}
+                    </Link>}
                 {/* author */}
                 {frontmatter.author && 
-                    <a
-                        href={`${cblog_route_get("about").url}`}
+                    <Link
+                        to={`${cblog_route_get("about").url}`}
                     >
                         ✍️ {frontmatter.author}
-                    </a>}
+                    </Link>}
                 {/* category */}
                 {frontmatter.category && 
-                    <a
-                        href={`${cblog_route_get("category").url}`}
+                    <Link
+                        to={`${cblog_route_get("category").url}`}
                     >
                         📁 {frontmatter.category}
-                    </a>}
+                    </Link>}
                 {/* tags */}
                 {frontmatter.tags && (
-                    <a
-                        href={`${cblog_route_get("articlelist").url}`}
+                    <Link
+                        to={`${cblog_route_get("articlelist").url}`}
                         style={{
                             display: 'flex',
                             gap: '8px'
                         }}
                     >
                         🏷️ {frontmatter.tags}
-                    </a>
+                    </Link>
                 )}
             </div>
         </div>
@@ -143,7 +143,7 @@ export function Article_Markdown_Frontmatter(frontmatter) {
 /****************************************************************************************************
 * Article_Markdown_Get()
 ****************************************************************************************************/
-export function Article_Markdown_Get(article) {
+export function Article_Markdown_Get({path}) {
     const theme = useTheme();
     const [content, setContent] = useState('');
     const [metadata, setMetadata] = useState(null);
@@ -151,7 +151,7 @@ export function Article_Markdown_Get(article) {
     /* read file */
     useEffect(() => {
         async function loadContent() {
-            const result = await kernel_file_read(article);
+            const result = await kernel_file_read(path);
             /* check state & authory */
             const frontmatter = kernel_file_get_frontmatter(result);
             if(!frontmatter)
@@ -167,10 +167,10 @@ export function Article_Markdown_Get(article) {
             /* return content */
             const contentWithoutFrontmatter = result.replace(/^---[\s\S]*?---\s*/m, '');
             setContent(contentWithoutFrontmatter);
-            
+
         }
         loadContent();
-    }, [article]);
+    }, [path]);
 
     return (
         <div
@@ -180,21 +180,15 @@ export function Article_Markdown_Get(article) {
                 padding: '24px',
                 width: '90%',
                 textAlign: 'center',
-                /* color */
-                background: `${theme.total.background}66`,
-                backdropFilter: 'blur(15px)',
                 /* style */
                 borderRadius: '32px',
-                boxShadow: theme.total.shadowSm,
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
+            onMouseEnter={e => {
                 e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = theme.total.shadowSm;
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'None';
             }}
         >
             {/* frontmatter */}
@@ -207,9 +201,9 @@ export function Article_Markdown_Get(article) {
                 rehypePlugins={[rehypeRaw]}
                 /* url process */
                 urlTransform={uri => {
-                    if (uri.startsWith('http') || uri.startsWith('/')) 
+                    if (uri.startsWith('http') || uri.startsWith('/'))
                         return uri;
-                    return process.env.PUBLIC_URL + '/' + article + '/' + uri;
+                    return process.env.PUBLIC_URL + '/' + path + '/' + uri;
                 }}
                 /* style */
                 components={{
@@ -287,7 +281,7 @@ export function Article() {
                 }
             }
         >
-            {Article_Markdown_Get(articlePath)}
+            <Article_Markdown_Get path={articlePath} />
         </div>
     );
 }

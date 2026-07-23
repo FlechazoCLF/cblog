@@ -22,6 +22,7 @@
 
 /* react */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 /* article */
 import { article_cfg_category_get } from '../article/article_cfg';
 /* theme */
@@ -46,7 +47,7 @@ import { useTheme } from '../../kernel/theme/theme'
 /****************************************************************************************************
 * Csay_Sidebar_Priority()
 ****************************************************************************************************/
-export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelectedPriority) {
+export function Csay_Sidebar_Priority({csayarticles, selectedPriority, setSelectedPriority}) {
     const theme = useTheme();
 
     /* get priorityList */
@@ -94,7 +95,7 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                         /* layout */
                         /* style */
                         fontWeight: 600, 
-                        color: theme.total.info,
+                        color: theme.total.primary,
                         whiteSpace: 'nowrap',
                     }}
                 >
@@ -137,14 +138,14 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                         overflowY: 'auto',
                         maxHeight: '200px',
                         /* color */
-                        background: theme.total.background,
+                        background: theme.total.elevated,
                         /* style */
                         top: '100%',
                         right: '0',
-                        width: '60px',
+                        width: '120px',
                         border: `1px solid ${theme.total.border}`,
                         borderRadius: '8px',
-                        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                        boxShadow: theme.total.shadowMd,
                         zIndex: 10,
                     }}
                 >
@@ -158,6 +159,13 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
                                 cursor: 'pointer',
                                 background: level === selectedPriority ? theme.total.surfaceHover : 'transparent',
                                 borderBottom: `1px solid ${theme.total.divider}`,
+                                transition: 'background 0.15s',
+                            }}
+                            onMouseEnter={e => {
+                                if (level !== selectedPriority) e.currentTarget.style.background = theme.total.surfaceHover;
+                            }}
+                            onMouseLeave={e => {
+                                if (level !== selectedPriority) e.currentTarget.style.background = 'transparent';
                             }}
                             onClick={() => selectPriority(level)}
                         >
@@ -174,7 +182,7 @@ export function Csay_Sidebar_Priority(csayarticles,selectedPriority, setSelected
 /****************************************************************************************************
 * Csay_Sidebar_Date()
 ****************************************************************************************************/
-export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,selectedMonth,setSelectedMonth) {
+export function Csay_Sidebar_Date({years, selectedYear, setSelectedYear, months, selectedMonth, setSelectedMonth}) {
     const theme = useTheme();
     
     return (
@@ -202,8 +210,8 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             padding: '8px 0',
                             margin: '8px 4px',
                             /* color */
-                            background: year === selectedYear ? '#1976d2' : 'transparent',
-                            color: year === selectedYear ? theme.total.background : '#222',
+                            background: year === selectedYear ? theme.total.primary : 'transparent',
+                            color: year === selectedYear ? theme.total.textInverse : theme.total.textPrimary,
                             /* font */
                             fontWeight: 500,
                             fontSize: 16,
@@ -211,7 +219,18 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             border: 'none',
                             borderRadius: '20px',
                             cursor: 'pointer',
-                            transition: 'background 0.2s',
+                            transition: 'all 0.2s',
+                            boxShadow: year === selectedYear ? theme.total.shadowXs : 'none',
+                        }}
+                        onMouseEnter={e => {
+                            if (year !== selectedYear) {
+                                e.currentTarget.style.background = theme.total.surfaceHover;
+                            }
+                        }}
+                        onMouseLeave={e => {
+                            if (year !== selectedYear) {
+                                e.currentTarget.style.background = 'transparent';
+                            }
                         }}
                         onClick={() => setSelectedYear(year)}
                     >
@@ -227,7 +246,11 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                     flexDirection: 'column',
                 }}
             >
-                {/* sidebar year */}
+                {/* month label */}
+                <div style={{ fontSize: 11, fontWeight: 700, color: theme.total.textMuted, letterSpacing: '0.5px', marginBottom: 8 }}>
+                    MONTH
+                </div>
+                {/* sidebar month */}
                 {months.map(month => (
                     <button
                         style={{
@@ -237,8 +260,8 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             padding: '8px 0',
                             margin: '8px 4px',
                             /* color */
-                            background: month === selectedMonth ? '#1976d2' : 'transparent',
-                            color: month === selectedMonth ? theme.total.background : '#222',
+                            background: month === selectedMonth ? theme.total.primary : 'transparent',
+                            color: month === selectedMonth ? theme.total.textInverse : theme.total.textPrimary,
                             /* font */
                             fontSize: 16,
                             fontWeight: 500,
@@ -246,7 +269,18 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
                             border: 'none',
                             borderRadius: '20px',
                             cursor: 'pointer',
-                            transition: 'background 0.2s',
+                            transition: 'all 0.2s',
+                            boxShadow: month === selectedMonth ? theme.total.shadowXs : 'none',
+                        }}
+                        onMouseEnter={e => {
+                            if (month !== selectedMonth) {
+                                e.currentTarget.style.background = theme.total.surfaceHover;
+                            }
+                        }}
+                        onMouseLeave={e => {
+                            if (month !== selectedMonth) {
+                                e.currentTarget.style.background = 'transparent';
+                            }
                         }}
                         onClick={() => setSelectedMonth(month)}
                     >
@@ -261,14 +295,34 @@ export function Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,sele
 /****************************************************************************************************
 * Csay_Sidebar()
 ****************************************************************************************************/
-export function Csay_Sidebar(csayarticles,years,selectedYear,setSelectedYear,months,selectedMonth,setSelectedMonth,selectedPriority,setSelectedPriority) {
+export function Csay_Sidebar({csayarticles, years, selectedYear, setSelectedYear, months, selectedMonth, setSelectedMonth, selectedPriority, setSelectedPriority}) {
+    const theme = useTheme();
 
     return (
-        <div>
-            {/* priority */}
-            {Csay_Sidebar_Priority(csayarticles,selectedPriority,setSelectedPriority)}
-            {/* date */}
-            {Csay_Sidebar_Date(years,selectedYear,setSelectedYear,months,selectedMonth,setSelectedMonth)}
+        <div
+            style={{
+                /* layout */
+                padding: '20px 16px',
+                /* style */
+                background: `${theme.total.surface}88`,
+                borderRadius: '16px',
+                boxShadow: theme.total.shadowXs,
+            }}
+        >
+            {/* priority section */}
+            <div style={{ fontSize: 11, fontWeight: 700, color: theme.total.textMuted, letterSpacing: '0.5px', marginBottom: 8 }}>
+                PRIORITY
+            </div>
+            <Csay_Sidebar_Priority csayarticles={csayarticles} selectedPriority={selectedPriority} setSelectedPriority={setSelectedPriority} />
+
+            {/* divider */}
+            <div style={{ height: 1, background: theme.total.divider, margin: '20px 0' }} />
+
+            {/* year section */}
+            <div style={{ fontSize: 11, fontWeight: 700, color: theme.total.textMuted, letterSpacing: '0.5px', marginBottom: 8 }}>
+                YEAR
+            </div>
+            <Csay_Sidebar_Date years={years} selectedYear={selectedYear} setSelectedYear={setSelectedYear} months={months} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
         </div>
     );
 }
@@ -276,12 +330,12 @@ export function Csay_Sidebar(csayarticles,years,selectedYear,setSelectedYear,mon
 /****************************************************************************************************
 * Csay_Content_Item()
 ****************************************************************************************************/
-export function Csay_Content_Item(articles) {
+export function Csay_Content_Item({yearArticles}) {
     const theme = useTheme();
 
     return (
         <div>
-            {articles.map((article, idx) => {
+            {yearArticles.map((article, idx) => {
                 /* get date */
                 let month = article.month;
                 let day = article.day;
@@ -298,13 +352,21 @@ export function Csay_Content_Item(articles) {
                             /* layout */
                             display: 'flex',
                             position: 'relative',
+                            alignItems: 'center',
+                            padding: '1px',
                             justifyContent: isLeft ? 'flex-end' : 'flex-start', 
-                            margin: '32px 24px', 
+                            margin: '32px 24px',
+                            /* font */
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 
+                            /* style */
+                            borderRadius: '12px',
+                            transition: 'all 0.3s ease',
+                            cursor: 'pointer',
                         }}
                     >
                         {/* content */}
-                        <a
-                            href={article.path}
+                        <Link
+                            to={article.path}
                             style={{
                                 /* layout */
                                 textAlign: 'left',
@@ -314,26 +376,73 @@ export function Csay_Content_Item(articles) {
                                 padding: 16,
                                 margin:'0 20px',
                                 /* color */
-                                background: ' #F5F5F5',
+                                background: theme.total.surfaceSecondary,
+                                color: theme.total.textPrimary,
+                                textDecoration: 'none',
                                 /* style */
                                 borderRadius: '16px',
                                 boxShadow: theme.total.shadowSm,
+                                transition: 'all 0.25s',
+                            }}
+                            /* mouse */
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-2px) scale(1.03)';
+                                e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                                e.currentTarget.style.boxShadow = theme.total.shadowSm;
                             }}
                         >
+                            {/* image */}
+                            <div
+                                style={{
+                                    /* display */
+                                    position: 'relative',
+                                    flexShrink: 0,
+                                    overflow: 'hidden',
+                                    marginRight: '16px',
+                                    /* sytle */
+                                    width: '100%',
+                                    height: '100px',
+                                    borderRadius: '8px',
+                                }}
+                            >
+                                <img
+                                    src={article.cover}
+                                    alt={article.name}
+                                    style={{
+                                        /* display */
+                                        objectFit: 'cover',
+                                        /* sytle */
+                                        width: '100%',
+                                        height: '100%',
+                                    }}
+                                />
+                            </div>
                             {/* date */}
                             <div 
                                 style={{ 
                                     fontWeight: 600, 
-                                    color: ' #1976d2', 
+                                    color: theme.total.primary, 
                                     marginBottom: 4 
                                 }}
                             >
                                 {month}月{day}日
                             </div>
-                            <div>
-                                {article.title}
+                            <div
+                                style={{
+                                fontSize: 14,
+                                fontWeight: 500,
+                                color: theme.total.textSecondary,
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                            }}
+                            >
+                                {article.title} - {article.location}
                             </div>
-                        </a>
+                        </Link>
                         {/* time point */}
                         <div style={{
                             /* layout */
@@ -344,9 +453,9 @@ export function Csay_Content_Item(articles) {
                             left: '50%',
                             top: '50%',
                             /* color */
-                            background: '#1976d2',
+                            background: theme.total.primary,
                             /* style */
-                            border: `4px solid ${theme.total.background}`,
+                            border: `4px solid ${theme.total.surface}`,
                             borderRadius: '50%',
                             transform: 'translate(-50%, -50%)',
                             boxShadow: theme.total.shadowSm,
@@ -362,13 +471,14 @@ export function Csay_Content_Item(articles) {
 /****************************************************************************************************
 * Csay_Content()
 ****************************************************************************************************/
-export function Csay_Content(articles,selectedYear,selectedMonth,selectedPriority) {
+export function Csay_Content({csayarticles, selectedYear, selectedMonth, selectedPriority}) {
+    const theme = useTheme();
     /* priority articles */
-    const priorityArticles = articles.filter(article => (article.priority !== undefined ? article.priority : "64") <= selectedPriority);
+    const priorityArticles = csayarticles.filter(article => (article.priority !== undefined ? article.priority : "64") <= selectedPriority);
     /* get year articles */
     const yearArticles = priorityArticles.filter(article => new Date(article.date).getFullYear() === selectedYear);
     /* get year moth article */
-    const yearMonthArticles = articles.filter(article => {
+    const yearMonthArticles = csayarticles.filter(article => {
         const d = new Date(article.date);
         return ( !isNaN(d) && (d.getFullYear() === selectedYear) && ((d.getMonth() + 1) === selectedMonth) );
     });
@@ -393,7 +503,7 @@ export function Csay_Content(articles,selectedYear,selectedMonth,selectedPriorit
                     bottom: 0,
                     width: 2,
                     /* color */
-                    background: '#1976d2',
+                    background: theme.total.primary,
                     /* style */
                     transform: 'translateX(-50%)',
                 }} 
@@ -405,7 +515,7 @@ export function Csay_Content(articles,selectedYear,selectedMonth,selectedPriorit
                     position: 'relative', 
                 }}
             >
-                {Csay_Content_Item(yearArticles)}
+                <Csay_Content_Item yearArticles={yearArticles} />
             </div>
         </div>
     );
@@ -468,7 +578,7 @@ export function Csay_Article_MonthIndex_Get(articles,selectedYear) {
 * Csay()
 ****************************************************************************************************/
 export function Csay() {
-
+    const theme = useTheme();
     /* say category */
     let csaycategory = article_cfg_category_get("csay");
     /* sort */
@@ -489,27 +599,21 @@ export function Csay() {
                 display: 'flex',
                 width: '90%',
                 padding: '24px',
-                /* color */
-                background: 'rgba(245, 245, 245, 0.6)',
-                backdropFilter: 'blur(15px)',
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
-            /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            /* mouse — shadow only, no transform for large container */
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* sidebar year */}
-            {Csay_Sidebar(csayarticles,years,selectedYear,setSelectedYear,months,selectedMonth,setSelectedMonth,selectedPriority,setSelectedPriority)}
+            <Csay_Sidebar csayarticles={csayarticles} years={years} selectedYear={selectedYear} setSelectedYear={setSelectedYear} months={months} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} selectedPriority={selectedPriority} setSelectedPriority={setSelectedPriority} />
             {/* content */}
-            {Csay_Content(csayarticles,selectedYear,selectedMonth,selectedPriority)}
+            <Csay_Content csayarticles={csayarticles} selectedYear={selectedYear} selectedMonth={selectedMonth} selectedPriority={selectedPriority} />
         </div>
     );
 }

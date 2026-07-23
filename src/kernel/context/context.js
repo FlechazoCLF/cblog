@@ -25,6 +25,10 @@ import { createContext, useContext, useState, useRef } from 'react'
 /* components */
 /* router */
 import { useNavigate } from 'react-router-dom'
+/* author */
+import { Author_Provider } from '../author/author';
+/* AudioProvider */
+import { AudioProvider } from '../audio/audio_context';
 
 /****************************************************************************************************
 * Define
@@ -78,7 +82,11 @@ export const AppProvider = ({ children }) => {
             /* router */
             navigate,
         }}>
-            {children}
+            <AudioProvider>
+                <Author_Provider>
+                    {children}
+                </Author_Provider>
+            </AudioProvider>
         </AppContext.Provider>
     )
 }

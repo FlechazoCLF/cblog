@@ -19,10 +19,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run generate-directory && npm run generate-articles && npm run generate-calendar && npm run generate-ebbinghaus && react-scripts start",
-    "build": "npm run generate-directory && npm run generate-articles && npm run generate-calendar && npm run generate-ebbinghaus && react-scripts build",
+    "start": "react-scripts start",
+    "build": "npm run generate && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "generate": "npm run generate-directory && npm run generate-articles && npm run generate-calendar && npm run generate-ebbinghaus",
     "generate-articles": "node src/page/article/article_cfg_generator.js",
     "generate-directory": "node src/kernel/directory/directory_generator.js",
     "generate-calendar": "node src/page/wonderful/wonderful_calendar/wonderful_calendar_generator.js",

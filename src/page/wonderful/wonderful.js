@@ -24,6 +24,8 @@
 import { Wonderful_map_Init } from './wonderful_map/wonderful_map';
 /* calendar */
 import { Wonderful_calendar_Init } from './wonderful_calendar/wonderful_calendar';
+/* color */
+import { Wonderful_color_Init } from './wonderful_color/wonderful_color';
 /* theme */
 import { useTheme } from '../../kernel/theme/theme'
 
@@ -54,6 +56,8 @@ export function Wonderful_Init() {
         Wonderful_map_Init();
         /* calendar init */
         Wonderful_calendar_Init();
+        /* color init */
+        Wonderful_color_Init();
     }while(0);
 
     return (
@@ -81,20 +85,15 @@ export function Wonderful() {
                 display: 'flex',
                 width: '90%',
                 padding: '24px',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             Wonderful

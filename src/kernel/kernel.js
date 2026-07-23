@@ -26,6 +26,10 @@ import { kernel_file_init } from './file/kernel_file'
 import { kernel_folder_init } from './folder/kernel_folder'
 /* author */
 import { Author_Init } from './author/author'
+/* kernel menu */
+import { Menu } from './menu/menu';
+/* kernel ai float */
+import { Agent } from './agent/agent';
 
 /****************************************************************************************************
 * Define
@@ -74,7 +78,7 @@ export function kernel_init() {
 /****************************************************************************************************
 * kernel()
 ****************************************************************************************************/
-export function kernel() {
+export function Kernel() {
 
     do
     {
@@ -82,9 +86,12 @@ export function kernel() {
     }while(0);
 
     return (
-        <div>
-
-        </div>
+        <>
+            {/* global menu */}
+            <Menu />
+            {/* global ai float dialog */}
+            <Agent />
+        </>
     );
 }
 

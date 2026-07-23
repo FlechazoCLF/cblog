@@ -31,7 +31,7 @@ import { Hoverball } from '../../layout/hoverball/hoverball'
 import { useTheme } from '../../kernel/theme/theme'
 /* components */
 import { About } from '../about/about';
-import { Categorize, CategorizeDetail } from '../categorize/categorize';
+import { Categorize, Categorize_Detail } from '../categorize/categorize';
 import { Article } from '../article/article';
 import { Articlelist } from '../articlelist/articlelist';
 import { Csay } from '../csay/csay';
@@ -46,6 +46,7 @@ import { Wonderful_english } from '../wonderful/wonderful_english/wonderful_engl
 import { Wonderful_love } from '../wonderful/wonderful_love/wonderful_love';
 import { Wonderful_map } from '../wonderful/wonderful_map/wonderful_map';
 import { Wonderful_calendar } from '../wonderful/wonderful_calendar/wonderful_calendar';
+import { Wonderful_color } from '../wonderful/wonderful_color/wonderful_color';
 import{ Navigate_Show,Navigate_Show_Sticky,Navigate_Show_Donate } from '../navigate/navigate';
 
 /****************************************************************************************************
@@ -78,24 +79,35 @@ function Navigate_Show_Image() {
         <div 
             style={{
                 /* position */
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
                 position: 'relative',
-                top: '-400px',
+                top: '-64px',
             }}
         >
             {/* banner */}
             <img
-                src={process.env.PUBLIC_URL + '/images/wallpaper/02.png'}
+                src={process.env.PUBLIC_URL + '/images/wallpaper/08.png'}
                 style={{ 
                     /* layout */
                     objectFit: 'cover',
                     objectPosition: 'center top',
-                    width: '100vw',
+                    width: '100%',
                     height: '100vh',
                     /* style */
                     borderRadius: 8,
-                    /* 渐变透明效果 */
-                    mask: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
-                    WebkitMask: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+                }}
+            />
+            <img
+                src={process.env.PUBLIC_URL + '/images/footer/footer.webp'}
+                alt="flechazo"
+                style={{
+                    position: 'relative', 
+                    marginTop: -80, 
+                    height: 120,
+                    zIndex: 10000,
                 }}
             />
         </div>
@@ -120,22 +132,23 @@ function Navigate_Show_Title() {
                 style={{
                     /* layout */
                     position: 'absolute',
-                    top: '30%',
+                    top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     /* style */
-                    color: theme.total.background,
+                    color: `${theme.total.background}AF`,
                     fontSize: '4rem',
                     fontWeight: 'bold',
                     textShadow: `0 4px 16px ${theme.total.OverboxShadow}`,
                     letterSpacing: 4,
+                    transition: 'all 0.3s ease',
                 }}
                 /* mouse */
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.35)';
                     e.currentTarget.textContent = '爱你呦💝';
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)';
                     e.currentTarget.textContent = 'flechazo';
                 }}
@@ -224,12 +237,10 @@ function Navigate_Show_Content_Holder() {
                 alignItems: 'center',
             }}
         >
-            {/* friend */}
-            <Friend></Friend>
             {/* sticky */}
             <Navigate_Show_Sticky></Navigate_Show_Sticky>
-            {/* categorize */}
-            <Categorize></Categorize>
+            {/* map */}
+            <Wonderful_map></Wonderful_map>
             {/* donate */}
             <Navigate_Show_Donate></Navigate_Show_Donate>
         </div>
@@ -250,9 +261,9 @@ function Blog_Show() {
         <div>
             <div>
                 {/* images */}
-                {Navigate_Show_Image()}
+                <Navigate_Show_Image />
                 {/* title */}
-                {Navigate_Show_Title()}
+                <Navigate_Show_Title />
             </div>
             <div 
                 style={{ 
@@ -261,17 +272,17 @@ function Blog_Show() {
                     minHeight: '80vh',
                     /* position */
                     position: 'relative',
-                    margin: '-512px auto auto auto',
+                    margin: '-64px auto auto auto',
                     /* style */
                 }}
             >
                 {/* sidebar */}
-                {Navigate_Show_Sidebar()}
+                <Navigate_Show_Sidebar />
                 {/* content */}
-                {Navigate_Show_Content()}
+                <Navigate_Show_Content />
             </div>
             <div>
-                {Navigate_Show_Hoverball()}
+                <Navigate_Show_Hoverball />
             </div>
         </div>
     );
@@ -282,19 +293,25 @@ function Blog_Show() {
 ****************************************************************************************************/
 export function Blog() {
 
+    const theme = useTheme();
+
     do
     {
 
     }while(0);
 
     return (
-        <div>
+        <div
+            style={{
+                background: theme.total.canvas,
+            }}
+        >
             {/* top bar */}
-            {Topbar()}
+            <Topbar />
             {/* content */}
-            {Blog_Show()}
+            <Blog_Show />
             {/* footer */}
-            {Footer()}
+            <Footer />
         </div>
     );
 }
@@ -314,7 +331,7 @@ export function Blog_Route() {
           <Route index element={<Navigate_Show_Content_Holder></Navigate_Show_Content_Holder>} />
           <Route path="about" element={<About></About>} />
           <Route path="category" element={<Categorize></Categorize>} />
-          <Route path="category/:category" element={<CategorizeDetail></CategorizeDetail>} />
+          <Route path="category/:category" element={<Categorize_Detail></Categorize_Detail>} />
           <Route path="articles/:category/:article" element={<Article></Article>} />
           <Route path="articlelist" element={<Articlelist></Articlelist>} />
           <Route path="csay" element={<Csay></Csay>} />
@@ -328,6 +345,7 @@ export function Blog_Route() {
           <Route path="wonderful_love" element={<Wonderful_love></Wonderful_love>} />
           <Route path="wonderful_map" element={<Wonderful_map></Wonderful_map>} />
           <Route path="wonderful_calendar" element={<Wonderful_calendar></Wonderful_calendar>} />
+          <Route path="wonderful_color" element={<Wonderful_color></Wonderful_color>} />
           <Route path="friend" element={<Friend></Friend>} />
         </>
     );

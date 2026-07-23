@@ -26,13 +26,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 /* page */
 import { Navigate , Navigate_Route } from './page/navigate/navigate';
 import { Blog , Blog_Route } from './page/blog/blog';
+/* home (browser start page) */
+import { Home } from './page/home/home';
 /* components */
-import { kernel_init } from './kernel/kernel'
+import { kernel_init,Kernel } from './kernel/kernel'
 import { layout_init } from './layout/layout'
 import { page_init } from './page/page'
 import { cblog_route_init } from './route/route'
-/* author */
-import { Author_Provider } from './kernel/author/author';
 /* AppContext */
 import { AppProvider } from './kernel/context/context';
 
@@ -56,34 +56,38 @@ import { AppProvider } from './kernel/context/context';
 * App()
 ****************************************************************************************************/
 export default function App() {
-  /* init */
-  /* kernel init */
-  kernel_init();
-  /* layout init */
-  layout_init();
-  /* page init */
-  page_init();
-  /* route init */
-  cblog_route_init();
-  /* display */
-  return (
-    <Router>
-      <AppProvider>
-        <Author_Provider>
-            <Routes>
-              {/* root navigate */}
-              <Route path="/" element={<Navigate />}>
-                {Navigate_Route()}
-              </Route>
-              {/* blog */}
-              <Route path="/blog" element={<Blog />}>
-                {Blog_Route()}
-              </Route>
-            </Routes>
-        </Author_Provider>
-      </AppProvider>
-    </Router>
-  );
+	/* init */
+	/* kernel init */
+	kernel_init();
+	/* layout init */
+	layout_init();
+	/* page init */
+	page_init();
+	/* route init */
+	cblog_route_init();
+	/* display */
+	return (
+		<Router>
+			<AppProvider>
+				<Routes>
+					{/* home */}
+					<Route path="/" element={<Home />} >
+						{/* home */}
+					</Route>
+					{/* navigate */}
+					<Route path="/navigate" element={<Navigate />}>
+						{Navigate_Route()}
+					</Route>
+					{/* blog */}
+					<Route path="/blog" element={<Blog />}>
+						{Blog_Route()}
+					</Route>
+				</Routes>
+				{/* kernel */}
+				<Kernel />
+			</AppProvider>
+		</Router>
+	);
 }
 
 /****************************************************************************************************

@@ -23,6 +23,8 @@
 
 /* react */
 import React, { useState, useEffect, useRef } from 'react';
+/* router */
+import { Link } from 'react-router-dom';
 /* article */
 import { article_cfg_get } from '../../article/article_cfg';
 /* theme */
@@ -40,7 +42,7 @@ let wonderful_map_cityDatas = [];
 /****************************************************************************************************
 * Wonderful_map_LoadingOverlay
 ****************************************************************************************************/
-function Wonderful_map_LoadingOverlay(isMapReady) {
+function Wonderful_map_LoadingOverlay({isMapReady}) {
     let result = null;
     const theme = useTheme();
 
@@ -82,8 +84,8 @@ function Wonderful_map_LoadingOverlay(isMapReady) {
                         width: '60px',
                         height: '60px',
                         /* style */
-                        border: '4px solid #e1e8ed',
-                        borderTop: '4px solid #2196f3',
+                        border: `4px solid ${theme.total.borderSecondary}`,
+                        borderTop: `4px solid ${theme.total.info}`,
                         borderRadius: '50%',
                         animation: 'spin 1s linear infinite',
                     }}
@@ -109,7 +111,7 @@ function Wonderful_map_LoadingOverlay(isMapReady) {
                         textAlign: 'center',
                         maxWidth: '300px',
                         /* style */
-                        color: ' #666666',
+                        color: theme.total.textDisabled,
                         fontSize: '14px',
                     }}
                 >
@@ -132,7 +134,8 @@ function Wonderful_map_LoadingOverlay(isMapReady) {
 /****************************************************************************************************
 * Wonderful_map_StatisticsPanel()
 ****************************************************************************************************/
-function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
+function Wonderful_map_StatisticsPanel({locationData, selectedLocation}) {
+    const theme = useTheme();
     /* items */
     let statisticItems = [];
     do
@@ -147,22 +150,22 @@ function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
             {
                 value: locationData.length,
                 label: '探索地点',
-                color: ' #2196f3',
+                color: theme.total.info,
             },
             {
                 value: locationData.reduce((sum, location) => sum + location.articles.length, 0),
                 label: '总文章数',
-                color: ' #4caf50',
+                color: theme.total.success,
             },
             {
                 value: selectedLocation ? selectedLocation.articles.length : 0,
                 label: '选中城市文章',
-                color: ' #ff9800',
+                color: theme.total.warning,
             },
             {
                 value: selectedLocation ? selectedLocation.city : "城市",
                 label: selectedLocation ? '选中地点' : '未选择',
-                color: ' #e91e63',
+                color: theme.total.error,
             },
         ];
     }while(0);
@@ -191,9 +194,9 @@ function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
                         textAlign: 'center',
                         padding: '12px',
                         /* style */
-                        background: 'rgba(255, 255, 255, 0.95)',
+                        background: theme.total.overlayLight,
                         borderRadius: '8px',
-                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                        boxShadow: theme.total.shadowSm,
                         backdropFilter: 'blur(10px)',
                     }}
                 >
@@ -216,7 +219,7 @@ function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
                             /* layout */
                             /* style */
                             fontSize: '12px',
-                            color: ' #666666',
+                            color: theme.total.textDisabled,
                         }}
                     >
                         {item.label}
@@ -230,7 +233,7 @@ function Wonderful_map_StatisticsPanel(locationData, selectedLocation) {
 /****************************************************************************************************
 * Wonderful_map_Sidebar_SelectedLocationPanel()
 ****************************************************************************************************/
-function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticlesExpanded, setIsArticlesExpanded) {
+function Wonderful_map_Sidebar_SelectedLocationPanel({selectedLocation, isArticlesExpanded, setIsArticlesExpanded}) {
     const theme = useTheme();
 
     return (
@@ -240,10 +243,10 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                 padding: '15px',
                 marginBottom: '20px',
                 /* color */
-                backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                backgroundColor: theme.total.successBg,
                 /* style */
                 borderRadius: '8px',
-                border: '1px solid rgba(76, 175, 80, 0.2)',
+                border: `1px solid ${theme.total.success}33`,
                 cursor: 'pointer',
             }}
             onClick={() => setIsArticlesExpanded(!isArticlesExpanded)}
@@ -254,7 +257,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                     /* layout */
                     margin: '0 0 10px 0',
                     /* color */
-                    color: '#4caf50',
+                    color: theme.total.success,
                     /* font */
                     fontSize: '16px'
                 }}
@@ -280,7 +283,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                 style={{
                     /* layout */
                     /* color */
-                    color: '#666',
+                    color: theme.total.textDisabled,
                     /* font */
                     fontSize: '14px', 
                 }}
@@ -292,7 +295,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                         /* layout */
                         marginTop: '8px',
                         /* color */
-                        color: selectedLocation.articles.length > 0 ? '#ff8c00' : '#999'
+                        color: selectedLocation.articles.length > 0 ? theme.total.primaryHover : theme.total.textMuted
                     }}
                 >
                     📝 {selectedLocation.articles.length} 篇文章
@@ -307,7 +310,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                             /* layout */
                             margin: '20px 0 10px 0',
                             /* color */
-                            color: '#ff7f50',
+                            color: theme.total.primary,
                             /* font */
                             fontSize: '16px'
                         }}
@@ -316,9 +319,9 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                     </h3>
                     {/* articles */}
                     {selectedLocation.articles.map((article, index) => (
-                        <a 
+                        <Link 
                             key={index}
-                            href={article.path}
+                            to={article.path}
                             style={{
                                 /* layout */
                                 display: 'flex',
@@ -334,13 +337,14 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                                 /* style */
                                 borderRadius: '18px',
                                 boxShadow: theme.total.shadowSm,
+                                transition: 'all 0.3s ease',
                             }}
                             /* mouse */
-                            onMouseOver={e => {
+                            onMouseEnter={e => {
                                 e.currentTarget.style.transform = 'scale(1.1)';
                                 e.currentTarget.style.boxShadow = theme.total.shadowMd;
                             }}
-                            onMouseOut={e => {
+                            onMouseLeave={e => {
                                 e.currentTarget.style.transform = 'scale(1)';
                                 e.currentTarget.style.boxShadow = theme.total.shadowSm;
                             }}
@@ -365,7 +369,7 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                                     /* layout */
                                     marginBottom: '8px',
                                     /* color */
-                                    color: '#666',
+                                    color: theme.total.textDisabled,
                                     /* font */
                                     fontSize: '12px',
                                 }}
@@ -379,14 +383,14 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
                                     /* layout */
                                     marginBottom: '8px',
                                     /* color */
-                                    color: '#666',
+                                    color: theme.total.textDisabled,
                                     /* font */
                                     fontSize: '14px',
                                 }}
                             >
                                 {article.description}
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             )}
@@ -397,7 +401,8 @@ function Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticles
 /****************************************************************************************************
 * Wonderful_map_Sidebar_SearchInput()
 ****************************************************************************************************/
-function Wonderful_map_Sidebar_SearchInput(searchTerm, setSearchTerm) {
+function Wonderful_map_Sidebar_SearchInput({searchTerm, setSearchTerm}) {
+    const theme = useTheme();
     return (
         <div
             style={{
@@ -417,10 +422,11 @@ function Wonderful_map_Sidebar_SearchInput(searchTerm, setSearchTerm) {
                     /* font */
                     fontSize: '14px',
                     /* style */
-                    border: '2px solid #e1e8ed',
+                    border: `2px solid ${theme.total.border}`,
                     borderRadius: '8px',
                     outline: 'none',
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)'
+                    backgroundColor: theme.total.surface,
+                    color: theme.total.textPrimary,
                 }}
             />
         </div>
@@ -440,23 +446,23 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
                 padding: '15px',
                 /* color */
                 backgroundColor: isSelected
-                    ? 'rgba(33, 150, 243, 0.1)'
-                    : 'rgba(255, 255, 255, 0.8)',
+                    ? theme.total.infoBg
+                    : theme.total.surface,
                 /* color */
                 borderRadius: '8px',
-                border: `2px solid ${isSelected ? '#2196f3' : 'rgba(0, 0, 0, 0.1)'}`,
+                border: `2px solid ${isSelected ? theme.total.info : theme.total.borderSecondary}`,
                 /* style */
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
             }}
             onMouseEnter={(e) => {
                 if (!isSelected) {
-                    e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+                    e.target.style.backgroundColor = theme.total.surfaceHover;
                 }
             }}
             onMouseLeave={(e) => {
                 if (!isSelected) {
-                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                    e.target.style.backgroundColor = theme.total.surface;
                 }
             }}
         >
@@ -489,8 +495,8 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
                         /* layout */
                         padding: '2px 8px',
                         /* color */
-                        color: 'white',
-                        backgroundColor: '#4caf50',
+                        color: theme.total.textInverse,
+                        backgroundColor: theme.total.success,
                         /* font */
                         fontSize: '12px',
                         fontWeight: 'bold',
@@ -507,7 +513,7 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
                     /* layout */
                     marginBottom: '5px',
                     /* color */
-                    color: '#666',
+                    color: theme.total.textDisabled,
                     /* font */
                     fontSize: '14px',
                 }}
@@ -519,7 +525,7 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
                 style={{
                     /* layout */
                     /* color */
-                    color: '#999',
+                    color: theme.total.textMuted,
                     /* font */
                     fontSize: '12px',
                 }}
@@ -533,7 +539,7 @@ function Wonderful_map_Sidebar_LocationItem({ location, isSelected, onSelect }) 
 /****************************************************************************************************
 * Wonderful_map_Sidebar_LocationList()
 ****************************************************************************************************/
-function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocationSelect) {
+function Wonderful_map_Sidebar_LocationList({locations, selectedLocation, onLocationSelect}) {
     const theme = useTheme();
     return (
         <div>
@@ -576,7 +582,7 @@ function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocat
                     textAlign: 'center',
                     padding: '20px',
                     /* color */
-                    color: '#666',
+                    color: theme.total.textDisabled,
                     /* font */
                     fontSize: '14px'
                 }}
@@ -590,7 +596,7 @@ function Wonderful_map_Sidebar_LocationList(locations, selectedLocation, onLocat
 /****************************************************************************************************
 * Wonderful_map_Sidebar()
 ****************************************************************************************************/
-function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onLocationSelect,searchTerm,setSearchTerm,isArticlesExpanded, setIsArticlesExpanded) {
+function Wonderful_map_Sidebar({isOpen, onToggle, locationData, selectedLocation, onLocationSelect, searchTerm, setSearchTerm, isArticlesExpanded, setIsArticlesExpanded}) {
     const theme = useTheme();
     /* filter search term */
     const filteredLocations = locationData.filter(location =>
@@ -611,13 +617,13 @@ function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onL
                     width: '50px',
                     height: '50px',
                     /* color */
-                    background: 'rgba(255, 255, 255, 0.95)',
+                    background: theme.total.overlayLight,
                     /* font */
                     fontSize: '20px',
                     /* style */
                     border: 'none',
                     borderRadius: '50%',
-                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                    boxShadow: theme.total.shadowSm,
                     cursor: 'pointer',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s ease',
@@ -639,9 +645,9 @@ function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onL
                     padding: '80px 20px 20px 20px',
                     overflowY: 'auto',
                     /* color */
-                    background: 'rgba(255, 255, 255, 0.95)',
+                    background: theme.total.overlayLight,
                     /* style */
-                    boxShadow: isOpen ? '-5px 0 20px rgba(0, 0, 0, 0.1)' : 'none',
+                    boxShadow: isOpen ? theme.total.shadowLg : 'none',
                     backdropFilter: 'blur(20px)',
                     transition: 'right 0.3s ease',
                 }}
@@ -671,7 +677,7 @@ function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onL
                             /* layout */
                             margin: '0 0 20px 0',
                             /* color */
-                            color: '#666',
+                            color: theme.total.textDisabled,
                             /* font */
                             fontSize: '14px',
                             lineHeight: '1.5',
@@ -682,13 +688,13 @@ function Wonderful_map_Sidebar(isOpen,onToggle,locationData,selectedLocation,onL
                 </div>
 
                 {/* selected location panel */}
-                {selectedLocation && (Wonderful_map_Sidebar_SelectedLocationPanel(selectedLocation,isArticlesExpanded, setIsArticlesExpanded))}
+                {selectedLocation && <Wonderful_map_Sidebar_SelectedLocationPanel selectedLocation={selectedLocation} isArticlesExpanded={isArticlesExpanded} setIsArticlesExpanded={setIsArticlesExpanded} />}
 
                 {/* search input */}
-                {Wonderful_map_Sidebar_SearchInput(searchTerm, setSearchTerm)}
+                <Wonderful_map_Sidebar_SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
                 {/* location list */}
-                {Wonderful_map_Sidebar_LocationList(filteredLocations,selectedLocation,onLocationSelect)}
+                <Wonderful_map_Sidebar_LocationList locations={filteredLocations} selectedLocation={selectedLocation} onLocationSelect={onLocationSelect} />
             </div>
         </>
     );
@@ -940,8 +946,9 @@ function Wonderful_map_LoadLeaflet(onLoaded) {
 /****************************************************************************************************
 * Wonderful_map_LeafletMap()
 ****************************************************************************************************/
-function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSelect, onMapClick, isMapReady) {
-    
+function Wonderful_map_LeafletMap({locationData, selectedLocation, onLocationSelect, onMapClick, isMapReady}) {
+
+    const theme = useTheme();
     /* refs */
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
@@ -950,6 +957,21 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
     /* map initialization effect */
     useEffect(() => {
         Wonderful_map_LeafletMap_InitializeMap();
+
+        /* cleanup: destroy map instance on unmount to prevent memory leak */
+        return () => {
+            if (mapInstanceRef.current) {
+                /* remove all markers first */
+                markersRef.current.forEach(marker => {
+                    mapInstanceRef.current.removeLayer(marker);
+                });
+                markersRef.current = [];
+
+                /* destroy map instance — removes all listeners, tiles, DOM refs */
+                mapInstanceRef.current.remove();
+                mapInstanceRef.current = null;
+            }
+        };
     }, [onMapClick, isMapReady]);
 
     /* markers management effect */
@@ -1071,8 +1093,8 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
 
     /* create custom icon */
     const Wonderful_map_LeafletMap_CreateCustomIcon = (location, isSelected) => {
-        const backgroundColor = isSelected ? '#ff4757' : 
-                              location.articles > 0 ? '#2ed573' : '#007bff';
+        const backgroundColor = isSelected ? theme.total.primary : 
+                              location.articles > 0 ? theme.total.success :  theme.total.info;
         
         return window.L.divIcon({
             className: 'custom-marker',
@@ -1111,7 +1133,7 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
                 align-items: center;
                 justify-content: center;
                 /* style */
-                background-color: #ff6b6b;
+                background-color: ${theme.total.error};
                 color: white;
                 border-radius: 50%;
                 font-size: 10px;
@@ -1132,19 +1154,19 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
                     /* layout */
                     margin: 0 0 8px 0;
                     /* style */
-                    color: #333;
+                    color: ${theme.total.textPrimary};
                 ">${location.city}</h3>
                 <p style="
                     /* layout */
                     margin: 0 0 8px 0;
                     /* style */
-                    color: #666;
+                    color: ${theme.total.textSecondary};
                 ">${location.country}</p>
                 <p style="
                     /* layout */
                     margin: 0 0 8px 0;
                     /* style */
-                    color: #999;
+                    color: ${theme.total.textMuted};
                     font-size: 12px;
                 ">
                     ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}
@@ -1153,7 +1175,7 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
                     /* layout */
                     margin: 0;
                     /* style */
-                    color: ${location.articles.length > 0 ? '#4caf50' : '#999'};
+                    color: ${location.articles.length > 0 ? theme.total.success : theme.total.textMuted};
                 ">
                     📝 ${location.articles.length} 篇文章
                 </p>
@@ -1191,9 +1213,9 @@ function Wonderful_map_LeafletMap(locationData, selectedLocation, onLocationSele
                 }
                 
                 @keyframes pulse {
-                    0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
-                    70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
-                    100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+                    0% { box-shadow: 0 0 0 0 ${theme.total.primary}B3; }
+                    70% { box-shadow: 0 0 0 10px ${theme.total.primary}00; }
+                    100% { box-shadow: 0 0 0 0 ${theme.total.primary}00; }
                 }
             `}</style>
         </>
@@ -1360,27 +1382,31 @@ export function Wonderful_map() {
                 /* layout */
                 padding: '24px',
                 position: 'relative',
-                width: '90%',
+                width: '96%',
                 height: '100vh',
                 overflow: 'hidden',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
+            }}
+            /* mouse */
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
+            }}
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* load state */}
-            {Wonderful_map_LoadingOverlay(isMapReady)}
+            <Wonderful_map_LoadingOverlay isMapReady={isMapReady} />
 
             {/* static panel */}
-            {Wonderful_map_StatisticsPanel(cityData,selectedLocation)}
+            <Wonderful_map_StatisticsPanel locationData={cityData} selectedLocation={selectedLocation} />
 
             {/* map */}
-            {Wonderful_map_LeafletMap(cityData, selectedLocation,setSelectedLocation,handleMapClick,isMapReady)}
+            <Wonderful_map_LeafletMap locationData={cityData} selectedLocation={selectedLocation} onLocationSelect={setSelectedLocation} onMapClick={handleMapClick} isMapReady={isMapReady} />
 
             {/* sidebar */}
-            {Wonderful_map_Sidebar(sidebarOpen,toggleSidebar,cityData,selectedLocation,setSelectedLocation,searchTerm,setSearchTerm,isArticlesExpanded, setIsArticlesExpanded)}
+            <Wonderful_map_Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} locationData={cityData} selectedLocation={selectedLocation} onLocationSelect={setSelectedLocation} searchTerm={searchTerm} setSearchTerm={setSearchTerm} isArticlesExpanded={isArticlesExpanded} setIsArticlesExpanded={setIsArticlesExpanded} />
         </div>
     );
 }

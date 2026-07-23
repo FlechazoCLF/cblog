@@ -73,6 +73,57 @@ function article_cfg_generator_get_frontmatter(content) {
 }
 
 /****************************************************************************************************
+* article_cfg_generator_get_image()
+****************************************************************************************************/
+function article_cfg_generator_get_image(content) {
+    let result = [];
+
+    do
+    {
+        /* check */
+        if(content == "")
+        {
+            continue;
+        }
+        /* get date from markdown */
+        const matches = [...content.matchAll(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+["'](.*?)["'])?\s*\)/g)];
+        if(matches == null)
+        {
+            continue;
+        }
+        /* get line */
+        result = matches.map((match) => ({
+            alt: match[1] || '',
+            url: match[2] || '',
+            title: match[3] || '',
+        }));;
+    }while(0);
+
+    return result;
+}
+
+/****************************************************************************************************
+* article_cfg_generator_format_image_url()
+****************************************************************************************************/
+function article_cfg_generator_format_image_url(articlePath,image) {
+    let result = "";
+
+    do
+    {
+        /* check */
+        if((articlePath == "") || (image == ""))
+        {
+            continue;
+        }
+        /* get date from markdown */
+        result = articlePath.replaceAll("public","");
+        result = path.join(result,image.url).replaceAll("\\","/") 
+    }while(0);
+
+    return result;
+}
+
+/****************************************************************************************************
 * kernel_file_fill_frontmatter()
 ****************************************************************************************************/
 function kernel_file_fill_frontmatter(frontmatter) {
@@ -196,6 +247,10 @@ function categorize_cfg_generator_scan_article(folder,category,article) {
             /* get front matter */
             const frontmatter = article_cfg_generator_get_frontmatter(mdContent);
             const fillfrontmatter = kernel_file_format_frontmatter(readmePath,mdContent,frontmatter);
+            /* get first image url */
+            const images = ((fillfrontmatter.cover == null) || (fillfrontmatter.cover == "")) ? article_cfg_generator_get_image(mdContent) : null ;
+            const firstImage = ((images != null) && (images.length > 0)) ? article_cfg_generator_format_image_url(articlePath,images[0]) : null;
+            const defaultImage = firstImage == null ? '/images/wallpaper/08.png' : firstImage;
             /* push */
             articleinfo = {
                 /* info */
@@ -220,11 +275,11 @@ function categorize_cfg_generator_scan_article(folder,category,article) {
                 /* calendar 每年 每月 每日 单次 | 阳历 阴历 */
                 calendar: fillfrontmatter.calendar || "",
                 /* cover image */
-                cover: fillfrontmatter.cover || "",
+                cover: fillfrontmatter.cover || firstImage || defaultImage || "",
                 /* description */
                 description: fillfrontmatter.description || "",
                 /* path */
-                path: "articles/" + category + '/' + article,
+                path: "/blog/articles/" + category + '/' + article,
                 /* article file name */
                 article: article,
             };
@@ -397,14 +452,14 @@ function categorize_cfg_generator_article_sort(articles) {
 * categorize_cfg_generator_create_database_categorize()
 ****************************************************************************************************/
 function categorize_cfg_generator_create_database_categorize(categories) {
-    let templete = "";
+    let template = "";
     
     do
     {
-        /* get templete */
-        const templetePath = path.join(__dirname, 'article_cfg_generator_templete.js');
+        /* get template */
+        const templatePath = path.join(__dirname, 'article_cfg_generator_template.js');
         /* read */
-        templete = fs.readFileSync(templetePath, 'utf8');
+        template = fs.readFileSync(templatePath, 'utf8');
         /* init function */
         let func_database_init = "";
         categories.forEach(category => {
@@ -412,26 +467,26 @@ function categorize_cfg_generator_create_database_categorize(categories) {
         categorize_cfg_item_add("${category.category}","${category.description}","${category.icon}","${category.color}");`;
         });
         /* replace */
-        templete = templete.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
-        templete = templete.replace(/{{type}}/g, "categorize");
-        templete = templete.replace("{{func_database_init}}",func_database_init);
+        template = template.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
+        template = template.replace(/{{type}}/g, "categorize");
+        template = template.replace("{{func_database_init}}",func_database_init);
     }while(0);
 
-    return templete;
+    return template;
 }
 
 /****************************************************************************************************
 * categorize_cfg_generator_create_database_article()
 ****************************************************************************************************/
 function categorize_cfg_generator_create_database_article(categories) {
-    let templete = "";
+    let template = "";
 
     do
     {
-        /* get templete */
-        const templetePath = path.join(__dirname, 'article_cfg_generator_templete.js');
+        /* get template */
+        const templatePath = path.join(__dirname, 'article_cfg_generator_template.js');
         /* read */
-        templete = fs.readFileSync(templetePath, 'utf8');
+        template = fs.readFileSync(templatePath, 'utf8');
         /* init function */
         let func_database_init = "";
         categories.forEach(category => {
@@ -452,12 +507,12 @@ function categorize_cfg_generator_create_database_article(categories) {
             })
         });
         /* replace */
-        templete = templete.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
-        templete = templete.replace(/{{type}}/g, "article");
-        templete = templete.replace("{{func_database_init}}",func_database_init);
+        template = template.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
+        template = template.replace(/{{type}}/g, "article");
+        template = template.replace("{{func_database_init}}",func_database_init);
     }while(0);
 
-    return templete;
+    return template;
 }
 
 /****************************************************************************************************

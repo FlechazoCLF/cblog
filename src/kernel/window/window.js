@@ -60,5 +60,29 @@ export function Window_Get_Width() {
 }
 
 /****************************************************************************************************
+* Window_Set_Clipboard()
+****************************************************************************************************/
+export function Window_Set_Clipboard(text) {
+    do
+    {
+        /* modern api */
+        if (navigator.clipboard && window.isSecureContext)
+        {
+            navigator.clipboard.writeText(text);
+            continue;
+        }
+        /* fallback copy */
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+    }while(0);
+}
+
+/****************************************************************************************************
 * File End!
 ****************************************************************************************************/

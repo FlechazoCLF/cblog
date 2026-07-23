@@ -47,6 +47,7 @@ import { useTheme } from '../../../kernel/theme/theme'
 * Wonderful_cook_title()
 ****************************************************************************************************/
 export function Wonderful_cook_title() {
+    const theme = useTheme();
     return (
         <div>
             {/* title */}
@@ -56,7 +57,7 @@ export function Wonderful_cook_title() {
                     textAlign: 'center',
                     marginBottom: '10px',
                     /* style */
-                    color: '#e74c3c',
+                    color: theme.total.primary,
                 }}
             >
                 不辜负小肚子🥝
@@ -68,7 +69,7 @@ export function Wonderful_cook_title() {
                     textAlign: 'center',
                     marginBottom: '30px',
                     /* style */
-                    color: '#7f8c8d',
+                    color: theme.total.textMuted,
                 }}
             >
                 记录曾经做过的美食
@@ -80,7 +81,7 @@ export function Wonderful_cook_title() {
 /****************************************************************************************************
 * Wonderful_cook_filter()
 ****************************************************************************************************/
-export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookarticles,setFilterCookArticles,selectedTag,setSelectedTag) {
+export function Wonderful_cook_filter({cookarticles,setCookarticles,filtercookarticles,setFilterCookArticles,selectedTag,setSelectedTag}) {
     const theme = useTheme();
     /* get all tags */
     let allTags = [];
@@ -111,29 +112,29 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
                     minWidth: '60px',
                     height: '36px',
                     /* color */
-                    background: isSelected ? '#ff6b35' : (isAllTag ? '#34495e' : '#ff8c00'),
+                    background: isSelected ? theme.total.blockquoteBorder : (isAllTag ? theme.total.textSecondary : theme.total.primaryHover),
                     color: theme.card.background,
                     /* font */
                     fontWeight: isSelected ? 'bold' : '500',
                     fontSize: '0.9rem',
                     /* style */
                     borderRadius: '20px',
-                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    boxShadow: isSelected ? '0 4px 12px rgba(255, 107, 53, 0.4)' : theme.total.shadowSm,
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: isSelected ? '2px solid #ff4757' : 'none',
+                    border: isSelected ? `2px solid ${theme.total.primary}` : 'none',
                 }}
                 /* mouse */
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     if (!isSelected) {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }
                 }}
                 /* click */
@@ -160,7 +161,7 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
                 padding: '20px 0',
                 marginBottom: '20px',
                 /* style */
-                borderBottom: '1px solid #ecf0f1',
+                borderBottom: `1px solid ${theme.total.progressBg}`,
             }}
         >
             {/* filter title */}
@@ -173,7 +174,7 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
                     /* style */
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    color: '#2c3e50',
+                    color: theme.total.textPrimary,
                 }}
             >
                 🏷️ 按标签筛选
@@ -187,7 +188,7 @@ export function Wonderful_cook_filter(cookarticles,setCookarticles,filtercookart
 /****************************************************************************************************
 * Wonderful_cook_content()
 ****************************************************************************************************/
-export function Wonderful_cook_content(cookarticles) {
+export function Wonderful_cook_content({cookarticles}) {
     const theme = useTheme();
     return (
         <div
@@ -231,20 +232,20 @@ export function Wonderful_cook_content(cookarticles) {
                             fontSize: '1.1rem',
                             /* style */
                             borderRadius: '20px',
-                            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+                            boxShadow: theme.total.shadowSm,
                             transition: 'all 0.3s ease',
                             cursor: 'pointer',
                             border: '3px solid transparent',
                         }}
                         /* mouse */
-                        onMouseOver={e => {
+                        onMouseEnter={e => {
                             e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                            e.currentTarget.style.borderColor = '#ff6b35';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                            e.currentTarget.style.borderColor = theme.total.blockquoteBorder;
                         }}
-                        onMouseOut={e => {
+                        onMouseLeave={e => {
                             e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                             e.currentTarget.style.borderColor = 'transparent';
                         }}
                         /* click */
@@ -296,8 +297,8 @@ export function Wonderful_cook_content(cookarticles) {
                                     /* layout */
                                     padding: '2px 8px',
                                     /* color */
-                                    background: ' #ecf0f1',
-                                    color: ' #7f8c8d',
+                                    background: theme.total.progressBg,
+                                    color: theme.total.textMuted,
                                     /* font */
                                     fontSize: '0.75rem',
                                     fontWeight: '500',
@@ -322,7 +323,7 @@ export function Wonderful_cook_content(cookarticles) {
                             fontSize: '0.85rem',
                             lineHeight: '1.4',
                             /* color */
-                            color: '#95a5a6',
+                            color: theme.total.textMuted,
                             /* style */
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -371,28 +372,23 @@ export function Wonderful_cook() {
                 flexDirection: 'column',
                 width: '90%',
                 padding: '24px',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* title */}
-            {Wonderful_cook_title()}
+            <Wonderful_cook_title />
             {/* filter */}
-            {Wonderful_cook_filter(cookarticles,setCookarticles,filtercookarticles,setFilterCookArticles,selectedTag,setSelectedTag)}
+            <Wonderful_cook_filter cookarticles={cookarticles} setCookarticles={setCookarticles} filtercookarticles={filtercookarticles} setFilterCookArticles={setFilterCookArticles} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
             {/* content */}
-            {Wonderful_cook_content(filtercookarticles)}
+            <Wonderful_cook_content cookarticles={filtercookarticles} />
         </div>
     );
 }

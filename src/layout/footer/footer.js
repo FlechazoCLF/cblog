@@ -65,8 +65,17 @@ export function Footer() {
                 padding: '128px 0 32px 0',
             }}
         >
-            Copyright © 2025 ~ {new Date().getFullYear()} 💮flechazo.<br/>
-            All rights reserved.
+            <img
+                src={process.env.PUBLIC_URL + '/images/footer/footer.webp'}
+                alt="flechazo"
+                style={{
+                    height: 64,
+                }}
+            />
+            <div>
+                Copyright © 2025 ~ {new Date().getFullYear()} 💮flechazo.<br/>
+                All rights reserved.
+            </div>
         </div>
     );
 }

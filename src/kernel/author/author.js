@@ -30,7 +30,8 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 /* info */
 const AUTHOR_TOKEN_KEY = 'auth_token';
 const AUTHOR_USER_NAME = 'flechazo';
-const AUTHOR_USER_PASSWORD = 'clf20313';
+/* SHA-256 hash of the actual password */
+const AUTHOR_PASSWORD_HASH = 'b807f4e66fc37ce226a2727560d44b0da8e21006a1e9554502690e4903318f57';
 
 /****************************************************************************************************
 * Type Define
@@ -50,6 +51,18 @@ let Author_State = false;
 ****************************************************************************************************/
 
 /****************************************************************************************************
+* Author_CalcHash()
+****************************************************************************************************/
+async function Author_CalcHash(password)
+{
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/****************************************************************************************************
 * Author_State_Check()
 ****************************************************************************************************/
 export function Author_State_Check()
@@ -65,14 +78,15 @@ export function Author_State_Check()
             Author_State = false;
             continue;
         }
-        /* check token */
-        if(token !== AUTHOR_USER_PASSWORD)
+        /* check token — compare stored hash with expected hash */
+        if(token !== AUTHOR_PASSWORD_HASH)
         {
             Author_State = false;
             continue;
         }
         /* update state */
         Author_State = true;
+        result = true;
     }while(0);
 
     return result;
@@ -81,7 +95,7 @@ export function Author_State_Check()
 /****************************************************************************************************
 * Author_Login()
 ****************************************************************************************************/
-export function Author_Login(info, password)
+export async function Author_Login(info, password)
 {
     let result = false;
 
@@ -93,8 +107,9 @@ export function Author_Login(info, password)
             /* show login windows */
             password = prompt('请输入密码' + info + ':');
         }
-        /* check password */
-        if (password !== AUTHOR_USER_PASSWORD)
+        /* hash user input and compare with stored hash */
+        const inputHash = await Author_CalcHash(password);
+        if (inputHash !== AUTHOR_PASSWORD_HASH)
         {
             result = false;
             alert('🚃密码错误!');
@@ -102,7 +117,7 @@ export function Author_Login(info, password)
         }
         /* login success */
         alert('登录成功👑!');
-        sessionStorage.setItem(AUTHOR_TOKEN_KEY, password);
+        sessionStorage.setItem(AUTHOR_TOKEN_KEY, inputHash);
         /* set state */
         Author_State = true;
         result = true;
@@ -138,10 +153,10 @@ export function Author_Provider({children})
         }
     }, []);
     /* login */
-    const login = (info, password) => {
+    const login = async (info, password) => {
         let result = false;
         /* login */
-        result = Author_Login(info, password);
+        result = await Author_Login(info, password);
         if(result == true)
         {
             /* set state */
@@ -169,10 +184,8 @@ export function Author_Provider({children})
 export function Author_Init()
 {
     /* check */
-    useEffect(() => {
-        Author_State_Check();
-    }, []);
-    
+    Author_State_Check();
+
     /* return */
     return (
         <>

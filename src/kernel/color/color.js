@@ -38,6 +38,7 @@ const COLOR_TYPE_GRADIENT = "gradient";
 const colorList = [
     {
         type: "base",
+        description: "基础颜色",
         colors: [
             {
                 name: "red",
@@ -970,6 +971,14 @@ const colorList = [
                     " #FFE6FA",
                 ]
             },
+            {
+                name: "gradient-cream-beige",
+                description: "奶油米色",
+                value: [
+                    " #FAF9F6",
+                    " #FEFBF5",
+                ]
+            },
         ]
     },
     {
@@ -1078,6 +1087,21 @@ export function color_get(type,name) {
     }while(0);
 
     return (color);
+}
+
+/****************************************************************************************************
+* color_list_get()
+****************************************************************************************************/
+export function color_list_get() {
+    let list = [];
+
+    do
+    {
+        /* copy list */
+        list = colorList;
+    }while(0);
+
+    return (list);
 }
 
 /****************************************************************************************************

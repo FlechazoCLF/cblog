@@ -35,8 +35,8 @@
 /* cblog_route_list */
 export const cblog_route_list = [
     /* flechazo */
-    {page:"home",                 name:"flechazo",       url:"/",                           description:"导航页面是网站默认的首页"},
-    {page:"navigate",             name:"导航",           url:"/",                           description:"导航页面记录了所有常用的网站工具等等"},
+    {page:"home",                 name:"flechazo",       url:"/",                           description:"超级漂亮的浏览器主页呀"},
+    {page:"navigate",             name:"导航",           url:"/navigate",                   description:"导航页面记录了所有常用的网站工具等等"},
     {page:"blog",                 name:"博客",           url:"/blog",                       description:"flechazo小柴的个人博客页面记录我的精彩绝伦"},
     {page:"about",                name:"关于",           url:"/blog/about",                 description:"关于我的小世界"},
     {page:"category",             name:"分类",           url:"/blog/category",              description:"分类页面"},
@@ -47,6 +47,7 @@ export const cblog_route_list = [
     {page:"friend",               name:"朋友圈",         url:"/blog/friend",                description:"flechazo的朋友们"},
     {page:"wonderful",            name:"精彩页",         url:"/blog/wonderful",             description:"一些精彩的个性页面"},
     {page:"wonderful_calendar",   name:"日程",           url:"/blog/wonderful_calendar",    description:"一套日程系统"},
+    {page:"wonderful_color",      name:"颜色",           url:"/blog/wonderful_color",       description:"收藏的颜色画廊"},
     {page:"wonderful_love",       name:"爱情",           url:"/blog/wonderful_love",        description:"爱情的绚烂在这里绽放"},
     {page:"wonderful_chat",       name:"轻语",           url:"/blog/wonderful_chat",        description:"轻语有趣的对话页面"},
     {page:"wonderful_cook",       name:"厨艺",           url:"/blog/wonderful_cook",        description:"记录着我做过的美食"},

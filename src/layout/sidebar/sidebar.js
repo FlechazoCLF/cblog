@@ -23,6 +23,10 @@
 
 /* react */
 import React, { useState, useEffect } from 'react';
+/* react-dom portal */
+import { createPortal } from 'react-dom';
+/* react-router-dom */
+import { Link } from 'react-router-dom';
 /* navigate config */
 import { Navigate_Cfg_Category_Get } from '../../page/navigate/navigate_cfg';
 /* topbar cfg */
@@ -33,6 +37,10 @@ import { Window_Get_Width } from '../../kernel/window/window';
 import { Hoverball_Item_Register,Hoverball_Item_Update } from '../hoverball/hoverball'
 /* sidebar state */
 import { Sidebar_State,useSidebarState } from './sidebar_state'
+/* cfg */
+import { Sidebar_Cfg_Announcement_Get } from './sidebar_cfg'
+/* music player */
+import { Music_Player } from '../music/music_player'
 /* theme */
 import { useTheme } from '../../kernel/theme/theme'
 
@@ -91,6 +99,248 @@ export function Sidebar_Click() {
 }
 
 /****************************************************************************************************
+* Sidebar_Announcement_Modal()
+****************************************************************************************************/
+function Sidebar_Announcement_Modal({ items, onClose, theme }) {
+
+    return (
+        <div
+            onClick={onClose}
+            style={{
+                /* layout */
+                position: 'fixed',
+                inset: 0,
+                zIndex: 10000,
+                /* center */
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '20px',
+                /* color */
+                background: theme.total.overlay,
+                /* animation */
+                backdropFilter: 'blur(2px)',
+                zIndex: 10000,
+            }}
+        >
+            {/* modal */}
+            <div
+                onClick={e => e.stopPropagation()}
+                style={{
+                    /* layout */
+                    width: '100%',
+                    maxWidth: '460px',
+                    maxHeight: '70vh',
+                    overflowY: 'auto',
+                    scrollbarWidth: 'none',
+                    /* padding */
+                    padding: '24px',
+                    /* style */
+                    background: theme.total.elevated,
+                    borderRadius: '20px',
+                    boxShadow: theme.total.shadowLg,
+                }}
+            >
+                {/* header */}
+                <div
+                    style={{
+                        /* layout */
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '16px',
+                    }}
+                >
+                    <div
+                        style={{
+                            /* layout */
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            /* font */
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                            color: theme.sidebar.primary,
+                        }}
+                    >
+                        📢 公告
+                    </div>
+                    <button
+                        onClick={onClose}
+                        title="关闭"
+                        style={{
+                            /* style */
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            /* font */
+                            fontSize: '1.3rem',
+                            lineHeight: 1,
+                            color: theme.total.textMuted,
+                        }}
+                        /* mouse */
+                        onMouseEnter={e => { e.currentTarget.style.color = theme.total.error; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = theme.total.textMuted; }}
+                    >
+                        ×
+                    </button>
+                </div>
+
+                {/* list */}
+                <div
+                    style={{
+                        /* layout */
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '14px',
+                    }}
+                >
+                    {items.map(item => (
+                        <Link
+                            to={item.link}
+                            key={item.id}
+                            style={{
+                                /* position */
+                                position: 'relative',
+                                /* style */
+                                background: theme.total.surface,
+                                border: `1px solid ${theme.total.borderSecondary}`,
+                                borderRadius: '14px',
+                                padding: '14px 16px',
+                                paddingRight: '34px',
+                            }}
+                        >
+                            {/* date */}
+                            {item.date && (
+                                <div
+                                    style={{
+                                        fontSize: '0.72rem',
+                                        color: theme.total.textMuted,
+                                        marginBottom: '4px',
+                                    }}
+                                >
+                                    {item.date}
+                                </div>
+                            )}
+                            {/* title */}
+                            {item.title && (
+                                <div
+                                    style={{
+                                        /* font */
+                                        fontWeight: 'bold',
+                                        fontSize: '0.95rem',
+                                        color: theme.total.textPrimary,
+                                        marginBottom: '4px',
+                                    }}
+                                >
+                                    {item.title}
+                                </div>
+                            )}
+                            {/* content */}
+                            <div
+                                style={{
+                                    fontSize: '0.88rem',
+                                    color: theme.total.textPrimary,
+                                    lineHeight: 1.6,
+                                }}
+                            >
+                                {item.text}
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+/****************************************************************************************************
+* Sidebar_Announcement()
+****************************************************************************************************/
+export function Sidebar_Announcement() {
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+
+    /* get visible items */
+    const items = Sidebar_Cfg_Announcement_Get();
+    /* announcement summary */
+    const summary = (items.length === 1) ? (items[0].title || items[0].text) : `${items.length} 条新公告`;
+
+    return (
+        <>
+            {/* announcement */}
+            <div
+                onClick={() => setOpen(true)}
+                title="点击查看全部公告哦🌅"
+                style={{
+                    /* layout */
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    /* single line */
+                    overflow: 'hidden',
+                    /* style */
+                    cursor: 'pointer',
+                    padding: '10px 14px',
+                    borderRadius: '12px',
+                }}
+                /* mouse */
+                onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
+                }}
+                onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = 'none';
+                }}
+            >
+                {/* icon */}
+                <span style={{ flexShrink: 0 }}>📢</span>
+                {/* announcement count */}
+                <span
+                    style={{
+                        /* layout */
+                        flexShrink: 0,
+                        /* style */
+                        fontSize: '0.7rem',
+                        fontWeight: 'bold',
+                        color: theme.total.textInverse,
+                        background: theme.total.primary,
+                        borderRadius: '10px',
+                        padding: '1px 7px',
+                    }}
+                >
+                    {items.length}
+                </span>
+                {/* summary */}
+                <span
+                    style={{
+                        /* layout */
+                        flex: 1,
+                        minWidth: 0,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        /* font */
+                        fontSize: '0.85rem',
+                        color: theme.total.textPrimary,
+                    }}
+                >
+                    {summary}
+                </span>
+            </div>
+
+            {/* modal */}
+            {open && createPortal(
+                <Sidebar_Announcement_Modal
+                    items={items}
+                    onClose={() => setOpen(false)}
+                    theme={theme}
+                />,
+                document.body
+            )}
+        </>
+    );
+}
+
+/****************************************************************************************************
 * Sidebar_Profile()
 ****************************************************************************************************/
 export function Sidebar_Profile() {
@@ -115,15 +365,16 @@ export function Sidebar_Profile() {
                     margin: '0 auto',
                     /* style */
                     borderRadius: '32px',
+                    transition: 'all 0.3s ease',
                 }}
                 /* mouse */
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
                     e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                    e.currentTarget.style.boxShadow = 'none';
                 }}
             />
             {/* name */}
@@ -220,8 +471,8 @@ export function Sidebar_Navigate() {
                 <div>
                     {/* root */}
                     <div>
-                        <a 
-                            href={item.url} 
+                        <Link 
+                            to={item.url} 
                             style={{
                                 /* layout */
                                 display: 'block',
@@ -231,7 +482,7 @@ export function Sidebar_Navigate() {
                                 borderRadius : '10px',
                             }}
                             /* mouse */
-                            onMouseOver={e => {
+                            onMouseEnter={e => {
                                 e.currentTarget.style.background = theme.navigate.hover;
                                 /* Show children if they exist */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
@@ -241,7 +492,7 @@ export function Sidebar_Navigate() {
                                     childrenDiv.style.display = 'block';
                                 }
                             }}
-                            onMouseOut={e => {
+                            onMouseLeave={e => {
                                 e.currentTarget.style.background = 'transparent';
                                 /* Hide children by child */
                                 const parentDiv = e.currentTarget.parentNode.parentNode;
@@ -253,7 +504,7 @@ export function Sidebar_Navigate() {
                             }}
                         >
                             {item.name}
-                        </a>
+                        </Link>
                     </div>
                     {/* children */}
                     {item.children && item.children.length > 0 && (
@@ -266,16 +517,16 @@ export function Sidebar_Navigate() {
                             padding: '5px',
                             borderRadius: '8px',
                         }}
-                        onMouseOver={e => {
+                        onMouseEnter={e => {
                             e.currentTarget.style.display = 'block';
                         }}
-                        onMouseOut={e => {
+                        onMouseLeave={e => {
                             e.currentTarget.style.display = 'none';
                         }}
                     >
                         {item.children.map(child => (
-                            <a 
-                                href={child.url} 
+                            <Link 
+                                to={child.url} 
                                 style={{
                                     /* layout */
                                     display: 'block',
@@ -283,15 +534,15 @@ export function Sidebar_Navigate() {
                                     padding: '8px',
                                     borderRadius: '8px',
                                 }}
-                                onMouseOver={e => {
+                                onMouseEnter={e => {
                                     e.currentTarget.style.background = theme.navigate.hover;
                                 }}
-                                onMouseOut={e => {
-                                    e.currentTarget.style.background = theme.navigate.background;
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.background = "transparent";
                                 }}
                             >
                                 {child.name}
-                            </a>
+                            </Link>
                         ))}
                     </div>
                     )}
@@ -337,56 +588,62 @@ export function Sidebar() {
         return unsubscribe;
     }, []);
     return (
-        <div>
+        <div
+            style={{
+                /* layout */
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px',
+                /* sticky */
+                position: 'sticky',
+                alignSelf: 'flex-start',
+                overflowY: 'auto',
+                scrollbarWidth: 'none',
+                /* animation */
+                transition: 'all 0.5s ease',
+                marginLeft: isOpenSidebar ? '64px' : '0',
+                width: isOpenSidebar ? '320px' : '0',
+                opacity: isOpenSidebar ? 1 : 0,
+            }}
+        >
+            {/* announcement */}
+            <Sidebar_Announcement />
             {/* sidebar */}
-            <aside 
+            <aside
                 style={{
                     /* layout */
                     display: 'flex',
                     flexDirection: 'column',
-                    top: '80px',
-                    position: 'sticky',
-                    marginLeft: isOpenSidebar ? '64px' : '0',
-                    /* size */
-                    width: isOpenSidebar ? '320px' : '0',
+                    flexShrink: 0,
                     padding: isOpenSidebar ? '32px 16px' : '0',
-                    maxHeight: 'calc(120vh - 80px - 40px)',
-                    /* color */
-                    background: theme.total.surfaceSecondary,
-                    backdropFilter: 'blur(15px)',
-                    /* animation */
-                    transition: 'all 0.5s ease, transform 0.5s ease, opacity 0.5s ease',
-                    transform: isOpenSidebar ? 'translateX(0)' : 'translateX(-100%)',
-                    opacity: isOpenSidebar ? 1 : 0,
-                    /* other */
-                    overflow: isOpenSidebar ? 'visible' : 'hidden',
                     /* style */
                     borderRadius: '32px',
-                    boxShadow: theme.total.shadowSm,
                 }}
                 /* mouse */
-                onMouseOver={e => {
-                    e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
+                onMouseEnter={e => {
                     e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
-                onMouseOut={e => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = theme.total.shadowSm;
+                onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = 'none';
                 }}
             >
                 {isOpenSidebar && (
                     <>
                         {/* profile */}
-                        {Sidebar_Profile()}
+                        <Sidebar_Profile />
                         {/* social */}
-                        {Sidebar_Social()}
+                        <Sidebar_Social />
                         {/* navigate */}
-                        {Sidebar_Navigate()}
+                        <Sidebar_Navigate />
                         {/* tail */}
-                        {Sidebar_Tail()}
+                        <Sidebar_Tail />
                     </>
                 )}
             </aside>
+            {/* music player */}
+            {isOpenSidebar && (
+                <Music_Player />
+            )}
         </div>
     );
 }

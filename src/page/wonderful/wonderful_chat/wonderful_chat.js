@@ -48,7 +48,8 @@ import { chat_cfg_list, Wonderful_chat_cfg_list_user_get } from './wonderful_cha
 /****************************************************************************************************
 * Wonderful_chat_sidebar_chatlist()
 ****************************************************************************************************/
-export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
+export function Wonderful_chat_sidebar_chatlist({chatList, setSelectedChat}) {
+    const theme = useTheme();
     return (
         <div 
             style={{
@@ -65,7 +66,7 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                 const lastMessage = chat.messages[chat.messages.length - 1];
 
                 return (
-                    <div
+                    <div    
                         key={chat.user}
                         onClick={() => setSelectedChat(chat.user)}
                         style={{
@@ -76,14 +77,14 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                             gap: '12px',
                             /* style */
                             padding: '15px 20px',
-                            borderBottom: '1px solid #f5f5f5',
-                            backgroundColor: isSelected ? '#e3f2fd' : 'transparent',
+                            borderBottom: `1px solid ${theme.total.surfaceSecondary}`,
+                            backgroundColor: isSelected ? theme.total.surfaceHover : 'transparent',
                             transition: 'background-color 0.2s ease',
                             cursor: 'pointer',
                         }}
                         onMouseEnter={(e) => {
                             if (!isSelected) {
-                                e.target.style.backgroundColor = '#f8f9fa';
+                                e.target.style.backgroundColor = theme.total.codeBg;
                             }
                         }}
                         onMouseLeave={(e) => {
@@ -104,9 +105,9 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                                 width: '45px',
                                 height: '45px',
                                 borderRadius: '50%',
-                                backgroundColor: isSelected ? '#2196f3' : '#f0f0f0',
+                                backgroundColor: isSelected ? theme.total.info : theme.total.progressBg,
                                 fontSize: '20px',
-                                border: `2px solid ${isSelected ? '#2196f3' : '#e0e0e0'}`,
+                                border: `2px solid ${isSelected ? theme.total.info : theme.total.borderSecondary}`,
                             }}
                         >
                             {chat.user}
@@ -140,7 +141,7 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                                         /* style */
                                         fontSize: '15px',
                                         fontWeight: isSelected ? '600' : '500',
-                                        color: isSelected ? '#2196f3' : '#333',
+                                        color: isSelected ? theme.total.info : theme.total.textPrimary,
                                     }}
                                 >
                                     {chat.name}
@@ -152,7 +153,7 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                                             flexShrink: 0,
                                             /* style */
                                             fontSize: '11px',
-                                            color: '#999',
+                                            color: theme.total.textMuted,
                                         }}
                                     >
                                         {lastMessage.timestamp}
@@ -169,7 +170,7 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                                         whiteSpace: 'nowrap',
                                         /* style */
                                         fontSize: '13px',
-                                        color: '#666',
+                                        color: theme.total.textDisabled,
                                     }}
                                 >
                                     {lastMessage.content.length > 25 
@@ -183,7 +184,7 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
                                         /* layout */
                                         /* style */
                                         fontSize: '13px',
-                                        color: '#999',
+                                        color: theme.total.textDisabled,
                                         fontStyle: 'italic',
                                     }}
                                 >
@@ -201,7 +202,8 @@ export function Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat) {
 /****************************************************************************************************
 * Wonderful_chat_sidebar()
 ****************************************************************************************************/
-export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
+export function Wonderful_chat_sidebar({chatList, setSelectedChat}) {
+    const theme = useTheme();
     return (
         /* sidebar */
         <div
@@ -212,7 +214,7 @@ export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
                 /* style */
                 width: '300px',
                 height: '100vh',
-                borderRight: '1px solid #e0e0e0',
+                borderRight: `1px solid ${theme.total.borderSecondary}`,
             }}
         >
             {/* sidebar header */}
@@ -221,7 +223,7 @@ export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
                     /* layout */
                     padding: '20px',
                     /* style */
-                    borderBottom: '1px solid #f0f0f0',
+                    borderBottom: `1px solid ${theme.total.progressBg}`,
                 }}
             >
                 <h2>
@@ -232,7 +234,7 @@ export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
                         /* layout */
                         margin: '5px 0 0 0',
                         /* style */
-                        color: '#999',
+                        color: theme.total.textDisabled,
                         fontSize: '12px',
                     }}
                 >
@@ -241,7 +243,7 @@ export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
             </div>
 
             {/* sidebar chat list */}
-            {Wonderful_chat_sidebar_chatlist(chatList,setSelectedChat)}
+            <Wonderful_chat_sidebar_chatlist chatList={chatList} setSelectedChat={setSelectedChat} />
         </div>
     );
 }
@@ -249,7 +251,8 @@ export function Wonderful_chat_sidebar(chatList,setSelectedChat) {
 /****************************************************************************************************
 * Wonderful_chat_window_header()
 ****************************************************************************************************/
-export function Wonderful_chat_window_header(filteredChat,selectedChat) {
+export function Wonderful_chat_window_header({filteredChat, selectedChat}) {
+    const theme = useTheme();
     return (
         <div
             style={{
@@ -258,11 +261,11 @@ export function Wonderful_chat_window_header(filteredChat,selectedChat) {
                 position: 'relative',
                 overflow: 'hidden',
                 /* style */
-                backgroundColor: 'white',
+                backgroundColor: theme.total.background,
                 borderRadius: '12px',
                 padding: '20px',
                 marginBottom: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                boxShadow: theme.total.shadowSm,
             }}
         >
             {/* chat header */}
@@ -287,9 +290,9 @@ export function Wonderful_chat_window_header(filteredChat,selectedChat) {
                         width: '40px',
                         height: '40px',
                         borderRadius: '50%',
-                        backgroundColor: '#f0f0f0',
+                        backgroundColor: theme.total.progressBg,
                         fontSize: '18px',
-                        border: '2px solid #e0e0e0',
+                        border: `2px solid ${theme.total.borderSecondary}`,
                     }}
                 >
                     {filteredChat.user || '💬'}
@@ -306,7 +309,7 @@ export function Wonderful_chat_window_header(filteredChat,selectedChat) {
                             /* layout */
                             margin: 0,
                             /* style */
-                            color: '#1a1a1a',
+                            color: theme.total.textPrimary,
                             fontSize: '20px',
                             fontWeight: '600',
                         }}
@@ -318,7 +321,7 @@ export function Wonderful_chat_window_header(filteredChat,selectedChat) {
                             /* layout */
                             margin: '2px 0 0 0',
                             /* style */
-                            color: '#666',
+                            color: theme.total.textDisabled,
                             fontSize: '14px',
                         }}
                     >
@@ -333,7 +336,8 @@ export function Wonderful_chat_window_header(filteredChat,selectedChat) {
 /****************************************************************************************************
 * Wonderful_chat_window_content_message()
 ****************************************************************************************************/
-export function Wonderful_chat_window_content_message(filteredChat,messages) {
+export function Wonderful_chat_window_content_message({filteredChat, messages}) {
+    const theme = useTheme();
     return messages.map(message => {
         const isRightSide = message.direction === 'send';
         return (
@@ -360,13 +364,13 @@ export function Wonderful_chat_window_content_message(filteredChat,messages) {
                             width: '45px',
                             height: '45px',
                             borderRadius: '50%',
-                            backgroundColor: isRightSide ? '#007AFF' : '#f0f0f0',
+                            backgroundColor: isRightSide ? theme.total.info : theme.total.progressBg,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontSize: '20px',
                             flexShrink: 0,
-                            border: `2px solid ${isRightSide ? '#007AFF' : '#e0e0e0'}`
+                            border: `2px solid ${isRightSide ? theme.total.info : theme.total.borderSecondary}`
                         }}
                     >
                         {(isRightSide ? ("小柴") : (filteredChat.user) )}
@@ -376,12 +380,12 @@ export function Wonderful_chat_window_content_message(filteredChat,messages) {
                     <div 
                         style={{
                             position: 'relative',
-                            backgroundColor: isRightSide ? '#007AFF' : 'white',
-                            color: isRightSide ? 'white' : '#333',
+                            backgroundColor: isRightSide ? theme.total.info : theme.total.background,
+                            color: isRightSide ? theme.total.textInverse : theme.total.textPrimary,
                             borderRadius: '18px',
                             padding: '12px 16px',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                            border: isRightSide ? 'none' : '1px solid #e0e0e0',
+                            boxShadow: theme.total.shadowSm,
+                            border: isRightSide ? 'none' : `1px solid ${theme.total.borderSecondary}`,
                             wordBreak: 'break-word'
                         }}
                     >
@@ -395,7 +399,7 @@ export function Wonderful_chat_window_content_message(filteredChat,messages) {
                                 height: 0,
                                 borderTop: '8px solid transparent',
                                 borderBottom: '8px solid transparent',
-                                [isRightSide ? 'borderLeft' : 'borderRight']: `8px solid ${isRightSide ? '#007AFF' : 'white'}`
+                                [isRightSide ? 'borderLeft' : 'borderRight']: `8px solid ${isRightSide ? theme.total.info : theme.total.textInverse}`
                             }} 
                         />
                         
@@ -454,7 +458,8 @@ export function Wonderful_chat_window_content_message(filteredChat,messages) {
 /****************************************************************************************************
 * Wonderful_chat_window_content()
 ****************************************************************************************************/
-export function Wonderful_chat_window_content(filteredChat,selectedChat) {
+export function Wonderful_chat_window_content({filteredChat, selectedChat}) {
+    const theme = useTheme();
     return (
         <div 
             style={{
@@ -473,11 +478,11 @@ export function Wonderful_chat_window_content(filteredChat,selectedChat) {
                 return filteredMessages.length === 0 ? (
                     <div 
                         style={{
-                            backgroundColor: 'white',
+                            backgroundColor: theme.total.background,
                             borderRadius: '12px',
                             padding: '40px',
                             textAlign: 'center',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                            boxShadow: theme.total.shadowSm
                         }}
                     >
                         <div
@@ -494,7 +499,7 @@ export function Wonderful_chat_window_content(filteredChat,selectedChat) {
                             style={{ 
                                 /* layout */
                                 /* style */
-                                color: '#666', 
+                                color: theme.total.textDisabled, 
                                 fontSize: '18px' 
                             }}
                         >
@@ -502,7 +507,7 @@ export function Wonderful_chat_window_content(filteredChat,selectedChat) {
                         </p>
                     </div>
                 ) : (
-                    Wonderful_chat_window_content_message(filteredChat,filteredMessages)
+                    <Wonderful_chat_window_content_message filteredChat={filteredChat} messages={filteredMessages} />
                 );
             })()}
         </div>
@@ -512,7 +517,8 @@ export function Wonderful_chat_window_content(filteredChat,selectedChat) {
 /****************************************************************************************************
 * Wonderful_chat_window_footer()
 ****************************************************************************************************/
-export function Wonderful_chat_window_footer(filteredChat,selectedChat) {
+export function Wonderful_chat_window_footer({filteredChat, selectedChat}) {
+    const theme = useTheme();
     const filteredMessages = filteredChat.messages;
     return filteredMessages.length > 0 && (
         <div 
@@ -522,7 +528,7 @@ export function Wonderful_chat_window_footer(filteredChat,selectedChat) {
                 flexShrink: 0,
                 /* style */
                 padding: '20px',
-                color: '#8e8e93',
+                color: theme.total.textMuted,
                 fontSize: '14px',
             }}
         >
@@ -534,7 +540,8 @@ export function Wonderful_chat_window_footer(filteredChat,selectedChat) {
 /****************************************************************************************************
 * Wonderful_chat_window()
 ****************************************************************************************************/
-export function Wonderful_chat_window(chatList,selectedChat) {
+export function Wonderful_chat_window({chatList, selectedChat}) {
+    const theme = useTheme();
     let filteredChat = Wonderful_chat_cfg_list_user_get(selectedChat);
 
     do
@@ -557,17 +564,17 @@ export function Wonderful_chat_window(chatList,selectedChat) {
                 padding: '20px',
                 /* style */
                 height: '100vh',
-                backgroundColor: ' #f5f5f5',
+                backgroundColor: theme.total.surfaceSecondary,
                 boxSizing: 'border-box',
                 borderRadius: '32px',
             }}
         >
             {/* chat window header */}
-            {Wonderful_chat_window_header(filteredChat,selectedChat)}
+            <Wonderful_chat_window_header filteredChat={filteredChat} selectedChat={selectedChat} />
             {/* chat window content */}
-            {Wonderful_chat_window_content(filteredChat,selectedChat)}
+            <Wonderful_chat_window_content filteredChat={filteredChat} selectedChat={selectedChat} />
             {/* chat window footer */}
-            {Wonderful_chat_window_footer(filteredChat,selectedChat)}
+            <Wonderful_chat_window_footer filteredChat={filteredChat} selectedChat={selectedChat} />
         </div>
     );
 }
@@ -593,26 +600,21 @@ export function Wonderful_chat() {
                 /* style */
                 width: '90%',
                 height: '100vh',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* sidebar */}
-            {Wonderful_chat_sidebar(chat_cfg_list,setSelectedChat)}
+            <Wonderful_chat_sidebar chatList={chat_cfg_list} setSelectedChat={setSelectedChat} />
             {/* window */}
-            {Wonderful_chat_window(chat_cfg_list,selectedChat)}
+            <Wonderful_chat_window chatList={chat_cfg_list} selectedChat={selectedChat} />
         </div>
     );
 }

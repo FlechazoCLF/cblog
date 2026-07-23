@@ -27,8 +27,8 @@ import { kernel_file_read } from '../../../kernel/file/kernel_file';
 import { wonderful_emerge_cfg_info } from './wonderful_emerge_cfg';
 /* theme */
 import { useTheme } from '../../../kernel/theme/theme'
-/* directory */
-import { directory_generator_database_get,directory_generator_database_get_folder } from '../../../database/directory_database';
+/* directory static import */
+/* import { directory_generator_database_get,directory_generator_database_get_folder } from '../../../database/directory_database'; */
 
 /****************************************************************************************************
 * Define
@@ -49,7 +49,8 @@ import { directory_generator_database_get,directory_generator_database_get_folde
 /****************************************************************************************************
 * Wonderful_emerge_navigation()
 ****************************************************************************************************/
-function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
+function Wonderful_emerge_navigation({selectedPath, setSelectedPath}) {
+    const theme = useTheme();
     return (
         <div 
             style={{
@@ -61,7 +62,7 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
                 overflowX: 'auto',
                 whiteSpace: 'nowrap',
                 /* style */
-                borderBottom: '1px solid #eaeaea',
+                borderBottom: `1px solid ${theme.total.borderSecondary}`,
             }}
         >
             {/* root */}
@@ -70,10 +71,10 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
                     /* layout */
                     padding: '4px 8px',
                     /* style */
-                    color: selectedPath.length === 0 ? '#007bff' : '#666',
+                    color: selectedPath.length === 0 ? theme.total.info : theme.total.textDisabled,
                     cursor: 'pointer',
                     borderRadius: '4px',
-                    backgroundColor: selectedPath.length === 0 ? '#f0f7ff' : 'transparent'
+                    backgroundColor: selectedPath.length === 0 ? theme.total.primaryUltraLight : 'transparent'
                 }}
                 onClick={() => setSelectedPath([])}
             >
@@ -87,7 +88,7 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
                             /* layout */
                             margin: '0 8px',
                             /* style */
-                            color: '#ccc'
+                            color: theme.total.textDisabled
                         }}
                     >
                         /
@@ -97,10 +98,10 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
                             /* layout */
                             padding: '4px 8px',
                             /* style */
-                            color: index === selectedPath.length - 1 ? '#007bff' : '#666',
+                            color: index === selectedPath.length - 1 ?  theme.total.info : theme.total.textDisabled,
                             cursor: 'pointer',
                             borderRadius: '4px',
-                            backgroundColor: index === selectedPath.length - 1 ? '#f0f7ff' : 'transparent'
+                            backgroundColor: index === selectedPath.length - 1 ?  theme.total.primaryUltraLight : 'transparent'
                         }}
                         onClick={() => setSelectedPath(selectedPath.slice(0, index + 1))}
                     >
@@ -115,7 +116,7 @@ function Wonderful_emerge_navigation(selectedPath, setSelectedPath) {
 /****************************************************************************************************
 * Wonderful_emerge_header()
 ****************************************************************************************************/
-function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
+function Wonderful_emerge_header({selectedPath,setSelectedPath,handleGoBack}) {
     const theme = useTheme();
     return (
         <div 
@@ -145,7 +146,7 @@ function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
                     style={{ 
                         /* layout */
                         /* style */
-                        color: '#666', 
+                        color: theme.total.textDisabled, 
                         fontSize: '14px'
                     }}
                 >
@@ -163,20 +164,20 @@ function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
                         gap: '5px',
                         padding: '8px 16px',
                         /* style */
-                        backgroundColor: '#f0f0f0',
+                        backgroundColor: theme.total.progressBg,
                         border: 'none',
                         borderRadius: '4px',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                         color: theme.total.text,
                         fontWeight: 'bold',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                        boxShadow: theme.total.shadowSm
                     }}
-                    onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = '#e0e0e0';
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.total.borderSecondary;
                     }}
-                    onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = '#f0f0f0';
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.total.progressBg;
                     }}
                 >
                     <span 
@@ -200,7 +201,8 @@ function Wonderful_emerge_header(selectedPath,setSelectedPath,handleGoBack) {
 /****************************************************************************************************
 * Wonderful_emerge_cards_column()
 ****************************************************************************************************/
-function Wonderful_emerge_cards_column(cards,selectedPath,setSelectedPath,handleSelectFolder) {
+function Wonderful_emerge_cards_column({cards,selectedPath,setSelectedPath,handleSelectFolder}) {
+    const theme = useTheme();
     let currentColumn = [];
     let currentCards = [];
     let columns = [];
@@ -284,7 +286,7 @@ function Wonderful_emerge_cards_column(cards,selectedPath,setSelectedPath,handle
                         <div key={cardIndex} style={{ 
                             padding: '10px', 
                             margin: '5px 0',
-                            border: '1px solid #ccc',
+                            border: `1px solid ${theme.total.textDisabled}`,
                             borderRadius: '8px'
                         }}
                         onClick={() => handleSelectFolder(selectedPath,setSelectedPath,columnIndex,card.name)}
@@ -304,7 +306,7 @@ function Wonderful_emerge_cards_column(cards,selectedPath,setSelectedPath,handle
 /****************************************************************************************************
 * Wonderful_emerge_cards()
 ****************************************************************************************************/
-function Wonderful_emerge_cards(cards,selectedPath,setSelectedPath,handleSelectFolder) {
+function Wonderful_emerge_cards({cards,selectedPath,setSelectedPath,handleSelectFolder}) {
 
     do{
         /* check parameter */
@@ -332,7 +334,7 @@ function Wonderful_emerge_cards(cards,selectedPath,setSelectedPath,handleSelectF
             }}
         >
             {/* map by selectedPath */}
-            {Wonderful_emerge_cards_column(cards,selectedPath,setSelectedPath,handleSelectFolder)}
+            <Wonderful_emerge_cards_column cards={cards} selectedPath={selectedPath} setSelectedPath={setSelectedPath} handleSelectFolder={handleSelectFolder} />
         </div>
     );
 }
@@ -340,10 +342,11 @@ function Wonderful_emerge_cards(cards,selectedPath,setSelectedPath,handleSelectF
 /****************************************************************************************************
 * Wonderful_emerge_getCards()
 ****************************************************************************************************/
-function Wonderful_emerge_getCards(selectedPath) {
+async function Wonderful_emerge_getCards(selectedPath) {
 
     let cards = [];
     let folder = {};
+    const { directory_generator_database_get, directory_generator_database_get_folder } = await import('../../../database/directory_database');
 
     do{
         /* check parameter */
@@ -378,7 +381,7 @@ function Wonderful_emerge_getCards(selectedPath) {
 }
 
 /****************************************************************************************************
-* Wonderful_emerge_getCards()
+* Wonderful_emerge_selectFolder()
 ****************************************************************************************************/
 function Wonderful_emerge_selectFolder(selectedPath,setSelectedPath,columnIndex,folder) {
 
@@ -437,11 +440,30 @@ function Wonderful_emerge_selectBack(selectedPath, setSelectedPath) {
 ****************************************************************************************************/
 export function Wonderful_emerge() {
     const theme = useTheme();
+    const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(true);
     /* selected folder path */
     const [selectedPath, setSelectedPath] = useState(["root"]);
     /* calculate columns based on current selected path */
-    const cards = Wonderful_emerge_getCards(selectedPath);
+    useEffect(() => {
+        let alive = true;
+        setLoading(true);
+        Wonderful_emerge_getCards(selectedPath).then((c) => {
+            if (alive) { setCards(c); setLoading(false); }
+        });
+        return () => { alive = false; };
+    }, [selectedPath]);
 
+    /* loading */
+    if (loading) {
+        return (
+            <div style={{ width: '90%', padding: '24px', borderRadius: '32px', minHeight: '400px' }}>
+                loading...
+            </div>
+        );
+    }
+
+    /* load complete */
     return (
         <div 
             style={{
@@ -449,26 +471,22 @@ export function Wonderful_emerge() {
                 width: '90%',
                 padding: '24px',
                 /* style */
-                background: theme.total.background,
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
             {/* header */}
-            {Wonderful_emerge_header(selectedPath,setSelectedPath,Wonderful_emerge_selectBack)}
+            <Wonderful_emerge_header selectedPath={selectedPath} setSelectedPath={setSelectedPath} handleGoBack={Wonderful_emerge_selectBack} />
             {/* navigation */}
-            {Wonderful_emerge_navigation(selectedPath,setSelectedPath)}
+            <Wonderful_emerge_navigation selectedPath={selectedPath} setSelectedPath={setSelectedPath} />
             {/* cards */}
-            {Wonderful_emerge_cards(cards,selectedPath,setSelectedPath,Wonderful_emerge_selectFolder)}
+            <Wonderful_emerge_cards cards={cards} selectedPath={selectedPath} setSelectedPath={setSelectedPath} handleSelectFolder={Wonderful_emerge_selectFolder} />
         </div>
     );
 }

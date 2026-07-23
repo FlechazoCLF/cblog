@@ -48,74 +48,126 @@ import { useTheme } from '../../kernel/theme/theme'
 ****************************************************************************************************/
 export function article_style_img() {
     return (
-        ({node, ...props}) => (
-            <img
-                style={{
-                    /* display */
-                    display: 'block',
-                    maxWidth: '100%',
-                    maxHeight: '280px',
-                    width: 'auto',
-                    height: 'auto',
-                    margin: '0 auto',
-                    zIndex: '1',
-                    /* style */
-                    borderRadius: '16px',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-                    objectFit: 'cover',
-                    cursor: 'pointer',
-                }}
-                /* mouse */
-                onMouseOver={e => {
-                    e.currentTarget.style.zIndex = '1000';
-                    e.currentTarget.style.transform = 'scale(1.15)';
-                    e.currentTarget.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.15)';
-                }}
-                onMouseOut={e => {
-                    e.currentTarget.style.zIndex = '1';
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.05)';
-                }}
-                onClick={e => {
-                    /* create */
-                    const modal = document.createElement('div');
-                    modal.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100vw;
-                        height: 100vh;
-                        background: rgba(245, 245, 245, 0.85);
-                        backdropFilter: 'blur(15px)';
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 9999;
-                        cursor: pointer;
-                    `;
-                    
-                    const fullImg = document.createElement('img');
-                    fullImg.src = e.currentTarget.src;
-                    fullImg.style.cssText = `
-                        max-width: 90vw;
-                        max-height: 90vh;
-                        object-fit: contain;
-                        border-radius: 8px;
-                        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-                    `;
-                    
-                    modal.appendChild(fullImg);
-                    document.body.appendChild(modal);
-                    
-                    /* close */
-                    modal.addEventListener('click', () => {
-                        document.body.removeChild(modal);
-                    });
-                }}
-                {...props}
-            >
-            </img>
-        )
+        ({node, style: originalStyle, className: originalClassName, ...props}) => {
+            const theme = useTheme();
+
+            /* detect inline image — small icon/avatar, not a standalone article image */
+            const isInline = (() => {
+                /* check HTML attributes: width="25" height="30" */
+                const attrW = parseInt(props.width);
+                const attrH = parseInt(props.height);
+                if ((attrW > 0 && attrW <= 80) || (attrH > 0 && attrH <= 80)) return true;
+
+                /* check inline style: style={{ width: 25 }} */
+                if (originalStyle) {
+                    const sw = parseInt(originalStyle.width);
+                    const sh = parseInt(originalStyle.height);
+                    if ((sw > 0 && sw <= 80) || (sh > 0 && sh <= 80)) return true;
+                }
+
+                /* check parent node: inside heading = inline */
+                if (node) {
+                    let parent = node.parent;
+                    while (parent) {
+                        if (/^h[1-6]$/.test(parent.tagName)) return true;
+                        parent = parent.parent;
+                    }
+                }
+
+                return false;
+            })();
+
+            /* inline image — render naturally, no decoration */
+            if (isInline) {
+                return (
+                    <img
+                        style={{ verticalAlign: 'middle', ...originalStyle }}
+                        className={originalClassName}
+                        {...props}
+                    />
+                );
+            }
+
+            /* article image — full styling with hover & lightbox */
+            const defaultStyle = {
+                /* display */
+                display: 'block',
+                maxWidth: '100%',
+                maxHeight: '280px',
+                width: 'auto',
+                height: 'auto',
+                margin: '0 auto',
+                zIndex: '1',
+                /* style */
+                borderRadius: '16px',
+                boxShadow: theme.total.shadowMd,
+                objectFit: 'cover',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+            };
+
+            /* merge: defaults as base, original image style overrides on top */
+            const mergedStyle = { ...defaultStyle, ...originalStyle };
+
+            /* merge className: keep both default and original */
+            const mergedClassName = [originalClassName].filter(Boolean).join(' ') || undefined;
+
+            return (
+                <img
+                    style={mergedStyle}
+                    className={mergedClassName}
+                    /* mouse */
+                    onMouseEnter={e => {
+                        e.currentTarget.style.zIndex = '1000';
+                        e.currentTarget.style.transform = 'scale(1.15)';
+                        e.currentTarget.style.boxShadow = theme.total.shadowLg;
+                    }}
+                    onMouseLeave={e => {
+                        e.currentTarget.style.zIndex = '1';
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = mergedStyle.boxShadow;
+                    }}
+                    onClick={e => {
+                        /* create */
+                        const modal = document.createElement('div');
+                        modal.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100vw;
+                            height: 100vh;
+                            background: ${theme.total.overlayLight};
+                            backdropFilter: blur(15px);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 9999;
+                            cursor: pointer;
+                        `;
+                        
+                        const fullImg = document.createElement('img');
+                        fullImg.src = e.currentTarget.src;
+                        fullImg.style.cssText = `
+                            max-width: 90vw;
+                            max-height: 90vh;
+                            object-fit: contain;
+                            border-radius: 8px;
+                            box-shadow: ${theme.total.shadowLg};
+                        `;
+                        
+                        modal.appendChild(fullImg);
+                        document.body.appendChild(modal);
+                        
+                        /* close */
+                        modal.addEventListener('click', () => {
+                            document.body.removeChild(modal);
+                        });
+                    }}
+                    {...props}
+                >
+                </img>
+            )
+        }
     );
 }
 
@@ -124,30 +176,33 @@ export function article_style_img() {
 ****************************************************************************************************/
 export function article_style_table() {
     return (
-        ({node, ...props}) => (
-            <div 
-                style={{
-                    /* display */
-                    margin: '20px',
-                    overflowX: 'auto',
-                }}
-            >
-                <table
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <div 
                     style={{
                         /* display */
-                        borderCollapse: 'collapse',
-                        overflow: 'hidden',
-                        /* style */
-                        width: '100%',
-                        fontSize: '14px',
-                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                        borderRadius: '4px',
+                        margin: '20px',
+                        overflowX: 'auto',
                     }}
-                    {...props}
                 >
-                </table>
-            </div>
-        )
+                    <table
+                        style={{
+                            /* display */
+                            borderCollapse: 'collapse',
+                            overflow: 'hidden',
+                            /* style */
+                            width: '100%',
+                            fontSize: '14px',
+                            boxShadow: theme.total.shadowSm,
+                            borderRadius: '4px',
+                        }}
+                        {...props}
+                    >
+                    </table>
+                </div>
+            )
+        }
     );
 }
 
@@ -162,7 +217,7 @@ export function article_style_table_head() {
                 <thead
                     style={{
                         /* style */
-                        backgroundColor: '#f0f5ff',
+                        backgroundColor: theme.total.primaryLight,
                         color: theme.total.text,
                     }}
                     {...props}
@@ -205,15 +260,15 @@ export function article_style_table_row() {
                 <tr
                     style={{
                         /* style */
-                        backgroundColor: (index % 2 === 0) ? theme.total.background : '#f9f9f9',
-                        borderBottom: '1px solid #e0e0e0',
+                        backgroundColor: (index % 2 === 0) ? theme.total.background : theme.total.surfaceSecondary,
+                        borderBottom: `1px solid ${theme.total.borderSecondary}`,
                         transition: 'background-color 0.2s'
                     }}
-                    onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = '#f0f7ff';
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.total.primaryLight;
                     }}
-                    onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = (index % 2 === 0) ? theme.total.background : '#f9f9f9';
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = (index % 2 === 0) ? theme.total.background : theme.total.surfaceSecondary;
                     }}
                     {...props}
                 />
@@ -227,20 +282,23 @@ export function article_style_table_row() {
 ****************************************************************************************************/
 export function article_style_table_header() {
     return (
-        ({node, ...props}) => (
-            <th
-                style={{
-                    /* style */
-                    position: 'relative',
-                    textAlign: 'left',
-                    padding: '12px 16px',
-                    /* style */
-                    fontWeight: 'bold',
-                    borderBottom: '2px solid #ccc',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <th
+                    style={{
+                        /* style */
+                        position: 'relative',
+                        textAlign: 'left',
+                        padding: '12px 16px',
+                        /* style */
+                        fontWeight: 'bold',
+                        borderBottom: `2px solid ${theme.total.border}`,
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -249,18 +307,21 @@ export function article_style_table_header() {
 ****************************************************************************************************/
 export function article_style_table_data() {
     return (
-        ({node, ...props}) => (
-            <td
-                style={{
-                    /* style */
-                    padding: '10px 16px',
-                    /* style */
-                    borderBottom: '1px solid #e0e0e0',
-                    lineHeight: '1.5',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <td
+                    style={{
+                        /* style */
+                        padding: '10px 16px',
+                        /* style */
+                        borderBottom: `1px solid ${theme.total.borderSecondary}`,
+                        lineHeight: '1.5',
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 
@@ -289,7 +350,7 @@ export function article_style_code() {
                     margin: '16px 0',
                     overflowX: 'auto',
                     /* color */
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: theme.total.surfaceSecondary,
                     color: theme.total.text,
                     /* style */
                     borderRadius: '4px',
@@ -297,9 +358,9 @@ export function article_style_code() {
                     fontSize: '14px',
                     lineHeight: '1.5',
                     /* border */
-                    border: '1px solid #e0e0e0',
+                    border: `1px solid ${theme.total.borderSecondary}`,
                     /* shadow */
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+                    boxShadow: theme.total.shadowSm
                 }}
             >
                 {children}
@@ -511,21 +572,25 @@ export function article_style_ol() {
 ****************************************************************************************************/
 export function article_style_quote() {
     return (
-        ({node, ...props}) => (
-            <blockquote
-                style={{
-                    /* layout */
-                    margin: '16px 0',
-                    width: '100%',
-                    /* style */
-                    borderLeft: '4px solid #ddd',
-                    paddingLeft: '16px',
-                    fontStyle: 'italic',
-                    color: '#555',
-                }}
-                {...props}
-            />
-        )
+        ({node, ...props}) => {
+            const theme = useTheme();
+            return (
+                <blockquote
+                    style={{
+                        /* layout */
+                        margin: '16px 0',
+                        width: '100%',
+                        /* style */
+                        backgroundColor: theme.total.blockquoteBg,
+                        borderLeft: `4px solid ${theme.total.blockquoteBorder}`,
+                        paddingLeft: '16px',
+                        fontStyle: 'italic',
+                        color: theme.total.tagText,
+                    }}
+                    {...props}
+                />
+            )
+        }
     );
 }
 

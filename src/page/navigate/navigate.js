@@ -52,11 +52,18 @@ import { color_get } from '../../kernel/color/color'
 /* view mode table */
 const navigate_view_mode_table = [
     {
+        name: "card",
+        title: "🎴 卡片",
+        func: Navigate_Show_Navigate_Item_Card
+    },
+    {
         name: "grid",
+        title: "🔲 网格",
         func: Navigate_Show_Navigate_Item_Grid
     },
     {
         name: "list",
+        title: "📋 列表",
         func: Navigate_Show_Navigate_Item_List
     }
 ];
@@ -93,14 +100,15 @@ function Navigate_Show_Profile_avatar_image() {
                     borderRadius: '45px',
                     objectFit: 'cover',
                     cursor: 'pointer',
+                    transition: 'all 0.5s ease',
                 }}
                 /* mouse */
                 onClick={() => window.location.href = aboutpath}
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.45)';
                     e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
@@ -167,11 +175,11 @@ function Navigate_Show_Profile_avatar_title() {
                 }}
                 /* mouse */
                 onClick={() => window.location.href = aboutpath}
-                onMouseOver={e => {
+                onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.25)';
                     e.currentTarget.style.boxShadow = theme.total.shadowMd;
                 }}
-                onMouseOut={e => {
+                onMouseLeave={e => {
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.boxShadow = theme.total.shadowSm;
                 }}
@@ -206,9 +214,9 @@ function Navigate_Show_Profile() {
             }}
         >
             {/* title */}
-            {Navigate_Show_Profile_avatar_title()}
+            <Navigate_Show_Profile_avatar_title />
             {/* banner */}
-            {Navigate_Show_Profile_avatar_image()}
+            <Navigate_Show_Profile_avatar_image />
         </div>
     );
 }
@@ -237,10 +245,10 @@ export function Navigate_Show_Sticky() {
             }}
         >
             {/* project */}
-            {navigate_cfg_sticky_projects.map((item, idx) => (
-                <a
-                    href={item.url}
-                    style={{
+            {navigate_cfg_sticky_projects.map((item, idx) => {
+                /* common props for both internal and external links */
+                const commonProps = {
+                    style: {
                         /* layout */
                         display: 'flex',
                         flexDirection: 'column',
@@ -256,41 +264,64 @@ export function Navigate_Show_Sticky() {
                         /* style */
                         borderRadius: '18px',
                         boxShadow: theme.total.shadowSm,
-                    }}
+                        transition: 'all 0.5s ease',
+                    },
                     /* mouse */
-                    onMouseOver={e => {
+                    onMouseEnter: e => {
                         e.currentTarget.style.transform = 'scale(1.25)';
                         e.currentTarget.style.boxShadow = theme.total.shadowMd;
                         e.currentTarget.style.background = theme.card.hover;
-                    }}
-                    onMouseOut={e => {
+                    },
+                    onMouseLeave: e => {
                         e.currentTarget.style.transform = 'scale(1)';
                         e.currentTarget.style.boxShadow = theme.total.shadowSm;
                         e.currentTarget.style.background = theme.card.background;
-                    }}
-                >
-                    {/* title */}
-                    <div 
-                        style={{
-                            marginBottom: '8px'
-                        }}
+                    },
+                };
+                /* link content */
+                const linkContent = (
+                    <>
+                        {/* title */}
+                        <div 
+                            style={{
+                                marginBottom: '8px'
+                            }}
+                        >
+                            {item.title}
+                        </div>
+                        {/* description */}
+                        <div 
+                            style={{
+                                /* size */
+                                fontWeight: 'normal',
+                                fontSize: '0.95rem',
+                                /* color */
+                                color: theme.card.description
+                            }}
+                        >
+                            {item.description}
+                        </div>
+                    </>
+                );
+                /* conditional rendering: external links use <a>, internal links use <Link> */
+                return item.external ? (
+                    <a
+                        key={idx}
+                        href={item.url}
+                        {...commonProps}
                     >
-                        {item.title}
-                    </div>
-                    {/* description */}
-                    <div 
-                        style={{
-                            /* size */
-                            fontWeight: 'normal',
-                            fontSize: '0.95rem',
-                            /* color */
-                            color: theme.card.description
-                        }}
+                        {linkContent}
+                    </a>
+                ) : (
+                    <Link
+                        key={idx}
+                        to={item.url}
+                        {...commonProps}
                     >
-                        {item.description}
-                    </div>
-                </a>
-            ))}
+                        {linkContent}
+                    </Link>
+                );
+            })}
         </div>
     );
 }
@@ -324,7 +355,7 @@ function Navigate_Show_Navigate_Signature() {
 /****************************************************************************************************
 * Navigate_Show_Navigate_Control()
 ****************************************************************************************************/
-function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setViewMode) {
+function Navigate_Show_Navigate_Control({searchTerm,setSearchTerm,viewMode,setViewMode}) {
     const theme = useTheme();
 
     do
@@ -369,7 +400,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                         border: `2px solid ${theme.total.border}`,
                         borderRadius: '25px',
                         transition: 'all 0.3s ease',
-                        backgroundColor: 'white',
+                        backgroundColor: theme.total.background,
                         boxShadow: theme.total.shadowSm
                     }}
                     onFocus={(e) => {
@@ -390,43 +421,31 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
                     display: 'flex',
                     padding: '4px',
                     /* style */
-                    backgroundColor: 'white',
+                    backgroundColor: theme.total.background,
                     borderRadius: '25px',
                     boxShadow: theme.total.shadowSm,
                 }}
             >
-                <button
-                    onClick={() => setViewMode('grid')}
-                    style={{
-                        /* display */
-                        padding: '8px 16px',
-                        /* style */
-                        border: 'none',
-                        borderRadius: '20px',
-                        background: viewMode === 'grid' ? theme.total.primary : 'transparent',
-                        color: viewMode === 'grid' ? 'white' : 'black',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                    }}
-                >
-                    🔲 网格
-                </button>
-                <button
-                    onClick={() => setViewMode('list')}
-                    style={{
-                        /* display */
-                        padding: '8px 16px',
-                        /* style */
-                        border: 'none',
-                        borderRadius: '20px',
-                        background: viewMode === 'list' ? theme.total.primary : 'transparent',
-                        color: viewMode === 'list' ? 'white' : 'black',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                    }}
-                >
-                    📋 列表
-                </button>
+                {navigate_view_mode_table.map(
+                    (item) => (
+                        <button
+                            onClick={() => setViewMode(item.name)}
+                            style={{
+                                /* display */
+                                padding: '8px 16px',
+                                /* style */
+                                border: 'none',
+                                borderRadius: '20px',
+                                background: viewMode === item.name ? theme.total.primary : 'transparent',
+                                color: viewMode === item.name ? theme.total.textInverse : theme.total.textPrimary,
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            {item.title}
+                        </button>
+                    )
+                )}
             </div>
         </div>
     );
@@ -435,7 +454,7 @@ function Navigate_Show_Navigate_Control(searchTerm,setSearchTerm,viewMode,setVie
 /****************************************************************************************************
 * Navigate_Show_Navigate_Category()
 ****************************************************************************************************/
-function Navigate_Show_Navigate_Category(activeCategory,setActiveCategory) {
+function Navigate_Show_Navigate_Category({activeCategory,setActiveCategory}) {
     const theme = useTheme();
 
     do
@@ -482,11 +501,11 @@ function Navigate_Show_Navigate_Category(activeCategory,setActiveCategory) {
                     /* set active category */
                     onClick={() => setActiveCategory(section.category)}
                     /* mouse */
-                    onMouseOver={e => {
+                    onMouseEnter={e => {
                         e.currentTarget.style.fontSize = '1.2rem';
                         e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
-                    onMouseOut={e => {
+                    onMouseLeave={e => {
                         e.currentTarget.style.fontSize = '1.1rem';
                         e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
@@ -528,7 +547,7 @@ function Navigate_Show_Navigate_Item_Init() {
 /****************************************************************************************************
 * Navigate_Show_Item_Search_Info()
 ****************************************************************************************************/
-function Navigate_Show_Item_Search_Info(activeCategory,searchTerm) {
+function Navigate_Show_Item_Search_Info({activeCategory,searchTerm}) {
     const theme = useTheme();
 
     do
@@ -554,76 +573,102 @@ function Navigate_Show_Item_Search_Info(activeCategory,searchTerm) {
 }
 
 /****************************************************************************************************
-* Navigate_Show_Navigate_Item_List()
+* Navigate_Show_Navigate_Item_Card()
 ****************************************************************************************************/
-function Navigate_Show_Navigate_Item_List(items)
+function Navigate_Show_Navigate_Item_Card(items)
 {
     const theme = useTheme();
-    /* list */
+    /* grid */
     return (
         <div
             style={{
                 /* display */
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
                 margin: '0 auto',
+                gap: '20px',
                 padding: '0 20px',
-                maxWidth: '1000px',
+                /* style */
+                maxWidth: '80%',
             }}
         >
             {items.map((section, idx) => {
                 return (
                     <div 
-                        key={idx} 
+                        key={idx}
                         style={{
                             /* display */
-                            display: 'flex',
+                            display: 'inline-block',
                             alignItems: 'center',
-                            padding: '20px',
-                            marginBottom: '15px',
+                            padding: '1px',
+                            position: 'relative',
+                            /* font */
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 
                             /* style */
-                            backgroundColor: 'white',
+                            width: '200px',
                             borderRadius: '12px',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                             transition: 'all 0.3s ease',
                             cursor: 'pointer',
                         }}
-                        onMouseOver={e => {
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                        onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'translateY(-5px) scale(1.05)';
                         }}
-                        onMouseOut={e => {
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                        onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'translateY(0) scale(1)';
                         }}
                         onClick={() => window.open(section.url, section.external ? '_blank' : '_self')}
                     >
                         {/* image */}
-                        <img
-                            src={section.image}
-                            alt={section.name}
+                        <div
                             style={{
                                 /* display */
-                                objectFit: 'cover',
-                                marginRight: '20px',
-                                /* style */
-                                width: '60px',
-                                height: '60px',
-                                borderRadius: '12px',
+                                position: 'relative',
+                                flexShrink: 0,
+                                overflow: 'hidden',
+                                marginRight: '16px',
+                                /* sytle */
+                                width: '100%',
+                                height: '100px',
+                                borderRadius: '8px',
+                                boxShadow: theme.total.shadowLg,
                             }}
-                        />
-                        {/* discription */}
-                        <div 
+                        >
+                            <img
+                                src={section.image}
+                                alt={section.name}
+                                style={{
+                                    /* display */
+                                    objectFit: 'cover',
+                                    /* sytle */
+                                    width: '100%',
+                                    height: '100%',
+                                }}
+                            />
+                        </div>
+                        
+                        {/* content */}
+                        <div
                             style={{
                                 /* display */
+                                margin: '8px 8px 0 16px',
+                                display: 'flex',
                                 flex: 1,
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                minWidth: 0,
                             }}
                         >
                             <h3 
                                 style={{
                                     /* display */
-                                    margin: '0 0 8px 0',
+                                    margin: '0 0 4px 0',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
                                     /* style */
                                     color: theme.total.text,
-                                    fontSize: '18px',
+                                    fontSize: '16px',
+                                    fontWeight: 'bold',
+                                    whiteSpace: 'nowrap',
                                 }}
                             >
                                 {section.name}
@@ -631,11 +676,15 @@ function Navigate_Show_Navigate_Item_List(items)
                             <p 
                                 style={{
                                     /* display */
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
                                     margin: 0,
                                     /* style */
                                     color: theme.card.description,
-                                    fontSize: '14px',
+                                    fontSize: '13px',
                                     lineHeight: '1.4',
+                                    WebkitLineClamp: 2,
+                                    WebkitBoxOrient: 'vertical',
                                 }}
                             >
                                 {section.description}
@@ -680,19 +729,19 @@ function Navigate_Show_Navigate_Item_Grid(items)
                             position: 'relative',
                             /* style */
                             height: '80px',
-                            backgroundColor: 'white',
+                            backgroundColor: theme.total.background,
                             borderRadius: '12px',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            boxShadow: theme.total.shadowSm,
                             transition: 'all 0.3s ease',
                             cursor: 'pointer',
                         }}
-                        onMouseOver={e => {
+                        onMouseEnter={e => {
                             e.currentTarget.style.transform = 'translateY(-3px)';
-                            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
                         }}
-                        onMouseOut={e => {
+                        onMouseLeave={e => {
                             e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
                         }}
                         onClick={() => window.open(section.url, section.external ? '_blank' : '_self')}
                     >
@@ -773,9 +822,104 @@ function Navigate_Show_Navigate_Item_Grid(items)
 }
 
 /****************************************************************************************************
+* Navigate_Show_Navigate_Item_List()
+****************************************************************************************************/
+function Navigate_Show_Navigate_Item_List(items)
+{
+    const theme = useTheme();
+    /* list */
+    return (
+        <div
+            style={{
+                /* display */
+                margin: '0 auto',
+                padding: '0 20px',
+                maxWidth: '1000px',
+            }}
+        >
+            {items.map((section, idx) => {
+                return (
+                    <div 
+                        key={idx} 
+                        style={{
+                            /* display */
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '20px',
+                            marginBottom: '15px',
+                            /* style */
+                            backgroundColor: theme.total.background,
+                            borderRadius: '12px',
+                            boxShadow: theme.total.shadowSm,
+                            transition: 'all 0.3s ease',
+                            cursor: 'pointer',
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowMd;
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = theme.total.shadowSm;
+                        }}
+                        onClick={() => window.open(section.url, section.external ? '_blank' : '_self')}
+                    >
+                        {/* image */}
+                        <img
+                            src={section.image}
+                            alt={section.name}
+                            style={{
+                                /* display */
+                                objectFit: 'cover',
+                                marginRight: '20px',
+                                /* style */
+                                width: '60px',
+                                height: '60px',
+                                borderRadius: '12px',
+                            }}
+                        />
+                        {/* discription */}
+                        <div 
+                            style={{
+                                /* display */
+                                flex: 1,
+                            }}
+                        >
+                            <h3 
+                                style={{
+                                    /* display */
+                                    margin: '0 0 8px 0',
+                                    /* style */
+                                    color: theme.total.text,
+                                    fontSize: '18px',
+                                }}
+                            >
+                                {section.name}
+                            </h3>
+                            <p 
+                                style={{
+                                    /* display */
+                                    margin: 0,
+                                    /* style */
+                                    color: theme.card.description,
+                                    fontSize: '14px',
+                                    lineHeight: '1.4',
+                                }}
+                            >
+                                {section.description}
+                            </p>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+/****************************************************************************************************
 * Navigate_Show_Navigate_Item()
 ****************************************************************************************************/
-function Navigate_Show_Navigate_Item(items, viewMode) {
+function Navigate_Show_Navigate_Item({items, viewMode}) {
     let result = null;
     let viewModeFunction = null;
 
@@ -811,25 +955,25 @@ export function Navigate_Show_Navigate() {
     const [searchTerm, setSearchTerm] = useState('');
     /* state */
     const [activeCategory, setActiveCategory] = useState('全部');
-    /* view mode grid | list */
-    const [viewMode, setViewMode] = useState('grid');
+    /* view mode card | grid | list */
+    const [viewMode, setViewMode] = useState('card');
 
     return (
         <div>
             {/* Personalized Signature */}
-            {Navigate_Show_Navigate_Signature()}
+            <Navigate_Show_Navigate_Signature />
             
             {/* search control */}
-            {Navigate_Show_Navigate_Control(searchTerm, setSearchTerm, viewMode, setViewMode)}
+            <Navigate_Show_Navigate_Control searchTerm={searchTerm} setSearchTerm={setSearchTerm} viewMode={viewMode} setViewMode={setViewMode} />
 
             {/* map category */}
-            {Navigate_Show_Navigate_Category(activeCategory,setActiveCategory)}
+            <Navigate_Show_Navigate_Category activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
 
             {/* search items info */}
-            {searchTerm && Navigate_Show_Item_Search_Info(activeCategory,searchTerm)}
+            {searchTerm && <Navigate_Show_Item_Search_Info activeCategory={activeCategory} searchTerm={searchTerm} />}
 
             {/* map items */}
-            {Navigate_Show_Navigate_Item(Navigate_Cfg_Item_Search(activeCategory,searchTerm), viewMode)}
+            <Navigate_Show_Navigate_Item items={Navigate_Cfg_Item_Search(activeCategory,searchTerm)} viewMode={viewMode} />
         </div>
     );
 }
@@ -912,13 +1056,15 @@ export function Navigate_Show_Donate() {
                         height: 120,
                         borderRadius: 12,
                         boxShadow: theme.total.shadowSm,
+                        transition: 'all 0.5s ease',
+
                     }}
                     /* mouse */
-                    onMouseOver={e => {
+                    onMouseEnter={e => {
                         e.currentTarget.style.transform = 'scale(1.56)';
                         e.currentTarget.style.boxShadow = theme.total.shadowMd;
                     }}
-                    onMouseOut={e => {
+                    onMouseLeave={e => {
                         e.currentTarget.style.transform = 'scale(1)';
                         e.currentTarget.style.boxShadow = theme.total.shadowSm;
                     }}
@@ -941,13 +1087,13 @@ export function Navigate_Show() {
     return (
         <div>
             {/* profile */}
-            {Navigate_Show_Profile()}
+            <Navigate_Show_Profile />
             {/* title */}
-            {Navigate_Show_Sticky()}
+            <Navigate_Show_Sticky />
             {/* navigate */}
-            {Navigate_Show_Navigate()}
+            <Navigate_Show_Navigate />
             {/* donate */}
-            {Navigate_Show_Donate()}
+            <Navigate_Show_Donate />
         </div>
     );
 }
@@ -979,7 +1125,7 @@ export function Navigate() {
     do
     {
         /* get color */
-        color = color_get("gradient-rainbow","gradient-soft-dawn");
+        color = color_get("gradient-rainbow","gradient-cream-beige");
         if(color == null)
         {
             /* default */
@@ -995,11 +1141,11 @@ export function Navigate() {
             }}
         >
             {/* top bar */}
-            {Topbar()}
+            <Topbar />
             {/* content */}
-            {Navigate_Show()}
+            <Navigate_Show />
             {/* footer */}
-            {Footer()}
+            <Footer />
         </div>
     );
 }
@@ -1015,7 +1161,7 @@ export function Navigate_Route() {
     }while(0);
 
     return (
-        <Route path="/" element={<div></div>}>
+        <Route path="/navigate" element={<div></div>}>
 
         </Route>
     );

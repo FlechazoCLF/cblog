@@ -28,8 +28,8 @@ const { article_database_get } = require('../../../kernel/article/article_databa
 * Define
 ****************************************************************************************************/
 
-/* templete file */
-const ARTICLE_CFG_GENERATOR_TEMPLETE_ARTICLE = 'wonderful_ebbinghaus_database_templete.js';
+/* template file */
+const ARTICLE_CFG_GENERATOR_TEMPLATE_ARTICLE = 'wonderful_ebbinghaus_database_template.js';
 /* output file */
 const ARTICLE_CFG_GENERATOR_OUTPUT_ARTICLE = './src/database/wonderful_ebbinghaus_database.js';
 
@@ -87,14 +87,14 @@ function article_cfg_generator_parser(article) {
 * article_cfg_generator_create_database()
 ****************************************************************************************************/
 function article_cfg_generator_create_database(articles) {
-    let templete = "";
+    let template = "";
 
     do
     {
-        /* get templete */
-        const templetePath = path.join(__dirname, ARTICLE_CFG_GENERATOR_TEMPLETE_ARTICLE);
+        /* get template */
+        const templatePath = path.join(__dirname, ARTICLE_CFG_GENERATOR_TEMPLATE_ARTICLE);
         /* read */
-        templete = fs.readFileSync(templetePath, 'utf8');
+        template = fs.readFileSync(templatePath, 'utf8');
         /* init function */
         let ebbinghaus_database = "";
 
@@ -112,11 +112,11 @@ function article_cfg_generator_create_database(articles) {
             ebbinghaus_database += `\n${eventsContent}`
         })
         /* replace */
-        templete = templete.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
-        templete = templete.replace("{{ebbinghaus_database}}",ebbinghaus_database);
+        template = template.replace("{{date}}", new Date().toISOString().replace('T', ' ').slice(0, 19));
+        template = template.replace("{{ebbinghaus_database}}",ebbinghaus_database);
     }while(0);
 
-    return templete;
+    return template;
 }
 
 /****************************************************************************************************

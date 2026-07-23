@@ -70,6 +70,57 @@ function article_cfg_generator_get_frontmatter(content) {
 }
 
 /****************************************************************************************************
+* article_cfg_generator_get_image()
+****************************************************************************************************/
+function article_cfg_generator_get_image(content) {
+    let result = [];
+
+    do
+    {
+        /* check */
+        if(content == "")
+        {
+            continue;
+        }
+        /* get date from markdown */
+        const matches = [...content.matchAll(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+["'](.*?)["'])?\s*\)/g)];
+        if(matches == null)
+        {
+            continue;
+        }
+        /* get line */
+        result = matches.map((match) => ({
+            alt: match[1] || '',
+            url: match[2] || '',
+            title: match[3] || '',
+        }));;
+    }while(0);
+
+    return result;
+}
+
+/****************************************************************************************************
+* article_cfg_generator_format_image_url()
+****************************************************************************************************/
+function article_cfg_generator_format_image_url(articlePath,image) {
+    let result = "";
+
+    do
+    {
+        /* check */
+        if((articlePath == "") || (image == ""))
+        {
+            continue;
+        }
+        /* get date from markdown */
+        result = articlePath.replaceAll("public","");
+        result = path.join(result,image.url).replaceAll("\\","/") 
+    }while(0);
+
+    return result;
+}
+
+/****************************************************************************************************
 * categorize_cfg_generator_scan_article()
 ****************************************************************************************************/
 function categorize_cfg_generator_scan_article(folder,category,article) {
@@ -101,6 +152,10 @@ function categorize_cfg_generator_scan_article(folder,category,article) {
             const mdContent = fs.readFileSync(readmePath, 'utf8');
             /* get front matter */
             const frontmatter = article_cfg_generator_get_frontmatter(mdContent);
+            /* get first image url */
+            const images = ((frontmatter.cover == null) || (frontmatter.cover == "")) ? article_cfg_generator_get_image(mdContent) : null ;
+            const firstImage = ((images != null) && (images.length > 0)) ? article_cfg_generator_format_image_url(articlePath,images[0]) : null;
+            const defaultImage = firstImage == null ? '/images/wallpaper/08.png' : firstImage;
             /* push */
             articleinfo = {
                 /* info */
@@ -125,7 +180,7 @@ function categorize_cfg_generator_scan_article(folder,category,article) {
                 /* calendar 每年 每月 每日 单次 | 阳历 阴历 */
                 calendar: frontmatter.calendar || "",
                 /* cover image */
-                cover: frontmatter.cover || "",
+                cover: frontmatter.cover || firstImage || defaultImage || "",
                 /* description */
                 description: frontmatter.description || "",
                 /* path */

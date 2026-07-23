@@ -13,6 +13,7 @@
  * Change Logs:
  * Date           Author       Notes
  * 2025-07-16     cc          the first version
+ * 2026-07-05     cc          add MBTI
  *
 */
 
@@ -32,11 +33,71 @@
 * Variable
 ****************************************************************************************************/
 
+/* MBTI：https://www.16personalities.com/ch/ */
+const about_mbti_cfg = {
+    /* type */
+    type:       'INFJ-T',
+    /* name */
+    name:       '提倡者',
+    /* english name */
+    nameEn:     'The Advocate',
+    /* link */
+    link:       'https://www.16personalities.com/ch/档案/b5233d721211b',
+
+    /* description */
+    dimensions: [
+        {
+            category:   'mind',
+            label:      '心智',
+            left:       { tag: 'I', name: '内向',   percent: 61 },
+            right:      { tag: 'E', name: '外向',   percent: 39 },
+        },
+        {
+            category:   'energy',
+            label:      '能量',
+            left:       { tag: 'N', name: '直觉',   percent: 83 },
+            right:      { tag: 'S', name: '观察',   percent: 17 },
+        },
+        {
+            category:   'nature',
+            label:      '本质',
+            left:       { tag: 'F', name: '情感',   percent: 63 },
+            right:      { tag: 'T', name: '思考',   percent: 37 },
+        },
+        {
+            category:   'identity',
+            label:      '身份',
+            left:       { tag: 'J', name: '判断',   percent: 72 },
+            right:      { tag: 'P', name: '感知',   percent: 28 },
+        },
+        {
+            category:   'tactics',
+            label:      '策略',
+            left:       { tag: 'T', name: '动荡',   percent: 71 },
+            right:      { tag: 'A', name: '自信',   percent: 29 },
+        },
+    ],
+
+    /* features */
+    traits: [
+        '安静而神秘，同时鼓舞人心且不知疲倦的理想主义者',
+        '富有想象力，原则性强，热衷于帮助他人',
+        '善于洞察他人的情感和动机',
+        '追求深层次的意义和目的',
+    ],
+};
+
 /****************************************************************************************************
 * Function Interface
 ****************************************************************************************************/
 
-
+/****************************************************************************************************
+* About_Mbti_Cfg_Get()
+****************************************************************************************************/
+export function About_Mbti_Cfg_Get()
+{
+    return about_mbti_cfg;
+}
 
 /****************************************************************************************************
 * File End!

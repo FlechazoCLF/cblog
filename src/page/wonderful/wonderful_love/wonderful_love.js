@@ -21,6 +21,8 @@
 
 /* react */
 import React, { useContext, useState, useEffect } from 'react';
+/* router */
+import { Link } from 'react-router-dom';
 /* author */
 import { Author_Get } from '../../../kernel/author/author';
 /* theme */
@@ -48,6 +50,7 @@ import { categorize_cfg_item_get } from '../../categorize/categorize_cfg';
 * Wonderful_love_title()
 ****************************************************************************************************/
 function Wonderful_love_title() {
+    const theme = useTheme();
     return (
         <div>
             {/* title */}
@@ -57,7 +60,7 @@ function Wonderful_love_title() {
                     textAlign: 'center',
                     marginBottom: '10px',
                     /* style */
-                    color: '#e74c3c',
+                    color: theme.total.primary,
                 }}
             >
                 美好爱情 💕
@@ -69,7 +72,7 @@ function Wonderful_love_title() {
                     textAlign: 'center',
                     marginBottom: '30px',
                     /* style */
-                    color: '#7f8c8d',
+                    color: theme.total.textMuted,
                 }}
             >
                 记录我们的美好时光和未来计划
@@ -81,7 +84,8 @@ function Wonderful_love_title() {
 /****************************************************************************************************
 * Wonderful_love_statistics()
 ****************************************************************************************************/
-function Wonderful_love_statistics(lovearticles,setFilterLoveArticles) {
+function Wonderful_love_statistics({lovearticles,setFilterLoveArticles}) {
+    const theme = useTheme();
     const totalarticles = lovearticles.length;
     const todoarticles = lovearticles.filter(p => p.state === '未发布').length;
     const doingarticles = lovearticles.filter(p => p.state === '发布中').length;
@@ -141,16 +145,17 @@ function Wonderful_love_statistics(lovearticles,setFilterLoveArticles) {
                         /* style */
                         background: item.background,
                         borderRadius: '12px',
-                        color: 'white',
+                        color: theme.total.textInverse,
                         boxShadow: `0 4px 15px ${item.shadowColor}`,
                         cursor: 'pointer',
+                        transition: 'all 0.3s ease',
                     }}
                     /* mouse */
-                    onMouseOver={e => {
+                    onMouseEnter={e => {
                         e.currentTarget.style.transform = 'translateY(-1px) scale(1.1)';
                         e.currentTarget.style.boxShadow = `0 8px 32px ${item.shadowColor}`;
                     }}
-                    onMouseOut={e => {
+                    onMouseLeave={e => {
                         e.currentTarget.style.transform = 'translateY(0) scale(1)';
                         e.currentTarget.style.boxShadow = `0 4px 15px ${item.shadowColor}`;
                     }}
@@ -190,7 +195,8 @@ function Wonderful_love_statistics(lovearticles,setFilterLoveArticles) {
 /****************************************************************************************************
 * Wonderful_love_header()
 ****************************************************************************************************/
-function Wonderful_love_header(lovearticles) {
+function Wonderful_love_header({lovearticles}) {
+    const theme = useTheme();
     return (
         <div
             style={{
@@ -201,7 +207,7 @@ function Wonderful_love_header(lovearticles) {
                 marginBottom: '20px',
                 padding: '15px',
                 /* style */
-                backgroundColor: '#f8f9fa',
+                backgroundColor: theme.total.surfaceSecondary,
                 borderRadius: '8px'
             }}
         >
@@ -211,7 +217,7 @@ function Wonderful_love_header(lovearticles) {
                     /* layout */
                     margin: 0,
                     /* style */
-                    color: '#2c3e50'
+                    color: theme.total.textPrimary
                 }}
             >
                 💕 爱情计划清单
@@ -231,9 +237,9 @@ function Wonderful_love_header(lovearticles) {
                         /* layout */
                         padding: '8px 12px',
                         /* style */
-                        border: '1px solid #ddd',
+                        border: `1px solid ${theme.total.border}`,
                         borderRadius: '4px',
-                        backgroundColor: 'white',
+                        backgroundColor: theme.total.background,
                         cursor: 'pointer'
                     }}
                 >
@@ -251,7 +257,7 @@ function Wonderful_love_header(lovearticles) {
 /****************************************************************************************************
 * Wonderful_love_plan_card()
 ****************************************************************************************************/
-function Wonderful_love_plan_card(article) {
+function Wonderful_love_plan_card({article}) {
     const theme = useTheme();
     return (
         <div
@@ -260,19 +266,19 @@ function Wonderful_love_plan_card(article) {
                 padding: '20px',
                 marginBottom: '15px',
                 /* style */
-                backgroundColor: 'white',
+                backgroundColor: theme.total.background,
                 borderRadius: '12px',
-                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                border: '1px solid #f0f0f0',
+                boxShadow: theme.total.shadowSm,
+                border: `1px solid ${theme.total.progressBg}`,
                 transition: 'transform 0.2s ease, box-shadow 0.2s ease',
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
             onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow = theme.total.shadowSm;
             }}
         >
             {/* title */}
@@ -292,7 +298,7 @@ function Wonderful_love_plan_card(article) {
                         /* layout */
                         margin: '0 0 8px 0',
                         /* style */
-                        color: '#2c3e50',
+                        color: theme.total.textPrimary,
                         fontSize: '18px',
                         fontWeight: 'bold',
                     }}
@@ -315,8 +321,8 @@ function Wonderful_love_plan_card(article) {
                             /* layout */
                             padding: '4px 12px',
                             /* style */
-                            backgroundColor: 'rgb(187, 240, 244)',
-                            color: 'black',
+                            backgroundColor: theme.total.infoBg,
+                            color: theme.total.textPrimary,
                             borderRadius: '12px',
                             fontSize: '12px',
                             fontWeight: 'bold',
@@ -330,11 +336,11 @@ function Wonderful_love_plan_card(article) {
                             /* layout */
                             padding: '4px 8px',
                             /* style */
-                            backgroundColor: '#f8f9fa',
-                            color: '#495057',
+                            backgroundColor: theme.total.surfaceSecondary,
+                            color: theme.total.textPrimary,
                             borderRadius: '8px',
                             fontSize: '12px',
-                            border: '1px solid #e9ecef',
+                            border: `1px solid ${theme.total.borderSecondary}`,
                         }}
                     >
                         {article.date}
@@ -349,9 +355,9 @@ function Wonderful_love_plan_card(article) {
                         marginBottom: '15px',
                         padding: '12px',
                         /* style */
-                        backgroundColor: '#f8f9fa',
+                        backgroundColor: theme.total.surfaceSecondary,
                         borderRadius: '8px',
-                        border: '1px solid #e9ecef',
+                        border: `1px solid ${theme.total.borderSecondary}`,
                     }}
                 >
                     {/* description */}
@@ -361,7 +367,7 @@ function Wonderful_love_plan_card(article) {
                             marginBottom: '8px',
                             /* style */
                             fontSize: '12px',
-                            color: '#666',
+                            color: theme.total.textDisabled,
                             fontWeight: 'bold',
                         }}
                     >
@@ -387,17 +393,15 @@ function Wonderful_love_plan_card(article) {
                         marginBottom: '15px'
                     }}
                 >
-                    <a
-                        href={article.path}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <Link
+                        to={article.path}
                         style={{
                             /* layout */
                             display: 'inline-block',
                             padding: '8px 16px',
                             /* style */
-                            backgroundColor: '#e74c3c',
-                            color: 'white',
+                            backgroundColor: theme.total.primary,
+                            color: theme.total.textInverse,
                             textDecoration: 'none',
                             borderRadius: '6px',
                             fontSize: '14px',
@@ -405,7 +409,7 @@ function Wonderful_love_plan_card(article) {
                         }}
                     >
                         🔗 查看相关文章
-                    </a>
+                    </Link>
                 </div>
             )}
         </div>
@@ -415,7 +419,8 @@ function Wonderful_love_plan_card(article) {
 /****************************************************************************************************
 * Wonderful_love_list()
 ****************************************************************************************************/
-function Wonderful_love_list(lovearticles) {
+function Wonderful_love_list({lovearticles}) {
+    const theme = useTheme();
     return (
         <div>
             {/* article item */}
@@ -426,7 +431,7 @@ function Wonderful_love_list(lovearticles) {
                         textAlign: 'center',
                         padding: '60px 20px',
                         /* style */
-                        color: '#999',
+                        color: theme.total.textMuted,
                     }}
                 >
                     <div 
@@ -467,14 +472,14 @@ function Wonderful_love_list(lovearticles) {
                             marginBottom: '20px',
                             /* style */
                             fontSize: '14px',
-                            color: '#666',
+                            color: theme.total.textDisabled,
                         }}
                     >
                         共找到 {lovearticles.length} 个计划
                     </div>
                     {/* love card */}
                     {lovearticles.map(article => (
-                        Wonderful_love_plan_card(article)
+                        <Wonderful_love_plan_card article={article} />
                     ))}
                 </>
             )}
@@ -519,23 +524,18 @@ export function Wonderful_love() {
                 width: '90%',
                 padding: '24px',
                 margin: '0 auto',
-                /* color */
-                background: theme.total.background,
                 /* style */
                 borderRadius: '32px',
-                boxShadow: '0 20px 80px rgba(0, 0, 0, 0.25)',
             }}
             /* mouse */
-            onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 25px 85px rgba(0, 0, 0, 0.6)';
+            onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = theme.total.shadowMd;
             }}
-            onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 80px rgba(0, 0, 0, 0.25)';
+            onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'none';
             }}
         >
-            {Wonderful_love_title()}
+            <Wonderful_love_title />
 
             {isAuthenticated && (
                 <div
@@ -545,13 +545,13 @@ export function Wonderful_love() {
                     }}
                 >
                     {/* statistics */}
-                    {Wonderful_love_statistics(lovearticles,setFilterLoveArticles)}
-                    
+                    <Wonderful_love_statistics lovearticles={lovearticles} setFilterLoveArticles={setFilterLoveArticles} />
+
                     {/* control */}
-                    {Wonderful_love_header(filterlovearticles)}
-                    
+                    <Wonderful_love_header lovearticles={filterlovearticles} />
+
                     {/* list */}
-                    {Wonderful_love_list(filterlovearticles)}
+                    <Wonderful_love_list lovearticles={filterlovearticles} />
                 </div>
             )}
         </div>
